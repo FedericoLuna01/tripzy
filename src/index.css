@@ -24,10 +24,24 @@
   border-radius: var(--border-radius-small);
   padding: .7em 1.4em;
   cursor: pointer;
-  margin: 1em 2em;
 }
 
 .button:hover {
   filter: brightness(1.05);
   background-color: var(--color-primary);
+}
+
+
+.link{
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+.link:hover{
+  color: var(--color-primary);
+}
+
+a:visited{
+  color: var(--color-text);
+  text-decoration: underline;
 }
