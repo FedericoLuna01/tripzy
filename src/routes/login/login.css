@@ -1,0 +1,75 @@
+@import url("../../variables.css");
+
+input {
+  width: 100%;
+}
+
+.container-login {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  max-height: 100vh;
+}
+
+.container-form {
+  display: flex;
+  margin: 0 auto;
+  max-width: 475px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 5px;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 4em;
+  line-height: 90%;
+}
+
+p {
+  color: var(--color-muted);
+}
+
+p.input-description {
+  font-size: 0.8em;
+  margin: 0;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.input-group-password {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+
+.p-description {
+  margin: 0 auto;
+}
+
+.a-a {
+  color: var(--color-primary);
+}
+
+.img-login {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+}
