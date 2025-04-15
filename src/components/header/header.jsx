@@ -25,7 +25,7 @@ const Header = () => {
         <Logo />
         <div className="header-links">
           {NAV_LINKS.map(({ to, name }) => (
-            <NavLink to={to}>{name} </NavLink>
+            <NavLink to={to}> {name} </NavLink>
           ))}
           <NavLink to="/login">
             <button className="button">Iniciar sesión</button>
