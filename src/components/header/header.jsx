@@ -1,23 +1,35 @@
 import React from "react";
 import Logo from "../ui/logo/logo";
 import "./header.css";
+import { NavLink } from "react-router";
 
 const Header = () => {
+  const NAV_LINKS = [
+    {
+      name: "Sobre Nosotros",
+      to: "/about",
+    },
+    {
+      name: "Planes",
+      to: "/plans",
+    },
+    {
+      name: "Viajes",
+      to: "/trips",
+    },
+  ];
+
   return (
     <header className="border-b">
       <div className="container-header container">
         <Logo />
         <div className="header-links">
-          <a className="link" href="">
-            Sobre Nosotros
-          </a>
-          <a className="link" href="">
-            Planes
-          </a>
-          <a className="link" href="">
-            Viajes
-          </a>
-          <button className="button">Iniciar sesión</button>
+          {NAV_LINKS.map(({ to, name }) => (
+            <NavLink to={to}>{name} </NavLink>
+          ))}
+          <NavLink to="/login">
+            <button className="button">Iniciar sesión</button>
+          </NavLink>
         </div>
       </div>
     </header>

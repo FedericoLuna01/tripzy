@@ -1,17 +1,19 @@
-import Header from "./components/header/header";
-import Input from "./components/ui/input/input";
-import Logo from "./components/ui/logo/logo";
+import { BrowserRouter, Routes, Route } from "react-router";
+import Home from "./routes/home";
+import NotFound from "./routes/not-found";
+import Login from "./routes/login";
+import Register from "./routes/register";
 
 function App() {
   return (
-    <div>
-      <Header />
-      {/* <div>
-        <label htmlFor="test">Test</label>
-        <Input id="test" placeholder="hola" />
-      </div>
-      <button className="button">Iniciar sesión</button> */}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/*" element={<NotFound />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
