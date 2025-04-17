@@ -6,6 +6,7 @@ import Register from "./routes/register/register";
 import Layout from "./components/layout/layout";
 import Trips from "./routes/trips/trips";
 import NewTrip from "./routes/new-trip/new-trip";
+import Trip from "./routes/trip/trip";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/trips" element={<Trips />} />
           <Route path="/new-trip" element={<NewTrip />} />
+          <Route path="/trip/:id" element={<Trip />} />
         </Route>
       </Routes>
     </BrowserRouter>
