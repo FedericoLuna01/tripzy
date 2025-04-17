@@ -1,3 +1,12 @@
+@import url("../../variables.css");
+
+header {
+  position: sticky;
+  top: 0;
+  background-color: var(--color-background);
+  z-index: 1000;
+}
+
 .container-header {
   display: flex;
   justify-content: space-between;

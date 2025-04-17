@@ -6,16 +6,16 @@ import { NavLink } from "react-router";
 const Header = () => {
   const NAV_LINKS = [
     {
-      name: "Sobre Nosotros",
-      to: "/about",
+      name: "Inicio",
+      to: "/",
     },
     {
-      name: "Planes",
-      to: "/plans",
-    },
-    {
-      name: "Viajes",
+      name: "Mis viajes",
       to: "/trips",
+    },
+    {
+      name: "Nuevo viaje",
+      to: "/new-trip",
     },
   ];
 
@@ -26,8 +26,7 @@ const Header = () => {
         <div className="header-links">
           {NAV_LINKS.map(({ to, name }) => (
             <NavLink key={name} to={to}>
-              {" "}
-              {name}{" "}
+              {name}
             </NavLink>
           ))}
           <NavLink to="/login">
