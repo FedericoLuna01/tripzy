@@ -50,6 +50,15 @@
   cursor: pointer;
 }
 
+.button-destructive {
+  background-color: var(--color-destructive);
+  color: white;
+  border-radius: var(--border-radius-small);
+  border: none;
+  padding: 0.7em 1.4em;
+  cursor: pointer;
+}
+
 .link {
   color: var(--color-text);
   text-decoration: underline;
