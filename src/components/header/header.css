@@ -1,13 +1,13 @@
-.container-header{
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 20px;
-    padding-top: 20px;
-    align-items: center;
+.container-header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  align-items: center;
 }
 
-.header-links{
-    display: flex;
-    gap: 20px;
-    align-items: center;
+.header-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }

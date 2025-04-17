@@ -1,0 +1,163 @@
+@import url("../../variables.css");
+
+.new-itinerary-bg {
+  background-color: var(--color-secondary);
+}
+
+.new-itinerary-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2em 1em;
+  width: 100%;
+}
+
+.title-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.inputs-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1em;
+}
+
+.user-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1em;
+}
+
+.user-card .name {
+  font-size: 1.2em;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.users-container {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  margin-top: 1em;
+  flex-wrap: wrap;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+  margin-top: 0.5em;
+  width: 100%;
+}
+
+.days-buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.checkbox-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5em;
+}
+
+.days-buttons-container > button {
+  width: 100%;
+  padding: 0.5em;
+  background: transparent;
+  border: none;
+  text-align: left;
+  border-radius: var(--border-radius-small);
+  cursor: pointer;
+}
+
+.days-buttons-container > button.active {
+  background-color: #df6d1488;
+  color: var(--color-text);
+}
+
+.days-buttons-container > button:hover {
+  background-color: #df6d1488;
+  color: var(--color-text);
+}
+
+.days-container {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  height: fit-content;
+}
+
+.activities-container {
+  width: 100%;
+}
+
+.day {
+  font-weight: 500;
+}
+
+.activity-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-top: 1em;
+}
+
+.activity-card {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  gap: 1em;
+}
+
+.activity-card > span {
+  font-size: 1.2em;
+  color: var(--color-muted);
+  font-weight: 700;
+}
+
+.new-activity-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1em;
+  gap: 1em;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--border-radius-small);
+}
+
+.new-activity-card > .top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 1em;
+}
+.new-activity-card > .top :nth-child(1) {
+  min-width: 11em;
+  display: flex;
+  flex-direction: column;
+}
+
+.new-activity-card > .top :nth-child(2) {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.title-input {
+  width: 100%;
+}
+
+.new-activity-button {
+  margin-left: auto;
+}
