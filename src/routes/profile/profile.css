@@ -1,0 +1,71 @@
+@import url("../../variables.css");
+
+.container.profile {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.container-title h1 {
+  font-size: 3.5rem;
+}
+
+.container-avatar {
+  flex-direction: row;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.container-info {
+  display: grid;
+  grid-template-columns: repeat(5, 250px);
+  align-items: center;
+  gap: 20px;
+  justify-content: space-between;
+  margin-bottom: 45px;
+}
+
+.box-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 10px;
+  background-color: var(--color-white);
+  text-decoration: none;
+}
+.box-info:visited {
+  color: var(--color-text);
+}
+
+a.box-info {
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.box-info p {
+  font-size: 0.9em;
+}
+
+.separator {
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-border);
+  margin: 15px 0;
+}
+
+.box-info:hover {
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+.box-info:hover img {
+  filter: brightness(1.1);
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+.box-info:hover h3 {
+  color: var(--color-primary);
+}
