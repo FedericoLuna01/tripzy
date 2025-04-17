@@ -5,6 +5,7 @@ import Login from "./routes/login/login";
 import Register from "./routes/register/register";
 import Layout from "./components/layout/layout";
 import Trips from "./routes/trips/trips";
+import NewItinerary from "./routes/new-itinerary/new-itinerary";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/trips" element={<Trips />} />
+          <Route path="/new-itinerary" element={<NewItinerary />} />
         </Route>
       </Routes>
     </BrowserRouter>
