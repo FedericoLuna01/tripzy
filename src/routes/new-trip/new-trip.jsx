@@ -1,8 +1,8 @@
 import Avatar from "../../components/avatar/avatar";
 import Input from "../../components/ui/input/input";
-import "./new-itinerary.css";
+import "./new-trip.css";
 
-const NewItinerary = () => {
+const NewTrip = () => {
   return (
     <section className="new-itinerary-bg">
       <div className="container new-itinerary-container">
@@ -154,4 +154,4 @@ const NewItinerary = () => {
   );
 };
 
-export default NewItinerary;
+export default NewTrip;
