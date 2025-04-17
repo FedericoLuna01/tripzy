@@ -20,3 +20,4 @@ Instalar con npm
 ## Autores
 
 - [@federicoluna](https://www.github.com/federicoluna01)
+- [@lucianotessa](https://www.github.com/LucianoTessa)
