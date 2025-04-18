@@ -8,11 +8,12 @@ import Trips from "./routes/trips/trips";
 import NewTrip from "./routes/new-trip/new-trip";
 import Profile from "./routes/profile/profile";
 import Trip from "./routes/trip/trip";
-
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <BrowserRouter>
+      <Toaster />
       <Routes>
         <Route path="/*" element={<NotFound />} />
         <Route path="/login" element={<Login />} />
