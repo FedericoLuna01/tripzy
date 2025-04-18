@@ -69,6 +69,9 @@
 }
 
 .days-buttons-container > button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   padding: 0.5em;
   background: transparent;
@@ -77,10 +80,21 @@
   border-radius: var(--border-radius-small);
   cursor: pointer;
 }
+.days-buttons-container > button > span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  background-color: white;
+  padding: 0.15em 0.3em;
+  border-radius: var(--border-radius-small);
+}
+.days-buttons-container > button > span:hover {
+  filter: brightness(0.8);
+}
 
 .days-buttons-container > button.active {
   background-color: #df6d1488;
-  color: var(--color-text);
 }
 
 .days-buttons-container > button:hover {
@@ -160,4 +174,15 @@
 
 .new-activity-button {
   margin-left: auto;
+}
+
+.button-outline.button-square {
+  padding: 5px 7.5px;
+}
+.button-outline.button-square:hover {
+  background-color: var(--color-background);
+  filter: brightness(0.8);
+}
+.email {
+  font-size: small;
 }
