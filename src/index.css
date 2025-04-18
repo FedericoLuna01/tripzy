@@ -19,6 +19,10 @@
 }
 
 .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
   background-color: var(--color-primary);
   color: var(--color-text);
   border: none;
@@ -28,6 +32,10 @@
 }
 
 .button-secondary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
   background-color: var(--color-secondary);
   color: var(--color-text);
   border-radius: var(--border-radius-small);

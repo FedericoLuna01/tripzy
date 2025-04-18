@@ -3,6 +3,8 @@ import Input from "../../components/ui/input/input";
 import "./new-trip.css";
 import NewActivityForm from "../../components/new-activity-form/new-activity-form";
 import { useState } from "react";
+import TripDays from "../../components/trip-days/trip-days";
+import { AirplaneTakeoff, ArrowLeft, X } from "phosphor-react";
 
 const NewTrip = () => {
   const [activities, setActivities] = useState([]);
@@ -10,11 +12,17 @@ const NewTrip = () => {
   return (
     <section className="new-itinerary-bg">
       <div className="container new-itinerary-container">
-        <button className="button-secondary back">Volver</button>
+        <button className="button-secondary back">
+          <ArrowLeft size={20} />
+          Volver
+        </button>
         <form action="">
           <div className="title-container">
             <h1 className="title">Empezá a planificar tu viaje</h1>
-            <button className="button">Crear</button>
+            <button className="button">
+              Crear
+              <AirplaneTakeoff size={20} />
+            </button>
           </div>
           <p>
             No te preocupes si te olvidás de algo, siempre vas a poder
@@ -54,43 +62,23 @@ const NewTrip = () => {
               </div>
             </div>
             <div className="users-container">
-              <div className="card user-card no-shadow">
-                <Avatar />
-                <div>
-                  <p className="name">John Doe</p>
-                  <p>johndoe@gmail.com</p>
+              {new Array(4).fill(0).map((e, index) => (
+                <div className="card user-card no-shadow" key={index}>
+                  <Avatar />
+                  <div>
+                    <p className="name">John Doe</p>
+                    <p className="email">johndoe@gmail.com</p>
+                  </div>
+                  <button className="button-outline button-square">
+                    <X size={16} />
+                  </button>
                 </div>
-                <button className="button-outline">X</button>
-              </div>
-              <div className="card user-card no-shadow">
-                <Avatar />
-                <div>
-                  <p className="name">John Doe</p>
-                  <p>johndoe@gmail.com</p>
-                </div>
-                <button className="button-outline">X</button>
-              </div>
-              <div className="card user-card no-shadow">
-                <Avatar />
-                <div>
-                  <p className="name">John Doe</p>
-                  <p>johndoe@gmail.com</p>
-                </div>
-                <button className="button-outline">X</button>
-              </div>
+              ))}
             </div>
           </div>
         </form>
         <div className="info-container">
-          <div className="card days-container">
-            <h2>Dias</h2>
-            <div className="days-buttons-container">
-              <button className="active">Dia 1: 15 de mayo</button>
-              <button>Dia 2: 16 de mayo</button>
-              <button>Dia 3: 17 de mayo</button>
-            </div>
-            <button className="button-secondary">Agregar dia</button>
-          </div>
+          <TripDays />
           <div className="card activities-container">
             <h2>Actividades</h2>
             <p className="day">Dia 1: 15 de mayo</p>

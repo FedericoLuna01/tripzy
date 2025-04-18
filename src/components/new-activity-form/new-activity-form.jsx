@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import Input from "../ui/input/input";
 import toast from "react-hot-toast";
+import { PlusCircle } from "phosphor-react";
 
 const NewActivityForm = ({ setActivities }) => {
   const inputTimeRef = useRef(null);
@@ -163,6 +164,7 @@ const NewActivityForm = ({ setActivities }) => {
       </div>
       <button className="button-secondary new-activity-button">
         Agregar actividad
+        <PlusCircle size={20} />
       </button>
     </form>
   );
