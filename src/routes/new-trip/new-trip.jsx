@@ -1,8 +1,12 @@
 import Avatar from "../../components/avatar/avatar";
 import Input from "../../components/ui/input/input";
 import "./new-trip.css";
+import NewActivityForm from "../../components/new-activity-form/new-activity-form";
+import { useState } from "react";
 
 const NewTrip = () => {
+  const [activities, setActivities] = useState([]);
+  const IS_ADMIN = true; // Simula el admin
   return (
     <section className="new-itinerary-bg">
       <div className="container new-itinerary-container">
@@ -91,61 +95,18 @@ const NewTrip = () => {
             <h2>Actividades</h2>
             <p className="day">Dia 1: 15 de mayo</p>
             <div className="activity-container">
-              <div className="activity-card card no-shadow">
-                <span>12:00</span>
-                <div>
-                  <h3>Llegada al aeropuerto</h3>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Eius accusamus ratione maxime voluptatum earum voluptatibus
-                    molestias magni accusantium quia reprehenderit!
-                  </p>
-                </div>
-              </div>
-              <div className="activity-card card no-shadow">
-                <span>12:00</span>
-                <div>
-                  <h3>Llegada al aeropuerto</h3>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Eius accusamus ratione maxime voluptatum earum voluptatibus
-                    molestias magni accusantium quia reprehenderit!
-                  </p>
-                </div>
-              </div>
-              <div className="activity-card card no-shadow">
-                <span>12:00</span>
-                <div>
-                  <h3>Llegada al aeropuerto</h3>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Eius accusamus ratione maxime voluptatum earum voluptatibus
-                    molestias magni accusantium quia reprehenderit!
-                  </p>
-                </div>
-              </div>
-              <div className="new-activity-card">
-                <div className="top">
-                  <div>
-                    <label htmlFor="title">Hora</label>
-                    <Input className={"title-input"} type={"time"} />
-                    <p>Horario de la actividad</p>
+              {activities
+                .sort((a, b) => a.time.localeCompare(b.time))
+                .map((activity, index) => (
+                  <div key={index} className="activity-card card no-shadow">
+                    <span>{activity.time}</span>
+                    <div>
+                      <h3>{activity.title}</h3>
+                      <p>{activity.description}</p>
+                    </div>
                   </div>
-                  <div>
-                    <label htmlFor="title">Titulo</label>
-                    <Input />
-                    <p>Titulo de tu actividad</p>
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="title">Descripción</label>
-                  <Input />
-                  <p>Descripción corta de la actividad</p>
-                </div>
-                <button className="button-secondary new-activity-button">
-                  Agregar actividad
-                </button>
-              </div>
+                ))}
+              {IS_ADMIN && <NewActivityForm setActivities={setActivities} />}
             </div>
           </div>
         </div>
