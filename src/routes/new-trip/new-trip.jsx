@@ -8,7 +8,14 @@ import { AirplaneTakeoff, ArrowLeft, X } from "phosphor-react";
 
 const NewTrip = () => {
   const [activities, setActivities] = useState([]);
+  const [startDate, setStartDate] = useState("");
   const IS_ADMIN = true; // Simula el admin
+
+  const handleStartDateChange = (e) => {
+    const date = e.target.value;
+    setStartDate(date);
+  };
+
   return (
     <section className="new-itinerary-bg">
       <div className="container new-itinerary-container">
@@ -43,7 +50,12 @@ const NewTrip = () => {
               </div>
               <div>
                 <label htmlFor="date">Inicio del viaje</label>
-                <Input type="date" id="date" />
+                <Input
+                  type="date"
+                  id="date"
+                  value={startDate}
+                  onChange={handleStartDateChange}
+                />
                 <p>La fecha de inicio de tu viaje</p>
               </div>
               <div className="checkbox-container">
@@ -78,7 +90,7 @@ const NewTrip = () => {
           </div>
         </form>
         <div className="info-container">
-          <TripDays />
+          <TripDays startDay={startDate} />
           <div className="card activities-container">
             <h2>Actividades</h2>
             <p className="day">Dia 1: 15 de mayo</p>

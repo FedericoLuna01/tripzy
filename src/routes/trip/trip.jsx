@@ -6,10 +6,14 @@ import Avatar from "../../components/avatar/avatar";
 import Input from "../../components/ui/input/input";
 import toast from "react-hot-toast";
 import Modal from "../../components/modal/modal";
+import { DATA } from "../../data/data";
+import TripDays from "../../components/trip-days/trip-days";
 
 const Trip = () => {
   const [isOpen, setIsOpen] = useState(false);
   const params = useParams();
+
+  const TRIP = DATA.find((trip) => trip.id === parseInt(params.id));
 
   const handleClose = () => {
     setIsOpen(false);
@@ -27,7 +31,7 @@ const Trip = () => {
   return (
     <>
       <Modal
-        entity={`Trip ${params.id}`}
+        entity={`${TRIP.title}`}
         onSubmit={handleDelete}
         onClose={handleClose}
         isOpen={isOpen}
@@ -37,7 +41,7 @@ const Trip = () => {
         <div className="container trip-container">
           <div className="card trip-info">
             <div className="trip-header">
-              <h1 className="title">Trip {params.id}</h1>
+              <h1 className="title">{TRIP.title}</h1>
               <p>15 de mayo - 18 de mayo</p>
               <div className="friends-container">
                 <p>Amigos de viaje:</p>
@@ -60,77 +64,23 @@ const Trip = () => {
             </div>
           </div>
           <div className="info-container">
-            <div className="card days-container">
-              <h2>Dias</h2>
-              <div className="days-buttons-container">
-                <button className="active">Dia 1: 15 de mayo</button>
-                <button>Dia 2: 16 de mayo</button>
-                <button>Dia 3: 17 de mayo</button>
-              </div>
-              <button className="button button-secondary">Agregar dia</button>
-            </div>
+            <TripDays startDay={TRIP.startDate} initialDays={TRIP.days} />
             <div className="card activities-container">
               <h2>Actividades</h2>
               <p className="day">Dia 1: 15 de mayo</p>
               <div className="activity-container">
-                <div className="activity-card card no-shadow">
-                  <span>12:00</span>
-                  <div>
-                    <h3>Llegada al aeropuerto</h3>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Eius accusamus ratione maxime voluptatum earum
-                      voluptatibus molestias magni accusantium quia
-                      reprehenderit!
-                    </p>
-                  </div>
-                </div>
-                <div className="activity-card card no-shadow">
-                  <span>12:00</span>
-                  <div>
-                    <h3>Llegada al aeropuerto</h3>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Eius accusamus ratione maxime voluptatum earum
-                      voluptatibus molestias magni accusantium quia
-                      reprehenderit!
-                    </p>
-                  </div>
-                </div>
-                <div className="activity-card card no-shadow">
-                  <span>12:00</span>
-                  <div>
-                    <h3>Llegada al aeropuerto</h3>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Eius accusamus ratione maxime voluptatum earum
-                      voluptatibus molestias magni accusantium quia
-                      reprehenderit!
-                    </p>
-                  </div>
-                </div>
-                <div className="new-activity-card">
-                  <div className="top">
-                    <div>
-                      <label htmlFor="title">Hora</label>
-                      <Input className={"title-input"} type={"time"} />
-                      <p>Horario de la actividad</p>
+                {TRIP.days[0].activities
+                  .sort((a, b) => a.time.localeCompare(b.time))
+                  .map((activity, index) => (
+                    <div key={index} className="activity-card card no-shadow">
+                      <span>{activity.time}</span>
+                      <div>
+                        <h3>{activity.title}</h3>
+                        <p>{activity.description}</p>
+                      </div>
                     </div>
-                    <div>
-                      <label htmlFor="title">Titulo</label>
-                      <Input />
-                      <p>Titulo de tu actividad</p>
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="title">Descripción</label>
-                    <Input />
-                    <p>Descripción corta de la actividad</p>
-                  </div>
-                  <button className="button button-secondary new-activity-button">
-                    Agregar actividad
-                  </button>
-                </div>
+                  ))}
+                {/* {IS_ADMIN && <NewActivityForm setActivities={setActivities} />} */}
               </div>
             </div>
           </div>
