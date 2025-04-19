@@ -30,7 +30,7 @@ const Header = () => {
             </NavLink>
           ))}
           <NavLink to="/login">
-            <button className="button">Iniciar sesión</button>
+            <button className="button button-primary">Iniciar sesión</button>
           </NavLink>
         </div>
       </div>

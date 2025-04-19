@@ -50,7 +50,7 @@ const TripDays = () => {
           </button>
         ))}
       </div>
-      <button className="button-secondary" onClick={handleAddDay}>
+      <button className="button button-secondary" onClick={handleAddDay}>
         Agregar dia
         <CalendarPlus size={20} />
       </button>

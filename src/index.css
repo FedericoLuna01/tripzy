@@ -23,48 +23,39 @@
   justify-content: center;
   align-items: center;
   gap: 0.5em;
-  background-color: var(--color-primary);
+  border-radius: var(--border-radius-small);
   color: var(--color-text);
   border: none;
-  border-radius: var(--border-radius-small);
   padding: 0.7em 1.4em;
   cursor: pointer;
 }
 
+.button-primary {
+  background-color: var(--color-primary);
+  border: none;
+}
+
 .button-secondary {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5em;
   background-color: var(--color-secondary);
-  color: var(--color-text);
-  border-radius: var(--border-radius-small);
   border: 1px solid var(--color-border);
-  padding: 0.7em 1.4em;
-  cursor: pointer;
 }
 
 .button-secondary:hover {
   filter: brightness(0.96);
-  background-color: var(--color-background);
 }
 
 .button-outline {
   background-color: transparent;
-  color: var(--color-text);
-  border-radius: var(--border-radius-small);
   border: 1px solid var(--color-border);
-  padding: 0.7em 1.4em;
-  cursor: pointer;
 }
 
 .button-destructive {
   background-color: var(--color-destructive);
   color: white;
-  border-radius: var(--border-radius-small);
-  border: none;
-  padding: 0.7em 1.4em;
-  cursor: pointer;
+}
+
+.button-destructive:hover {
+  filter: brightness(0.96);
 }
 
 .link {
