@@ -83,7 +83,7 @@ const Login = () => {
             )}
           </div>
 
-          <button type="submit" className="button">
+          <button type="submit" className="button button-primary">
             Iniciar sesión
           </button>
           <p className="p-description">

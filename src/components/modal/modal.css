@@ -1,0 +1,55 @@
+@import url("../../variables.css");
+
+.modal {
+  z-index: 1000;
+  position: relative;
+  transition: opacity 150ms ease-out;
+}
+
+.modal[data-closed] {
+  opacity: 0;
+}
+
+.modal-container {
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  inset: 0;
+  z-index: 1000;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 30;
+}
+
+.modal-panel {
+  background-color: var(--color-background);
+  border-radius: 8px;
+  padding: 20px;
+  min-width: 500px;
+  z-index: 1001;
+  transition: transform 150ms ease-out;
+  transform: scale(1);
+}
+
+.modal-panel[data-closed] {
+  transform: scale(0.95);
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1em;
+  margin-top: 0.5em;
+}

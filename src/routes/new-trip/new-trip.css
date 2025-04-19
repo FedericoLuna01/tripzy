@@ -31,6 +31,7 @@
   flex-direction: row;
   align-items: center;
   gap: 1em;
+  padding: 0.6em 1.2em;
 }
 
 .user-card .name {
@@ -177,12 +178,14 @@
 }
 
 .button-outline.button-square {
-  padding: 5px 7.5px;
+  padding: 0.4em;
 }
+
 .button-outline.button-square:hover {
   background-color: var(--color-background);
   filter: brightness(0.8);
 }
+
 .email {
   font-size: small;
 }

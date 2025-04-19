@@ -162,7 +162,7 @@ const NewActivityForm = ({ setActivities }) => {
           </p>
         )}
       </div>
-      <button className="button-secondary new-activity-button">
+      <button className="button button-secondary new-activity-button">
         Agregar actividad
         <PlusCircle size={20} />
       </button>

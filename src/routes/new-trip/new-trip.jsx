@@ -12,14 +12,14 @@ const NewTrip = () => {
   return (
     <section className="new-itinerary-bg">
       <div className="container new-itinerary-container">
-        <button className="button-secondary back">
+        <button className="button button-secondary back">
           <ArrowLeft size={20} />
           Volver
         </button>
         <form action="">
           <div className="title-container">
             <h1 className="title">Empezá a planificar tu viaje</h1>
-            <button className="button">
+            <button className="button button-primary">
               Crear
               <AirplaneTakeoff size={20} />
             </button>
@@ -69,7 +69,7 @@ const NewTrip = () => {
                     <p className="name">John Doe</p>
                     <p className="email">johndoe@gmail.com</p>
                   </div>
-                  <button className="button-outline button-square">
+                  <button className="button button-outline button-square">
                     <X size={16} />
                   </button>
                 </div>
