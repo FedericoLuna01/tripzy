@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { AirplaneTakeoff, ArrowLeft, X } from "phosphor-react";
+import "./new-trip.css";
 import Avatar from "../../components/avatar/avatar";
 import Input from "../../components/ui/input/input";
 import "./new-trip.css";
@@ -189,27 +192,6 @@ const NewTrip = () => {
             </div>
           </div>
         </form>
-        <div className="info-container">
-          <TripDays />
-          <div className="card activities-container">
-            <h2>Actividades</h2>
-            <p className="day">Dia 1: 15 de mayo</p>
-            <div className="activity-container">
-              {activities
-                .sort((a, b) => a.time.localeCompare(b.time))
-                .map((activity, index) => (
-                  <div key={index} className="activity-card card no-shadow">
-                    <span>{activity.time}</span>
-                    <div>
-                      <h3>{activity.title}</h3>
-                      <p>{activity.description}</p>
-                    </div>
-                  </div>
-                ))}
-              {IS_ADMIN && <NewActivityForm setActivities={setActivities} />}
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

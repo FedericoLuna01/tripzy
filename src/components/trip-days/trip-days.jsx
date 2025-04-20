@@ -1,29 +1,27 @@
 import { CalendarPlus, Minus } from "phosphor-react";
-import React from "react";
-import { useState } from "react";
 
-const TripDays = () => {
-  const [days, setDays] = useState([]);
-  const [activeDay, setActiveDay] = useState("");
+const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
+  if (!activeDay) return null;
 
   const handleActiveDay = (day) => {
     setActiveDay(day);
   };
+
   const handleDeleteDay = (deleteDay) => {
-    const updateDays = days.filter((day) => (day == deleteDay ? null : day));
+    const updateDays = days.filter((day) => day.date !== deleteDay);
     setDays(updateDays);
+
+    if (new Date(activeDay).getTime() === new Date(deleteDay).getTime()) {
+      const lastDay = updateDays[updateDays.length - 1].date;
+      setActiveDay(lastDay);
+    }
   };
 
   const handleAddDay = () => {
-    const newDay =
-      days.length > 0
-        ? new Date(
-            new Date(days[days.length - 1]).setDate(
-              new Date(days[days.length - 1]).getDate() + 1
-            )
-          )
-        : new Date();
-    setDays((prev) => [...prev, newDay]);
+    const lastDay = new Date(days[days.length - 1].date);
+    const newDay = new Date(lastDay);
+    newDay.setDate(lastDay.getDate() + 1);
+    setDays((prev) => [...prev, { date: newDay }]);
     setActiveDay(newDay);
   };
 
@@ -33,17 +31,21 @@ const TripDays = () => {
       <div className="days-buttons-container">
         {days.map((day, index) => (
           <button
-            className={`${activeDay === day ? "active" : ""}`}
+            className={`${
+              new Date(activeDay).getTime() === new Date(day.date).getTime()
+                ? "active"
+                : ""
+            }`}
             key={index}
-            onClick={() => handleActiveDay(day)}
+            onClick={() => handleActiveDay(day.date)}
           >
             Dia {index + 1}:{" "}
-            {new Date(day).toLocaleDateString("es-ES", {
+            {new Date(day.date).toLocaleDateString("es-ES", {
               day: "numeric",
               month: "long",
             })}
             {days.length - 1 === index ? (
-              <span onClick={() => handleDeleteDay(day)}>
+              <span onClick={() => handleDeleteDay(day.date)}>
                 <Minus size={16} />
               </span>
             ) : null}
