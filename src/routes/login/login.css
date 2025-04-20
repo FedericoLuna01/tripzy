@@ -41,7 +41,7 @@ p.input-description {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .input-group-password {
@@ -50,7 +50,6 @@ p.input-description {
   justify-content: space-between;
   align-items: center;
   gap: 5px;
-  margin-bottom: 10px;
 }
 
 form {

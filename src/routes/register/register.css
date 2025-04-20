@@ -33,15 +33,12 @@ p.input-description {
 .input-group {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  margin-bottom: 10px;
 }
 
 form {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 10px;
 }
 
 .p-description {
