@@ -1,0 +1,35 @@
+@import url("../../variables.css");
+
+.container-input {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 0.3em;
+  max-width: 600px;
+}
+
+.members-container {
+  margin-top: 1em;
+}
+
+.user-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  padding: 0.6em 1.2em;
+  width: fit-content;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  margin-top: 1em;
+}
+
+.info-user {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 0.3em;
+}
