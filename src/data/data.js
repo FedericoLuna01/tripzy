@@ -11,23 +11,23 @@ export const DATA = [
     friends: [],
     days: [
       {
-        date: new Date(2025, 10, 1), // Usamos directamente la fecha
+        date: new Date(2025, 10, 1),
         activities: [
           {
             title: "Llegada a Lisboa",
             description: "Llegada al aeropuerto de Lisboa y traslado al hotel.",
-            time: "10:00 AM",
+            time: "10:00",
           },
           {
             title: "Visita a la Torre de Belém",
             description:
               "Visita a la emblemática Torre de Belém, símbolo de la era de los descubrimientos.",
-            time: "10:00 AM",
+            time: "10:00",
           },
         ],
       },
       {
-        date: new Date(2025, 10, 2), // Calculamos la fecha directamente
+        date: new Date(2025, 10, 2),
       },
     ],
   },
@@ -43,23 +43,23 @@ export const DATA = [
     friends: [],
     days: [
       {
-        date: new Date(2025, 6, 15), // Usamos directamente la fecha
+        date: new Date(2025, 6, 15),
         activities: [
           {
             title: "Llegada al aeropuerto",
             description: "Llegada al aeropuerto y traslado al hotel.",
-            time: "10:00 AM",
+            time: "10:00",
           },
           {
             title: "Vemos el Nahuel Huapi",
             description:
               "Visita al emblemático lago Nahuel Huapi, símbolo de la era de los descubrimientos.",
-            time: "11:00 AM",
+            time: "11:00",
           },
         ],
       },
       {
-        date: new Date(2025, 6, 16), // Calculamos la fecha directamente
+        date: new Date(2025, 6, 16),
       },
     ],
   },

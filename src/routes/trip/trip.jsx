@@ -1,19 +1,23 @@
 import React, { useState } from "react";
 import { useParams } from "react-router";
+import toast from "react-hot-toast";
 import "./trip.css";
 import "../new-trip/new-trip.css";
 import Avatar from "../../components/avatar/avatar";
-import Input from "../../components/ui/input/input";
-import toast from "react-hot-toast";
 import Modal from "../../components/modal/modal";
 import { DATA } from "../../data/data";
 import TripDays from "../../components/trip-days/trip-days";
+import NewActivityForm from "../../components/new-activity-form/new-activity-form";
+
+const IS_ADMIN = true; // Para simular admin
 
 const Trip = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const params = useParams();
-
   const TRIP = DATA.find((trip) => trip.id === parseInt(params.id));
+  const [isOpen, setIsOpen] = useState(false);
+  const [activities, setActivities] = useState(TRIP.days[0].activities);
+  const [activeDay, setActiveDay] = useState(TRIP.startDate);
+  const [days, setDays] = useState(TRIP.days);
 
   const handleClose = () => {
     setIsOpen(false);
@@ -24,7 +28,7 @@ const Trip = () => {
   };
 
   const handleDelete = () => {
-    toast.success("Actividad eliminada");
+    toast.success("Viaje eliminado");
     setIsOpen(false);
   };
 
@@ -42,7 +46,21 @@ const Trip = () => {
           <div className="card trip-info">
             <div className="trip-header">
               <h1 className="title">{TRIP.title}</h1>
-              <p>15 de mayo - 18 de mayo</p>
+              <p>
+                {new Date(TRIP.startDate).toLocaleDateString("es-ES", {
+                  day: "numeric",
+                  month: "long",
+                })}{" "}
+                -{" "}
+                {new Date(
+                  new Date(TRIP.startDate).setDate(
+                    new Date(TRIP.startDate).getDate() + TRIP.days.length - 1
+                  )
+                ).toLocaleDateString("es-ES", {
+                  day: "numeric",
+                  month: "long",
+                })}
+              </p>
               <div className="friends-container">
                 <p>Amigos de viaje:</p>
                 <div className="avatars-container">
@@ -64,12 +82,25 @@ const Trip = () => {
             </div>
           </div>
           <div className="info-container">
-            <TripDays startDay={TRIP.startDate} initialDays={TRIP.days} />
+            <TripDays
+              activeDay={activeDay}
+              setActiveDay={setActiveDay}
+              initialDays={TRIP.days}
+              days={days}
+              setDays={setDays}
+            />
             <div className="card activities-container">
               <h2>Actividades</h2>
-              <p className="day">Dia 1: 15 de mayo</p>
+              <p className="day">
+                Dia {TRIP.days.findIndex((day) => day.date === activeDay) + 1}
+                {": "}
+                {new Date(activeDay).toLocaleDateString("es-ES", {
+                  day: "numeric",
+                  month: "long",
+                })}
+              </p>
               <div className="activity-container">
-                {TRIP.days[0].activities
+                {activities
                   .sort((a, b) => a.time.localeCompare(b.time))
                   .map((activity, index) => (
                     <div key={index} className="activity-card card no-shadow">
@@ -80,7 +111,7 @@ const Trip = () => {
                       </div>
                     </div>
                   ))}
-                {/* {IS_ADMIN && <NewActivityForm setActivities={setActivities} />} */}
+                {IS_ADMIN && <NewActivityForm setActivities={setActivities} />}
               </div>
             </div>
           </div>

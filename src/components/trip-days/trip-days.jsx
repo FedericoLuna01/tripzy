@@ -1,25 +1,20 @@
 import { CalendarPlus, Minus } from "phosphor-react";
-import { useState } from "react";
 
-const TripDays = ({ startDay, initialDays }) => {
-  const [days, setDays] = useState(
-    // TODO: Hacer esto en un useEffect
-    startDay ? initialDays || [{ date: new Date(startDay) }] : []
-  );
-  const [activeDay, setActiveDay] = useState(startDay);
-
-  if (!startDay) return null;
+const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
+  if (!activeDay) return null;
 
   const handleActiveDay = (day) => {
     setActiveDay(day);
   };
 
   const handleDeleteDay = (deleteDay) => {
-    // TODO: Seleccionar el ultimo dia si eliminamos el dia activo
-    const updateDays = days.filter((day) =>
-      day.date == deleteDay ? null : day.date
-    );
+    const updateDays = days.filter((day) => day.date !== deleteDay);
     setDays(updateDays);
+
+    if (new Date(activeDay).getTime() === new Date(deleteDay).getTime()) {
+      const lastDay = updateDays[updateDays.length - 1].date;
+      setActiveDay(lastDay);
+    }
   };
 
   const handleAddDay = () => {
