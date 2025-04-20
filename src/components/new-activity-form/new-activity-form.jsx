@@ -13,8 +13,8 @@ const NewActivityForm = ({ setActivities }) => {
   const [errors, setErrors] = useState({
     time: false,
     activityTitle: false,
-    activityTitleLength: false, // Nuevo error para longitud del título
-    activityDescriptionLength: false, // Nuevo error para longitud de la descripción
+    activityTitleLength: false,
+    activityDescriptionLength: false,
   });
 
   const handleTimeChange = (event) => {
