@@ -9,6 +9,7 @@ import NewTrip from "./routes/new-trip/new-trip";
 import Profile from "./routes/profile/profile";
 import Trip from "./routes/trip/trip";
 import { Toaster } from "react-hot-toast";
+import { TripMembers } from "./routes/trip-members/trip-members";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/new-trip" element={<NewTrip />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/trip/:id" element={<Trip />} />
+          <Route path="/trip/:id/members" element={<TripMembers />} />
         </Route>
       </Routes>
     </BrowserRouter>
