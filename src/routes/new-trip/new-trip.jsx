@@ -1,16 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { AirplaneTakeoff, ArrowLeft, X } from "phosphor-react";
 import "./new-trip.css";
 import Avatar from "../../components/avatar/avatar";
 import Input from "../../components/ui/input/input";
 import "./new-trip.css";
-import NewActivityForm from "../../components/new-activity-form/new-activity-form";
-import { useState, useRef } from "react";
-import TripDays from "../../components/trip-days/trip-days";
-import { AirplaneTakeoff, ArrowLeft, X } from "phosphor-react";
 
 const NewTrip = () => {
-  const [activities, setActivities] = useState([]);
   const [title, setTitle] = useState("");
   const [tripStart, setTripStart] = useState("");
   const [description, setDescription] = useState("");
