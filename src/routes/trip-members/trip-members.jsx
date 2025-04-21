@@ -5,6 +5,7 @@ import Avatar from "../../components/avatar/avatar";
 import Input from "../../components/ui/input/input";
 import { Plus, Trash } from "phosphor-react";
 import "./trip-members.css";
+import toast from "react-hot-toast";
 
 export const TripMembers = () => {
   const params = useParams();
@@ -76,26 +77,28 @@ export const TripMembers = () => {
             </div>
           </form>
           <div className="card-container">
-            <div className="card user-card no-shadow">
-              <div className="info-user">
-                <Avatar />
-                <div>
-                  <p className="name">alvaro reynoso</p>
-                  <p className="email">alvaroreynoso69@gmail.com</p>
+            {new Array(4).fill(0).map((_, index) => (
+              <div className="card user-card no-shadow column" key={index}>
+                <div className="info-user">
+                  <Avatar />
+                  <div>
+                    <p className="name">alvaro reynoso</p>
+                    <p className="email">alvaroreynoso69@gmail.com</p>
+                  </div>
                 </div>
+                <form action="">
+                  <label htmlFor="">Rol</label>
+                  <select name="" id="" className="select">
+                    <option value="owner">Dueño</option>
+                    <option value="admin">Admin</option>
+                    <option value="editor">Editor</option>
+                  </select>
+                  <button className="button button-destructive">
+                    Eliminar <Trash size={20} />
+                  </button>
+                </form>
               </div>
-              <form action="">
-                <label htmlFor="">Rol</label>
-                <select name="" id="">
-                  <option value="owner">Dueño</option>
-                  <option value="admin">Admin</option>
-                  <option value="editor">Editor</option>
-                </select>
-                <button className="button button-destructive">
-                  Eliminar <Trash size={20} />
-                </button>
-              </form>
-            </div>
+            ))}
           </div>
         </div>
       </div>

@@ -1,7 +1,23 @@
 import "./footer.css";
 import Logo from "../ui/logo/logo";
+import { NavLink } from "react-router";
 
 const Footer = () => {
+  const NAVLINKFOOTER = [
+    {
+      name: "Acerca de nosotros",
+      to: "/aboutUs",
+    },
+    {
+      name: "Viajes",
+      to: "/trips",
+    },
+    {
+      name: "Nuevo viaje",
+      to: "/new-trip",
+    },
+  ];
+
   return (
     <footer>
       <div className="container footer-container">
@@ -16,9 +32,11 @@ const Footer = () => {
           <div className="links-container">
             <div className="links">
               <p>Navegación</p>
-              <a href="#">Sobre nosotros</a>
-              <a href="#">Planes</a>
-              <a href="#">Viajes</a>
+              {NAVLINKFOOTER.map(({ to, name }) => (
+                <NavLink key={name} to={to}>
+                  {name}
+                </NavLink>
+              ))}
             </div>
             <div className="links">
               <p>Soporte</p>
