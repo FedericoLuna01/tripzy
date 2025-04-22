@@ -8,6 +8,8 @@ import Modal from "../../components/modal/modal";
 import { DATA, USERS_AVATARS } from "../../data/data";
 import { Plus } from "phosphor-react";
 import "./trip-layout.css";
+import { formatDay } from "../../utils/utils";
+import { addDays } from "date-fns";
 
 const TripLayout = () => {
   const params = useParams();
@@ -42,19 +44,11 @@ const TripLayout = () => {
             <div className="trip-header">
               <h1 className="title">{TRIP.title}</h1>
               <p>
-                {new Date(TRIP.startDate).toLocaleDateString("es-ES", {
-                  day: "numeric",
-                  month: "long",
-                })}{" "}
-                -{" "}
-                {new Date(
-                  new Date(TRIP.startDate).setDate(
-                    new Date(TRIP.startDate).getDate() + TRIP.days.length - 1
-                  )
-                ).toLocaleDateString("es-ES", {
-                  day: "numeric",
-                  month: "long",
-                })}
+                {formatDay(new Date(TRIP.startDate))}
+                {" - "}
+                {formatDay(
+                  addDays(new Date(TRIP.startDate), TRIP.days.length - 1)
+                )}
               </p>
               <div className="friends-container">
                 <p>Amigos de viaje:</p>

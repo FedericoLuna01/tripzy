@@ -61,6 +61,12 @@ export const DATA = [
       {
         date: new Date(2025, 6, 16),
       },
+      {
+        date: new Date(2025, 6, 17),
+      },
+      {
+        date: new Date(2025, 6, 18),
+      },
     ],
   },
 ];
@@ -72,7 +78,7 @@ export const USERS_AVATARS = [
     email: "lucianotessa@gmail.com",
     image: "https://avatar.iran.liara.run/public/girl",
     role: "User",
-    status: "Bloqued"
+    status: "Bloqued",
   },
   {
     id: 2,
@@ -80,7 +86,7 @@ export const USERS_AVATARS = [
     email: "federicoLuna@gmail.com",
     image: "https://avatar.iran.liara.run/public/boy",
     role: "Admin",
-    status: "active"
+    status: "active",
   },
   {
     id: 3,
@@ -88,6 +94,6 @@ export const USERS_AVATARS = [
     email: "julianvecchio@gmail.com",
     image: "",
     role: "User",
-    status: "Suspended"
+    status: "Suspended",
   },
 ];

@@ -1,10 +1,10 @@
 import { useState, useRef } from "react";
-import { AirplaneTakeoff, ArrowLeft, X } from "phosphor-react";
+import { AirplaneTakeoff, X } from "phosphor-react";
 import "./new-trip.css";
 import Avatar from "../../components/avatar/avatar";
 import Input from "../../components/ui/input/input";
-import "./new-trip.css";
 import { USERS_AVATARS } from "../../data/data";
+import { isBefore, parseISO } from "date-fns";
 
 const NewTrip = () => {
   const [title, setTitle] = useState("");
@@ -23,7 +23,7 @@ const NewTrip = () => {
     setTitle(event.target.value);
     setErrors((prevErrors) => ({
       ...prevErrors,
-      title: title,
+      title: false,
     }));
   };
 
@@ -61,7 +61,7 @@ const NewTrip = () => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    if (!tripStart || tripStart <= today) {
+    if (!tripStart || isBefore(parseISO(tripStart), today)) {
       setErrors((prevErrors) => ({
         ...prevErrors,
         tripStart: true,
@@ -83,27 +83,16 @@ const NewTrip = () => {
     console.log({ title, tripStart, description, isPublic });
   };
 
-  const IS_ADMIN = true;
   return (
     <section className="new-itinerary-bg">
       <div className="container new-itinerary-container">
-        <button className="button button-secondary back">
-          <ArrowLeft size={20} />
-          Volver
-        </button>
         <form action="" onSubmit={handleSubmit}>
-          <div className="title-container">
-            <h1 className="title">Empezá a planificar tu viaje</h1>
-            <button className="button button-primary">
-              Crear
-              <AirplaneTakeoff size={20} />
-            </button>
-          </div>
+          <h1 className="title">Empezá a planificar tu viaje</h1>
           <p>
             No te preocupes si te olvidás de algo, siempre vas a poder
             modificarlo
           </p>
-          <div className="card">
+          <div className="card new-trip-card">
             <h2>Descripción general</h2>
             <div className="inputs-container">
               <div>
@@ -134,7 +123,7 @@ const NewTrip = () => {
                 <p>Una pequeña descripción de tu viaje</p>
                 {errors.description && (
                   <p className="error-message">
-                    La descripcion debe contener al menos 10 caracteres
+                    La descripción debe contener al menos 10 caracteres
                   </p>
                 )}
               </div>
@@ -180,12 +169,19 @@ const NewTrip = () => {
                     <p className="name">John Doe</p>
                     <p className="email">johndoe@gmail.com</p>
                   </div>
-                  <button className="button button-outline button-square">
+                  <button
+                    type={"button"}
+                    className="button button-outline button-square"
+                  >
                     <X size={16} />
                   </button>
                 </div>
               ))}
             </div>
+            <button className="button button-primary new-trip-button">
+              Crear
+              <AirplaneTakeoff size={20} />
+            </button>
           </div>
         </form>
       </div>

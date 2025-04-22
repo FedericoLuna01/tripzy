@@ -13,8 +13,22 @@ Instalar con npm
 ```bash
   git clone https://github.com/FedericoLuna01/tripzy.git
   cd tripzy
+```
+
+### Client
+
+```bash
+  cd client
   npm i
   npm run dev
+```
+
+### Server
+
+```bash
+    cd server
+    npm i
+    npm run dev
 ```
 
 ## Autores
@@ -23,4 +37,3 @@ Instalar con npm
 - [@lucianotessa](https://www.github.com/LucianoTessa)
 - [@alvaroreynoso](https://www.github.com/AlvaroReynoso)
 - [@ingridgrolimund]
-
