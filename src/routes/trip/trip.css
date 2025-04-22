@@ -40,6 +40,7 @@
 
 .avatars-container > .avatar {
   outline: 3px solid white;
+  outline-offset: -1px;
   margin-left: -8px;
 }
 

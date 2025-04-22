@@ -47,16 +47,6 @@
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 700;
 }
-.boton-notFound {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
+.button-not-found {
   margin-top: 1em;
-  padding: 0.8em 1.7em;
-  border: 1px solid var(--color-border);
-  cursor: pointer;
-}
-.boton-notFound:hover {
-  filter: brightness(0.9);
 }

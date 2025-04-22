@@ -19,7 +19,10 @@ const NotFound = () => {
           <div className="notFound-subTitle">
             <h2>Pagina no encontrada</h2>
             <p>Parece que estas perdido...deberias volver</p>
-            <button onClick={handleBackButton} className="boton-notFound">
+            <button
+              onClick={handleBackButton}
+              className="button button-secondary button-not-found"
+            >
               Volver <ArrowLeft size={20} />
             </button>
           </div>
