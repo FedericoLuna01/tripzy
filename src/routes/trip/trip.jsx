@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import toast from "react-hot-toast";
 import "./trip.css";
 import "../new-trip/new-trip.css";
 import Avatar from "../../components/avatar/avatar";
 import Modal from "../../components/modal/modal";
-import { DATA } from "../../data/data";
+import { DATA, USERS_AVATARS } from "../../data/data";
 import TripDays from "../../components/trip-days/trip-days";
 import NewActivityForm from "../../components/new-activity-form/new-activity-form";
+import { Plus } from "phosphor-react";
 
 const IS_ADMIN = true; // Para simular admin
 
@@ -64,10 +65,16 @@ const Trip = () => {
               <div className="friends-container">
                 <p>Amigos de viaje:</p>
                 <div className="avatars-container">
-                  <Avatar />
-                  <Avatar />
-                  <Avatar />
-                  <Avatar />
+                  {USERS_AVATARS.map((user) => (
+                    <Avatar user={user} key={user.id} />
+                  ))}
+                  <Link
+                    className="avatar add-user"
+                    to={`/trip/${TRIP.id}/members`}
+                  >
+                    {" "}
+                    <Plus size={22} />
+                  </Link>
                 </div>
               </div>
             </div>

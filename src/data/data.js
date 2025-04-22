@@ -64,3 +64,26 @@ export const DATA = [
     ],
   },
 ];
+
+export const USERS_AVATARS=[
+  {
+    id:1,
+    name:"Luciano Tessa",
+    email:"lucianotessa@gmail.com",
+    image:"https://avatar.iran.liara.run/public/girl",
+    role:""
+  },
+  {
+    id:2,
+    name:"Federico Luna",
+    email:"federicoLuna@gmail.com",
+    image:"https://avatar.iran.liara.run/public/boy",
+  },
+  {
+    id:3,
+    name:"Julian Vecchio",
+    email:"julianvecchio@gmail.com",
+    image:"",
+    role:""
+  }
+]

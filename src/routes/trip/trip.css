@@ -37,3 +37,13 @@
   display: flex;
   flex-direction: row;
 }
+
+.avatars-container > .avatar {
+  outline: 3px solid white;
+  margin-left: -8px;
+}
+
+.avatar.add-user {
+  background-color: var(--color-secondary);
+  color: black;
+}
