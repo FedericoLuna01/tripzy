@@ -1,21 +1,13 @@
 import "./avatar.css";
-// TODO: Agrear prop de imagen, y estilos en css
-const Avatar = () => {
+const Avatar = ({ user }) => {
+  const getInitials = () => {
+    const [name, lastName] = user.name.split(" ");
+    return `${name[0]}${lastName[0]} `;
+  };
+
   return (
-    <div
-      style={{
-        width: "40px",
-        height: "40px",
-        borderRadius: "50%",
-        backgroundColor: "var(--color-primary",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        fontSize: "20px",
-        fontWeight: 600,
-      }}
-    >
-      FL
+    <div className="avatar">
+      {user.image ? <img src={user.image} alt="" /> : getInitials()}
     </div>
   );
 };

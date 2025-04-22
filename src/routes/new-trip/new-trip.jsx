@@ -4,6 +4,7 @@ import "./new-trip.css";
 import Avatar from "../../components/avatar/avatar";
 import Input from "../../components/ui/input/input";
 import "./new-trip.css";
+import { USERS_AVATARS } from "../../data/data";
 
 const NewTrip = () => {
   const [title, setTitle] = useState("");
@@ -174,7 +175,7 @@ const NewTrip = () => {
             <div className="users-container">
               {new Array(4).fill(0).map((e, index) => (
                 <div className="card user-card no-shadow" key={index}>
-                  <Avatar />
+                  <Avatar users={USERS_AVATARS[0]} />
                   <div>
                     <p className="name">John Doe</p>
                     <p className="email">johndoe@gmail.com</p>

@@ -2,13 +2,13 @@ import React from "react";
 import Avatar from "../../components/avatar/avatar";
 import "./profile.css";
 import { Link } from "react-router";
-import { DATA } from "../../data/data";
+import { DATA, USERS_AVATARS } from "../../data/data";
 
 const Profile = () => {
   return (
     <div className="container profile">
       <div className="container-avatar">
-        <Avatar />
+        <Avatar user={USERS_AVATARS[0]} />
         <div>
           <h2>John Doe </h2>
           <p>wellech@gmail.com</p>

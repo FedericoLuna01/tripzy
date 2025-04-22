@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { DATA } from "../../data/data";
-import { useParams } from "react-router";
+import { DATA, USERS_AVATARS } from "../../data/data";
+import { Link, useParams } from "react-router";
 import Avatar from "../../components/avatar/avatar";
 import Input from "../../components/ui/input/input";
 import { Plus, Trash } from "phosphor-react";
@@ -47,10 +47,16 @@ export const TripMembers = () => {
             <div className="friends-container">
               <p>Amigos de viaje:</p>
               <div className="avatars-container">
-                <Avatar />
-                <Avatar />
-                <Avatar />
-                <Avatar />
+                {USERS_AVATARS.map((user) => (
+                  <Avatar user={user} key={user.id} />
+                ))}
+                <Link
+                  className="avatar add-user"
+                  to={`/trip/${TRIP.id}/members`}
+                >
+                  {" "}
+                  <Plus size={22} />
+                </Link>
               </div>
             </div>
           </div>
@@ -80,7 +86,7 @@ export const TripMembers = () => {
             {new Array(4).fill(0).map((_, index) => (
               <div className="card user-card no-shadow column" key={index}>
                 <div className="info-user">
-                  <Avatar />
+                  <Avatar user={USERS_AVATARS[0]} />
                   <div>
                     <p className="name">alvaro reynoso</p>
                     <p className="email">alvaroreynoso69@gmail.com</p>
