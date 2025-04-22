@@ -20,6 +20,7 @@ export const Users= sequelize.define("users",{
         type: DataTypes.STRING,
         allowNull : false
     }
+    //TODO: AGREGAR ROLE Y ESTADO (activo o bloqueado)
 
 },
 // para sacar las fechas
