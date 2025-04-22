@@ -175,7 +175,7 @@ const NewTrip = () => {
             <div className="users-container">
               {new Array(4).fill(0).map((e, index) => (
                 <div className="card user-card no-shadow" key={index}>
-                  <Avatar users={USERS_AVATARS[0]} />
+                  <Avatar user={USERS_AVATARS[0]} />
                   <div>
                     <p className="name">John Doe</p>
                     <p className="email">johndoe@gmail.com</p>
