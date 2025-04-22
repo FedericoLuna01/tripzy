@@ -1,4 +1,5 @@
 import "./avatar.css";
+
 const Avatar = ({ user }) => {
   const getInitials = (name) => {
     return name

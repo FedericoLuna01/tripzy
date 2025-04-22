@@ -2,6 +2,8 @@ import React from "react";
 import Logo from "../ui/logo/logo";
 import "./header.css";
 import { NavLink } from "react-router";
+import Avatar from "../avatar/avatar";
+import { USERS_AVATARS } from "../../data/data";
 
 export const NAV_LINKS = [
   {
@@ -13,16 +15,15 @@ export const NAV_LINKS = [
     to: "/aboutUs",
   },
   {
-    name: "Mis viajes",
-    to: "/trips",
-  },
-  {
     name: "Nuevo viaje",
     to: "/new-trip",
   },
 ];
 
 const Header = () => {
+  const IS_LOGGED = true;
+  const IS_ADMIN = true;
+
   return (
     <header className="border-b">
       <div className="container-header container">
@@ -33,9 +34,16 @@ const Header = () => {
               {name}
             </NavLink>
           ))}
-          <NavLink className="botonP" to="/login">
-            <button className="button button-primary">Iniciar sesión</button>
-          </NavLink>
+          {IS_ADMIN && <NavLink to="/admin">Admin</NavLink>}
+          {IS_LOGGED ? (
+            <NavLink to="/profile">
+              <Avatar user={USERS_AVATARS[0]} />
+            </NavLink>
+          ) : (
+            <NavLink className="botonP" to="/register">
+              <button className="button button-primary">Registrarse</button>
+            </NavLink>
+          )}
         </div>
       </div>
     </header>

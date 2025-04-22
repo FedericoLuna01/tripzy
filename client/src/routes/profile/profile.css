@@ -3,7 +3,6 @@
 .container.profile {
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
 .container-title h1 {

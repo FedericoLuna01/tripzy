@@ -1,4 +1,6 @@
+import { addDays, isEqual } from "date-fns";
 import { CalendarPlus, Minus } from "phosphor-react";
+import { formatDay } from "../../utils/utils";
 
 const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
   if (!activeDay) return null;
@@ -11,7 +13,7 @@ const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
     const updateDays = days.filter((day) => day.date !== deleteDay);
     setDays(updateDays);
 
-    if (new Date(activeDay).getTime() === new Date(deleteDay).getTime()) {
+    if (isEqual(new Date(activeDay), new Date(deleteDay))) {
       const lastDay = updateDays[updateDays.length - 1].date;
       setActiveDay(lastDay);
     }
@@ -19,8 +21,7 @@ const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
 
   const handleAddDay = () => {
     const lastDay = new Date(days[days.length - 1].date);
-    const newDay = new Date(lastDay);
-    newDay.setDate(lastDay.getDate() + 1);
+    const newDay = addDays(new Date(lastDay), 1);
     setDays((prev) => [...prev, { date: newDay }]);
     setActiveDay(newDay);
   };
@@ -32,18 +33,12 @@ const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
         {days.map((day, index) => (
           <button
             className={`${
-              new Date(activeDay).getTime() === new Date(day.date).getTime()
-                ? "active"
-                : ""
+              isEqual(new Date(activeDay), new Date(day.date)) ? "active" : ""
             }`}
             key={index}
             onClick={() => handleActiveDay(day.date)}
           >
-            Dia {index + 1}:{" "}
-            {new Date(day.date).toLocaleDateString("es-ES", {
-              day: "numeric",
-              month: "long",
-            })}
+            Dia {index + 1}: {formatDay(day.date)}
             {days.length - 1 === index ? (
               <span onClick={() => handleDeleteDay(day.date)}>
                 <Minus size={16} />

@@ -5,6 +5,7 @@ import "../new-trip/new-trip.css";
 import { DATA } from "../../data/data";
 import TripDays from "../../components/trip-days/trip-days";
 import NewActivityForm from "../../components/new-activity-form/new-activity-form";
+import { formatDay } from "../../utils/utils";
 
 const IS_ADMIN = true; // Para simular admin
 
@@ -29,10 +30,7 @@ const Trip = () => {
         <p className="day">
           Dia {TRIP.days.findIndex((day) => day.date === activeDay) + 1}
           {": "}
-          {new Date(activeDay).toLocaleDateString("es-ES", {
-            day: "numeric",
-            month: "long",
-          })}
+          {formatDay(activeDay)}
         </p>
         <div className="activity-container">
           {activities

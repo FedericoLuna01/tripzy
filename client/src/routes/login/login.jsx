@@ -66,6 +66,7 @@ const Login = () => {
             <Input
               value={password}
               placeholder={"*************"}
+              type="password"
               id={"password"}
               onChange={handlePasswordChange}
               className={`${errors.password ? "error" : ""}`}

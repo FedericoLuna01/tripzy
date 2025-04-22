@@ -1,18 +1,17 @@
 import { BrowserRouter, Routes, Route } from "react-router";
-import Home from "./routes/home/home";
-import NotFound from "./routes/not-found/not-found";
-import Login from "./routes/login/login";
-import Register from "./routes/register/register";
+import { Toaster } from "react-hot-toast";
+import TripLayout from "./components/trip-layout/trip-layout";
+import AboutUs from "./components/about-us/about-us";
 import Layout from "./components/layout/layout";
-import Trips from "./routes/trips/trips";
+import { TripMembers } from "./routes/trip-members/trip-members";
+import Register from "./routes/register/register";
+import NotFound from "./routes/not-found/not-found";
 import NewTrip from "./routes/new-trip/new-trip";
 import Profile from "./routes/profile/profile";
-import Trip from "./routes/trip/trip";
-import { Toaster } from "react-hot-toast";
-import { TripMembers } from "./routes/trip-members/trip-members";
-import AboutUs from "./components/about-us/about-us";
-import TripLayout from "./components/trip-layout/trip-layout";
+import Login from "./routes/login/login";
 import Admin from "./routes/admin/admin";
+import Home from "./routes/home/home";
+import Trip from "./routes/trip/trip";
 
 function App() {
   return (
@@ -24,7 +23,6 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/trips" element={<Trips />} />
           <Route path="/new-trip" element={<NewTrip />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/admin" element={<Admin />} />
