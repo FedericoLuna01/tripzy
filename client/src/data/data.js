@@ -71,19 +71,23 @@ export const USERS_AVATARS = [
     name: "Luciano Tessa",
     email: "lucianotessa@gmail.com",
     image: "https://avatar.iran.liara.run/public/girl",
-    role: "",
+    role: "User",
+    status: "Bloqued"
   },
   {
     id: 2,
     name: "Federico Luna",
     email: "federicoLuna@gmail.com",
     image: "https://avatar.iran.liara.run/public/boy",
+    role: "Admin",
+    status: "active"
   },
   {
     id: 3,
     name: "Julian Vecchio",
     email: "julianvecchio@gmail.com",
     image: "",
-    role: "",
+    role: "User",
+    status: "Suspended"
   },
 ];

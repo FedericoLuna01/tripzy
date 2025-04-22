@@ -7,6 +7,7 @@ import Avatar from "../../components/avatar/avatar";
 import Modal from "../../components/modal/modal";
 import { DATA, USERS_AVATARS } from "../../data/data";
 import { Plus } from "phosphor-react";
+import "./trip-layout.css";
 
 const TripLayout = () => {
   const params = useParams();

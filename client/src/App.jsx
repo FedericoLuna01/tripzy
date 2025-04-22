@@ -12,6 +12,7 @@ import { Toaster } from "react-hot-toast";
 import { TripMembers } from "./routes/trip-members/trip-members";
 import AboutUs from "./components/about-us/about-us";
 import TripLayout from "./components/trip-layout/trip-layout";
+import Admin from "./routes/admin/admin";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/trips" element={<Trips />} />
           <Route path="/new-trip" element={<NewTrip />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/admin" element={<Admin />} />
           <Route element={<TripLayout />}>
             <Route path="/trip/:id" element={<Trip />} />
             <Route path="/trip/:id/members" element={<TripMembers />} />
