@@ -1,8 +1,7 @@
 import { DotsThree, PencilSimple, Trash } from "phosphor-react";
-import { Link } from "react-router";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import "./admin.css";
+import { Link } from "react-router";
 import Input from "../../components/ui/input/input";
 import Avatar from "../../components/avatar/avatar";
 import Modal from "../../components/modal/modal";
@@ -12,6 +11,7 @@ import {
   MenuItems,
   MenuItem,
 } from "../../components/ui/menu/menu";
+import "./admin.css";
 
 const Admin = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,12 +20,18 @@ const Admin = () => {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [search, setSearch] = useState("");
 
-  const getUsers = async () => {
-    const response = await fetch("http://localhost:3000/users");
-    const data = await response.json();
-    console.log(data);
-    setUsers(data);
-    setFilteredUsers(data);
+  const getUsers = () => {
+    fetch("http://localhost:3000/users")
+      .then((response) => response.json())
+      .then((data) => {
+        setUsers(data);
+        setFilteredUsers(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching users:", error);
+        toast.error("Error al cargar los usuarios");
+      });
+
     setSearch("");
   };
 
