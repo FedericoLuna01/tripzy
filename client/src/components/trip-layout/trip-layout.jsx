@@ -6,7 +6,7 @@ import "../../routes/new-trip/new-trip.css";
 import Avatar from "../../components/avatar/avatar";
 import Modal from "../../components/modal/modal";
 import { DATA, USERS_AVATARS } from "../../data/data";
-import { Plus } from "phosphor-react";
+import { PencilSimple, Plus, Trash } from "phosphor-react";
 import "./trip-layout.css";
 import { formatDay } from "../../utils/utils";
 import { addDays } from "date-fns";
@@ -34,7 +34,6 @@ const TripLayout = () => {
       <Modal
         entity={`${TRIP.title}`}
         onSubmit={handleDelete}
-        onClose={handleClose}
         isOpen={isOpen}
         handleClose={handleClose}
       />
@@ -66,12 +65,15 @@ const TripLayout = () => {
               </div>
             </div>
             <div className="actions-container">
-              <button className="button button-outline">Editar</button>
+              <button className="button button-outline">
+                Editar <PencilSimple size={20} />
+              </button>
               <button
                 onClick={handleOpen}
                 className="button button-destructive"
               >
                 Eliminar
+                <Trash size={20} />
               </button>
             </div>
           </div>

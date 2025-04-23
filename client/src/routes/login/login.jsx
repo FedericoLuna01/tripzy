@@ -42,7 +42,7 @@ const Login = () => {
     <div className="container-login">
       <div className="container-form">
         <Logo />
-        <h1>Bienvenido de Nuevo</h1>
+        <h1 className="login-title">Bienvenido de Nuevo</h1>
         <p>Planea tus viajes de manera fácil y rápida</p>
         <form onSubmit={handleSubmit} action="">
           <div className="input-group">

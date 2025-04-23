@@ -1,0 +1,10 @@
+.heading {
+  margin: 1em 0;
+  display: flex;
+  gap: 0.3em;
+  flex-direction: column;
+}
+
+.button-save {
+  max-width: fit-content;
+}

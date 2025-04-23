@@ -15,7 +15,7 @@ input {
 .container-form {
   display: flex;
   margin: 0 auto;
-  max-width: 475px;
+  max-width: 500px;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
@@ -23,9 +23,8 @@ input {
   padding: 20px;
 }
 
-h1 {
+.login-title {
   font-size: 4em;
-  line-height: 90%;
 }
 
 p {

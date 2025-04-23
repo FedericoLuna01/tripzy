@@ -5,20 +5,8 @@
   grid-template-columns: 1fr 1fr;
 }
 
-.container-form {
-  display: flex;
-  margin: 0 auto;
-  max-width: 480px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 5px;
-  padding: 20px;
-}
-
-h1 {
+.register-title {
   font-size: 4em;
-  line-height: 90%;
 }
 
 p {

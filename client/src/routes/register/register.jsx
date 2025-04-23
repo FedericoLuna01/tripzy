@@ -1,9 +1,9 @@
 import { useState, useRef } from "react";
+import toast from "react-hot-toast";
+import { Link } from "react-router";
 import "./register.css";
 import Logo from "../../components/ui/logo/logo";
 import Input from "../../components/ui/input/input";
-import { Link } from "react-router";
-import toast from "react-hot-toast";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -117,14 +117,14 @@ const Register = () => {
     <div className="container-register">
       <div className="container-form">
         <Logo />
-        <h1>Crea tu cuenta</h1>
+        <h1 className="register-title">Crea tu cuenta</h1>
         <p>Planea tus viajes de manera fácil y rápida</p>
         <form action="" onSubmit={handleSubmit}>
           <div className="input-group">
             <label htmlFor="name">Nombre</label>
             <Input
               ref={inputNameRef}
-              placeholder={"ej: Jhon Doe"}
+              placeholder={"ej: John Doe"}
               id={"name"}
               onChange={handleNameChange}
               value={name}
