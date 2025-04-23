@@ -4,8 +4,9 @@ import TripLayout from "./components/trip-layout/trip-layout";
 import AboutUs from "./components/about-us/about-us";
 import Layout from "./components/layout/layout";
 import { TripMembers } from "./routes/trip-members/trip-members";
-import Register from "./routes/register/register";
+import AdminEdit from "./routes/admin-edit/admin-edit";
 import NotFound from "./routes/not-found/not-found";
+import Register from "./routes/register/register";
 import NewTrip from "./routes/new-trip/new-trip";
 import Profile from "./routes/profile/profile";
 import Login from "./routes/login/login";
@@ -26,6 +27,7 @@ function App() {
           <Route path="/new-trip" element={<NewTrip />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/edit/:id" element={<AdminEdit />} />
           <Route element={<TripLayout />}>
             <Route path="/trip/:id" element={<Trip />} />
             <Route path="/trip/:id/members" element={<TripMembers />} />

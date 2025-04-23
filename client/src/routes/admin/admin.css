@@ -1,16 +1,11 @@
 @import url("../../variables.css");
 
-.admin-section {
-  background: var(--color-secondary);
-}
-
 .container-title {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
-  gap: 0.5rem;
-  margin: 1em 0em;
+  margin: 1em 0;
 }
 
 .container-filter {
@@ -117,4 +112,20 @@
   cursor: pointer;
   background-color: var(--color-border);
   border-radius: 30%;
+}
+
+.menu-items-admin {
+  width: 200px;
+}
+
+.menu-item-link {
+  display: flex;
+  text-decoration: none;
+  align-items: center;
+  gap: 0.5em;
+  color: var(--color-text);
+}
+
+.menu-item-link.destructive {
+  color: var(--color-destructive);
 }

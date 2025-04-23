@@ -6,6 +6,7 @@ import { DATA } from "../../data/data";
 import TripDays from "../../components/trip-days/trip-days";
 import NewActivityForm from "../../components/new-activity-form/new-activity-form";
 import { formatDay } from "../../utils/utils";
+import { isEqual } from "date-fns";
 
 const IS_ADMIN = true; // Para simular admin
 
@@ -28,7 +29,7 @@ const Trip = () => {
       <div className="card activities-container">
         <h2>Actividades</h2>
         <p className="day">
-          Dia {TRIP.days.findIndex((day) => day.date === activeDay) + 1}
+          Dia {TRIP.days.findIndex((day) => isEqual(day.date, activeDay)) + 1}
           {": "}
           {formatDay(activeDay)}
         </p>

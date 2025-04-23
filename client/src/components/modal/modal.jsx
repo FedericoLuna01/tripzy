@@ -7,9 +7,9 @@ import {
 } from "@headlessui/react";
 import "./modal.css";
 
-const Modal = ({ entity, onSubmit, onClose, isOpen, handleClose }) => {
+const Modal = ({ entity, onSubmit, isOpen, handleClose }) => {
   return (
-    <Dialog open={isOpen} onClose={onClose} className="modal" transition>
+    <Dialog open={isOpen} onClose={handleClose} className="modal" transition>
       <DialogBackdrop className="modal-backdrop" />
       {/* Full-screen container to center the panel */}
       <div className="modal-container">

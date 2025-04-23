@@ -50,7 +50,6 @@ export const TripMembers = () => {
               <Modal
                 entity={`el usuario ${selectedUser?.name || ""}`}
                 onSubmit={() => handleDeleteUser(selectedUser?.id)}
-                onClose={handleClose}
                 isOpen={isOpen}
                 handleClose={handleClose}
               />
