@@ -74,7 +74,7 @@ const Register = () => {
     return password === passwordRepeat;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setErrors({
       validName: false,
@@ -110,7 +110,30 @@ const Register = () => {
     }
 
     if (hasError) return;
-    toast.success("Registrado correctamente!");
+
+    try {
+      const res = await fetch("http://localhost:3000/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        return toast.error(data.message);
+      }
+
+      toast.success("Registrado correctamente!");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -182,14 +205,14 @@ const Register = () => {
             </div>
           </div>
           <div className="input-group">
-            <label htmlFor="repetircontrasenia">Repetir contraseña</label>
+            <label htmlFor="repeatPassword">Repetir contraseña</label>
             <Input
               ref={inputPasswordRepeatRef}
               placeholder={"*************"}
               type={"password"}
               onChange={handlePasswordRepeatChange}
               value={passwordRepeat}
-              id={"repetircontrasenia"}
+              id={"repeatPassword"}
               className={`${
                 errors.validPassword || errors.samePassword ? "error" : ""
               }`}

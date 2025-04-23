@@ -59,6 +59,11 @@
   font-weight: 600;
 }
 
+.no-users {
+  text-align: center;
+  color: var(--color-muted);
+}
+
 .role {
   display: inline-block;
   padding: 4px 10px;
@@ -90,14 +95,9 @@
   color: #2e7d32;
 }
 
-.status.bloqued {
+.status.blocked {
   background-color: #ffebee;
   color: #c62828;
-}
-
-.status.suspended {
-  background-color: #fff8e1;
-  color: #ff8f00;
 }
 
 .options-button {

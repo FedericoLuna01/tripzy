@@ -1,27 +1,49 @@
-import React, { useState } from "react";
-import { DotsThree, Pencil, PencilSimple, Trash } from "phosphor-react";
+import { DotsThree, PencilSimple, Trash } from "phosphor-react";
 import { Link } from "react-router";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import "./admin.css";
-import { USERS_AVATARS } from "../../data/data";
-import Avatar from "../../components/avatar/avatar";
 import Input from "../../components/ui/input/input";
+import Avatar from "../../components/avatar/avatar";
+import Modal from "../../components/modal/modal";
 import {
   Menu,
   MenuButton,
   MenuItems,
   MenuItem,
 } from "../../components/ui/menu/menu";
-import Modal from "../../components/modal/modal";
-import toast from "react-hot-toast";
 
 const Admin = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [users, setUsers] = useState(USERS_AVATARS);
+  const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [search, setSearch] = useState("");
 
-  const handleDeleteUser = (id) => {
+  const getUsers = async () => {
+    const response = await fetch("http://localhost:3000/users");
+    const data = await response.json();
+    console.log(data);
+    setUsers(data);
+    setFilteredUsers(data);
+    setSearch("");
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const handleDeleteUser = async (id) => {
+    const user = await fetch(`http://localhost:3000/users/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!user.ok) {
+      return toast.error("Error al eliminar el usuario");
+    }
+
     setUsers((prev) => prev.filter((user) => user.id !== id));
+    setFilteredUsers((prev) => prev.filter((user) => user.id !== id));
     setIsOpen(false);
     toast.success("Usuario eliminado");
   };
@@ -39,10 +61,10 @@ const Admin = () => {
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
     setSearch(value);
-    const filteredUsers = USERS_AVATARS.filter((user) =>
+    const usersFiltered = users.filter((user) =>
       user.name.toLowerCase().includes(value)
     );
-    setUsers(filteredUsers);
+    setFilteredUsers(usersFiltered);
   };
 
   return (
@@ -79,55 +101,63 @@ const Admin = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map((user) => (
-                <tr key={user.id}>
-                  <td>
-                    <div className="user-info">
-                      <Avatar user={user} />
-                      <span className="user-name">{user.name}</span>
-                    </div>
-                  </td>
-                  <td>{user.email}</td>
-                  <td>
-                    <span className={`role ${user.role.toLowerCase()}`}>
-                      {user.role}
-                    </span>
-                  </td>
-                  <td>
-                    <span className={`status ${user.status.toLowerCase()}`}>
-                      {user.status}
-                    </span>
-                  </td>
-                  <td>
-                    <Menu>
-                      <MenuButton className="options-button">
-                        <DotsThree size={24} color="#000" />
-                      </MenuButton>
-                      <MenuItems
-                        anchor="bottom end"
-                        className="menu-items-admin"
-                      >
-                        <MenuItem>
-                          <Link
-                            className="menu-item-link"
-                            to={`/admin/edit/${user.id}`}
-                          >
-                            <PencilSimple size={20} /> Editar
-                          </Link>
-                        </MenuItem>
-                        <MenuItem>
-                          <span
-                            className="menu-item-link destructive"
-                            onClick={() => handleOpen(user)}
-                          >
-                            <Trash size={20} /> Eliminar
-                          </span>
-                        </MenuItem>
-                      </MenuItems>
-                    </Menu>
+              {filteredUsers.length === 0 ? (
+                <tr>
+                  <td colSpan="5" className="no-users">
+                    No hay usuarios que mostrar
                   </td>
                 </tr>
-              ))}
+              ) : (
+                filteredUsers.map((user) => (
+                  <tr key={user.id}>
+                    <td>
+                      <div className="user-info">
+                        <Avatar user={user} />
+                        <span className="user-name">{user.name}</span>
+                      </div>
+                    </td>
+                    <td>{user.email}</td>
+                    <td>
+                      <span className={`role ${user.role.toLowerCase()}`}>
+                        {user.role}
+                      </span>
+                    </td>
+                    <td>
+                      <span className={`status ${user.status.toLowerCase()}`}>
+                        {user.status}
+                      </span>
+                    </td>
+                    <td>
+                      <Menu>
+                        <MenuButton className="options-button">
+                          <DotsThree size={24} color="#000" />
+                        </MenuButton>
+                        <MenuItems
+                          anchor="bottom end"
+                          className="menu-items-admin"
+                        >
+                          <MenuItem>
+                            <Link
+                              className="menu-item-link"
+                              to={`/admin/edit/${user.id}`}
+                            >
+                              <PencilSimple size={20} /> Editar
+                            </Link>
+                          </MenuItem>
+                          <MenuItem>
+                            <span
+                              className="menu-item-link destructive"
+                              onClick={() => handleOpen(user)}
+                            >
+                              <Trash size={20} /> Eliminar
+                            </span>
+                          </MenuItem>
+                        </MenuItems>
+                      </Menu>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

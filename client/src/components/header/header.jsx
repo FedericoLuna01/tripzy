@@ -21,7 +21,7 @@ export const NAV_LINKS = [
 ];
 
 const Header = () => {
-  const IS_LOGGED = false;
+  const IS_LOGGED = true;
   const IS_ADMIN = true;
 
   return (
