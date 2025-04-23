@@ -10,3 +10,35 @@
   outline-offset: -1px;
   margin-left: -8px;
 }
+
+.trip-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.tabs-container {
+  display: grid;
+  grid-template-columns: 100px 100px;
+  gap: 0.2em;
+  width: fit-content;
+  padding: 0.2em;
+}
+
+.tabs-container > .tab {
+  text-align: center;
+  padding: 0.5em;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.tabs-container > .tab:hover {
+  background-color: #ddd;
+}
+.tabs-container > .tab.selected {
+  background-color: var(--color-primary);
+  color: white;
+}

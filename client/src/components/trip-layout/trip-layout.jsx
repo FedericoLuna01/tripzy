@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Outlet, useParams } from "react-router";
+import { Link, Outlet, useLocation, useParams } from "react-router";
 import toast from "react-hot-toast";
 import "../../routes/trip/trip.css";
 import "../../routes/new-trip/new-trip.css";
@@ -13,6 +13,7 @@ import { addDays } from "date-fns";
 
 const TripLayout = () => {
   const params = useParams();
+  const location = useLocation();
   const TRIP = DATA.find((trip) => trip.id === parseInt(params.id));
   const [isOpen, setIsOpen] = useState(false);
 
@@ -76,6 +77,26 @@ const TripLayout = () => {
                 <Trash size={20} />
               </button>
             </div>
+          </div>
+          <div className="card tabs-container">
+            <Link
+              className={`tab ${
+                location.pathname === `/trip/${TRIP.id}` ? "selected" : ""
+              }`}
+              to={`/trip/${TRIP.id}`}
+            >
+              Trip
+            </Link>
+            <Link
+              className={`tab ${
+                location.pathname === `/trip/${TRIP.id}/members`
+                  ? "selected"
+                  : ""
+              }`}
+              to={`/trip/${TRIP.id}/members`}
+            >
+              Amigos
+            </Link>
           </div>
           <Outlet />
         </div>
