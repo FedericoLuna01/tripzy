@@ -19,7 +19,7 @@ export const getUser = async (req, res) => {
       message: "No se encuentra el usuario",
     });
   }
-  res.json();
+  res.json(user);
 };
 
 export const postUser = async (req, res) => {
