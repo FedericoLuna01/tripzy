@@ -3,7 +3,6 @@ import { AirplaneTakeoff, X } from "phosphor-react";
 import "./new-trip.css";
 import Avatar from "../../components/avatar/avatar";
 import Input from "../../components/ui/input/input";
-import { USERS_AVATARS } from "../../data/data";
 import { isBefore, parseISO } from "date-fns";
 
 const NewTrip = () => {
@@ -11,14 +10,18 @@ const NewTrip = () => {
   const [tripStart, setTripStart] = useState("");
   const [description, setDescription] = useState("");
   const [isPublic, setIsPublic] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
   const [errors, setErrors] = useState({
     title: false,
     tripStart: false,
     description: false,
+    imageUrl: false,
+    isPublic: false,
   });
   const inputTitleRef = useRef(null);
   const inputTripStartRef = useRef(null);
   const inputDescriptionRef = useRef(null);
+  const inputImageUrlRef = useRef(null);
   const handleTitle = (event) => {
     setTitle(event.target.value);
     setErrors((prevErrors) => ({
@@ -40,6 +43,14 @@ const NewTrip = () => {
     setErrors((prevErrors) => ({
       ...prevErrors,
       description: false,
+    }));
+  };
+
+  const handleImageUrl = (event) => {
+    setImageUrl(event.target.value);
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      imageUrl: false,
     }));
   };
 
@@ -79,14 +90,49 @@ const NewTrip = () => {
       hasError = true;
     }
 
+    if (!imageUrl) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        imageUrl: true,
+      }));
+      if (!hasError) inputImageUrlRef.current.focus();
+      hasError = true;
+    }
+
     if (hasError) return;
-    console.log({ title, tripStart, description, isPublic });
+
+    fetch("http://localhost:3000/trips", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        startDate: tripStart,
+        imageUrl,
+        userId: 1,
+        isPublic,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al crear el viaje");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Viaje creado:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
     <section className="new-itinerary-bg">
       <div className="container new-itinerary-container">
-        <form action="" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <h1 className="title">Empezá a planificar tu viaje</h1>
           <p>
             No te preocupes si te olvidás de algo, siempre vas a poder
@@ -144,6 +190,22 @@ const NewTrip = () => {
                   </p>
                 )}
               </div>
+              <div>
+                <label htmlFor="imageUrl">Url de la imagen</label>
+                <Input
+                  ref={inputImageUrlRef}
+                  onChange={handleImageUrl}
+                  value={imageUrl}
+                  id={"imageUrl"}
+                  className={`${errors.imageUrl ? "error" : ""}`}
+                />
+                <p>Imagen de portada de tu viaje</p>
+                {errors.imageUrl && (
+                  <p className="error-message">
+                    La url de la imagen no puede estar vacía
+                  </p>
+                )}
+              </div>
               <div className="checkbox-container">
                 <label htmlFor="public">Publico</label>
                 <Input
@@ -155,35 +217,38 @@ const NewTrip = () => {
                 />
                 <p>Cualquier persona podrá unirse al itinerario</p>
               </div>
-              <div>
-                <label htmlFor="invite">Invitar amigos</label>
-                <Input placeholder="johndoe@gmail.com" id="invite" />
-                <p>Invita a tus amigos por su email</p>
-              </div>
             </div>
-            <div className="users-container">
-              {new Array(4).fill(0).map((e, index) => (
-                <div className="card user-card no-shadow" key={index}>
-                  <Avatar user={USERS_AVATARS[0]} />
-                  <div>
-                    <p className="name">John Doe</p>
-                    <p className="email">johndoe@gmail.com</p>
-                  </div>
-                  <button
-                    type={"button"}
-                    className="button button-outline button-square"
-                  >
-                    <X size={16} />
-                  </button>
-                </div>
-              ))}
-            </div>
+
             <button className="button button-primary new-trip-button">
               Crear
               <AirplaneTakeoff size={20} />
             </button>
           </div>
         </form>
+        {/* <div>
+          <div>
+            <label htmlFor="invite">Invitar amigos</label>
+            <Input placeholder="johndoe@gmail.com" id="invite" />
+            <p>Invita a tus amigos por su email</p>
+          </div>
+          <div className="users-container">
+            {new Array(4).fill(0).map((e, index) => (
+              <div className="card user-card no-shadow" key={index}>
+                <Avatar user={USERS_AVATARS[0]} />
+                <div>
+                  <p className="name">John Doe</p>
+                  <p className="email">johndoe@gmail.com</p>
+                </div>
+                <button
+                  type={"button"}
+                  className="button button-outline button-square"
+                >
+                  <X size={16} />
+                </button>
+              </div>
+            ))}
+          </div>
+        </div> */}
       </div>
     </section>
   );

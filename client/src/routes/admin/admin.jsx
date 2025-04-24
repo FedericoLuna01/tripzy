@@ -1,5 +1,5 @@
 import { DotsThree, PencilSimple, Trash } from "phosphor-react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router";
 import Input from "../../components/ui/input/input";
@@ -31,8 +31,6 @@ const Admin = () => {
         console.error("Error fetching users:", error);
         toast.error("Error al cargar los usuarios");
       });
-
-    setSearch("");
   };
 
   useEffect(() => {

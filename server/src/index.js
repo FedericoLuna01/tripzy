@@ -1,7 +1,10 @@
 import express from "express";
 import userRoutes from "./routes/users.routes.js";
+import tripsRoutes from "./routes/trips.routes.js";
 import { sequelize } from "./db.js";
 import "./models/Users.js";
+import "./models/UserTrip.js";
+import "./models/Trips.js";
 
 const app = express();
 const PORT = 3000;
@@ -15,6 +18,7 @@ try {
     next();
   });
   app.use(userRoutes);
+  app.use(tripsRoutes);
 
   await sequelize.sync();
 
