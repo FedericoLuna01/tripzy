@@ -3,6 +3,7 @@ import Input from "../../components/ui/input/input";
 import "./admin-edit.css";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
+import toast from "react-hot-toast";
 
 const AdminEdit = () => {
   const inputNameRef = useRef(null);
@@ -14,27 +15,53 @@ const AdminEdit = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("owner");
-  const [state, setState] = useState("active");
+  const [status, setStatus] = useState("active");
   const [errors, setErrors] = useState({
     invalidName: false,
     invalidEmail: false,
     invalidPassword: false,
     role: false,
-    state: false,
+    status: false,
   });
   const [user, setUser] = useState(null);
   const params = useParams();
+
+  const putUser = async (id) => {
+    try {
+      const res = await fetch(`http://localhost:3000/users/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          role,
+          status,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        return toast.error(data.message);
+      }
+      toast.success("Usuario editado correctamente");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getUser = (id) => {
     fetch(`http://localhost:3000/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setUser(data);
         setName(data.name);
         setEmail(data.email);
         setPassword(data.password);
         setRole(data.role);
-        setState(data.status);
+        setStatus(data.status);
       })
       .catch((error) => console.log(error));
   };
@@ -44,16 +71,16 @@ const AdminEdit = () => {
   }, [params.id]);
 
   const invalidName = (name) => {
-    return name.length >= 4;
+    return name.length < 4;
   };
 
   const invalidEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
+    return !regex.test(email);
   };
 
   const invalidPassword = (password) => {
-    return password.length >= 8;
+    return password.length < 8;
   };
 
   const handleName = (e) => {
@@ -89,10 +116,10 @@ const AdminEdit = () => {
   };
 
   const handleState = (e) => {
-    setState(e.target.value);
+    setStatus(e.target.value);
     setErrors((prevErrors) => ({
       ...prevErrors,
-      state: false,
+      status: false,
     }));
   };
 
@@ -103,7 +130,7 @@ const AdminEdit = () => {
       invalidEmail: false,
       invalidPassword: false,
       role: false,
-      state: false,
+      status: false,
     });
     let hasError = false;
 
@@ -126,16 +153,21 @@ const AdminEdit = () => {
     }
 
     if (!role) {
-      setErrors((prevErrors) => ({ ...prevErrors, invalidNane: true }));
+      setErrors((prevErrors) => ({ ...prevErrors, role: true }));
       if (!hasError) inputRoleRef.current.focus();
       hasError = true;
     }
 
-    if (!state) {
-      setErrors((prevErrors) => ({ ...prevErrors, state: true }));
+    if (!status) {
+      setErrors((prevErrors) => ({ ...prevErrors, status: true }));
       if (!hasError) inputRoleRef.current.focus();
       hasError = true;
     }
+
+    console.log({ name, email, password, role, status });
+    if (hasError) return;
+
+    putUser(user.id);
   };
 
   return (
@@ -213,9 +245,9 @@ const AdminEdit = () => {
                     value={role}
                     className={`${errors.role ? "error select" : "select"}`}
                   >
-                    <option value="owner">Dueño</option>
+                    <option value="superAdmin">Super Admin</option>
                     <option value="admin">Admin</option>
-                    <option value="editor">Editor</option>
+                    <option value="usuario">Usuario</option>
                   </select>
                   <p>El rol que quieras que tenga el usuario</p>
                   {errors.role && (
@@ -229,8 +261,8 @@ const AdminEdit = () => {
                     placeholder="Ingrese un estado"
                     id="state"
                     onChange={handleState}
-                    value={state}
-                    className={`${errors.state ? "error select" : "select"}`}
+                    value={status}
+                    className={`${errors.status ? "error select" : "select"}`}
                   >
                     <option value="active">Activo</option>
                     <option value="blocked">Bloqueado</option>
@@ -256,7 +288,5 @@ const AdminEdit = () => {
     </section>
   );
 };
-
-// TODO LUCHO: CAMBIAR TODOS LOS STATE POR STATUS , SOLO LA PALABRA MENOS EN EL USESTATE OBVIO
 
 export default AdminEdit;

@@ -42,7 +42,7 @@ export const postUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { name, email, password } = req.body;
+  const { name, email, password, role, status } = req.body;
 
   const user = await Users.findByPk(id);
 
@@ -57,6 +57,8 @@ export const updateUser = async (req, res) => {
       name,
       email,
       password,
+      role,
+      status,
     },
     {
       where: { id },
