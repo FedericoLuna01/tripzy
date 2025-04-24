@@ -1,4 +1,3 @@
-import React from "react";
 import Avatar from "../../components/avatar/avatar";
 import "./profile.css";
 import { Link } from "react-router";
