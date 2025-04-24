@@ -158,7 +158,6 @@ const Register = () => {
             </p>
             {errors.validName && (
               <p className="error-message">
-                {" "}
                 El nombre debe tener al menos 4 caracteres
               </p>
             )}
