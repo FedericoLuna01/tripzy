@@ -66,9 +66,11 @@ const TripLayout = () => {
               </div>
             </div>
             <div className="actions-container">
-              <button className="button button-outline">
-                Editar <PencilSimple size={20} />
-              </button>
+              <Link to={`/trip/edit/${TRIP.id}`}>
+                <button className="button button-outline">
+                  Editar <PencilSimple size={20} />
+                </button>
+              </Link>
               <button
                 onClick={handleOpen}
                 className="button button-destructive"

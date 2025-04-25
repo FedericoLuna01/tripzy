@@ -6,6 +6,7 @@ import Layout from "./components/layout/layout";
 import { TripMembers } from "./routes/trip-members/trip-members";
 import AdminEdit from "./routes/admin-edit/admin-edit";
 import NotFound from "./routes/not-found/not-found";
+import TripEdit from "./routes/trip-edit/trip-edit";
 import Register from "./routes/register/register";
 import NewTrip from "./routes/new-trip/new-trip";
 import Profile from "./routes/profile/profile";
@@ -28,6 +29,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/edit/:id" element={<AdminEdit />} />
+          <Route path="/trip/edit/:id" element={<TripEdit />} />
           <Route element={<TripLayout />}>
             <Route path="/trip/:id" element={<Trip />} />
             <Route path="/trip/:id/members" element={<TripMembers />} />

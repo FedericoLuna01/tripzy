@@ -88,7 +88,8 @@ export const deleteTrip = async (req, res) => {
 
 export const updateTrip = async (req, res) => {
   const { id } = req.params;
-  const { title, description, startDate, imageUrl, isBloqued } = req.body;
+  const { title, description, startDate, imageUrl, isBlocked, isPublic } =
+    req.body;
   if (!title || !description || !startDate || !imageUrl) {
     return res.status(400).json({
       message: "Se necesitan todos los campos",
@@ -97,12 +98,12 @@ export const updateTrip = async (req, res) => {
   const trip = await Trips.findByPk(id);
   if (!trip) {
     return res.status(404).json({
-      message: "No se encontro el viaje",
+      message: "No se encontró el viaje",
     });
   }
 
   await Trips.update(
-    { title, description, startDate, imageUrl, isBloqued },
+    { title, description, startDate, imageUrl, isBlocked, isPublic },
     {
       where: { id },
     }
