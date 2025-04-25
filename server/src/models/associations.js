@@ -6,20 +6,24 @@ import { Users } from "./Users.js";
 Users.hasMany(UserTrip, {
   foreignKey: "userId",
   as: "userTrips",
+  onDelete: "CASCADE",
 });
 
-UserTrip.belongsTo(User, {
+UserTrip.belongsTo(Users, {
   foreignKey: "userId",
   as: "user",
+  onDelete: "CASCADE",
 });
 
 // Relación Trip -> UserTrip
 Trips.hasMany(UserTrip, {
   foreignKey: "tripId",
   as: "tripUsers",
+  onDelete: "CASCADE",
 });
 
 UserTrip.belongsTo(Trips, {
   foreignKey: "tripId",
   as: "trip",
+  onDelete: "CASCADE",
 });
