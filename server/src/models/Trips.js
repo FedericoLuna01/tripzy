@@ -30,6 +30,10 @@ export const Trips = sequelize.define(
       allowNull: false,
       defaultValue: false,
     },
+    isBloqued: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   },
   {
     timestamps: false,
