@@ -22,7 +22,7 @@ export const DATA = [
             title: "Visita a la Torre de Belém",
             description:
               "Visita a la emblemática Torre de Belém, símbolo de la era de los descubrimientos.",
-            time: "10:00",
+            time: "11:00",
           },
         ],
       },

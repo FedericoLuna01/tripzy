@@ -10,6 +10,7 @@ const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
   };
 
   const handleDeleteDay = (deleteDay) => {
+    // TODO: En caso de que quede un solo dia, no permitir eliminarlo
     const updateDays = days.filter((day) => day.date !== deleteDay);
     setDays(updateDays);
 

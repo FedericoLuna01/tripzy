@@ -34,6 +34,14 @@ h1 {
   cursor: pointer;
 }
 
+.button-square {
+  padding: 0.6em;
+}
+
+.button-square:hover {
+  filter: brightness(0.8);
+}
+
 .button-primary {
   background-color: var(--color-primary);
   border: none;

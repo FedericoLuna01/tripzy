@@ -63,10 +63,10 @@ const Admin = () => {
   };
 
   const handleSearch = (e) => {
-    const value = e.target.value.toLowerCase();
+    const value = e.target.value;
     setSearch(value);
     const usersFiltered = users.filter((user) =>
-      user.name.toLowerCase().includes(value)
+      user.name.toLowerCase().includes(value.toLowerCase())
     );
     setFilteredUsers(usersFiltered);
   };
