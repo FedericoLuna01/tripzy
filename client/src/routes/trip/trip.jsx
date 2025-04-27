@@ -7,6 +7,7 @@ import TripDays from "../../components/trip-days/trip-days";
 import NewActivityForm from "../../components/new-activity-form/new-activity-form";
 import { formatDay } from "../../utils/utils";
 import { isEqual } from "date-fns";
+import { PencilSimple, Trash } from "phosphor-react";
 
 const IS_ADMIN = true; // Para simular admin
 
@@ -16,6 +17,7 @@ const Trip = () => {
   const [activities, setActivities] = useState(TRIP.days[0].activities);
   const [activeDay, setActiveDay] = useState(TRIP.startDate);
   const [days, setDays] = useState(TRIP.days);
+  const [editingActivity, setEditingActivity] = useState(null);
 
   return (
     <div className="info-container">
@@ -43,9 +45,26 @@ const Trip = () => {
                   <h3>{activity.title}</h3>
                   <p>{activity.description}</p>
                 </div>
+                <div className="activity-card-buttons">
+                  <button
+                    className="button button-outline button-square"
+                    onClick={() => setEditingActivity(activity)}
+                  >
+                    <PencilSimple size={20} />
+                  </button>
+                  <button className="button button-destructive button-square">
+                    <Trash size={20} />
+                  </button>
+                </div>
               </div>
             ))}
-          {IS_ADMIN && <NewActivityForm setActivities={setActivities} />}
+          {IS_ADMIN && (
+            <NewActivityForm
+              setActivities={setActivities}
+              editingActivity={editingActivity}
+              setEditingActivity={setEditingActivity}
+            />
+          )}
         </div>
       </div>
     </div>

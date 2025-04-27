@@ -174,19 +174,6 @@
   width: 100%;
 }
 
-.new-activity-button {
-  margin-left: auto;
-}
-
-.button-outline.button-square {
-  padding: 0.4em;
-}
-
-.button-outline.button-square:hover {
-  background-color: var(--color-background);
-  filter: brightness(0.8);
-}
-
 .email {
   font-size: small;
 }

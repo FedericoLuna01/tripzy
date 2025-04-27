@@ -1,9 +1,14 @@
-import React, { useRef, useState } from "react";
-import Input from "../ui/input/input";
+import React, { useEffect, useRef, useState } from "react";
+import { ArrowLeft, PencilSimple, PlusCircle } from "phosphor-react";
 import toast from "react-hot-toast";
-import { PlusCircle } from "phosphor-react";
+import Input from "../ui/input/input";
+import "./new-activity-form.css";
 
-const NewActivityForm = ({ setActivities }) => {
+const NewActivityForm = ({
+  setActivities,
+  editingActivity,
+  setEditingActivity,
+}) => {
   const inputTimeRef = useRef(null);
   const inputTitleRef = useRef(null);
 
@@ -16,6 +21,19 @@ const NewActivityForm = ({ setActivities }) => {
     activityTitleLength: false,
     activityDescriptionLength: false,
   });
+
+  useEffect(() => {
+    if (editingActivity) {
+      inputTimeRef.current.focus();
+      setTime(editingActivity.time);
+      setActivityTitle(editingActivity.title);
+      setActivityDescription(editingActivity.description);
+      return;
+    }
+    setTime("");
+    setActivityTitle("");
+    setActivityDescription("");
+  }, [editingActivity]);
 
   const handleTimeChange = (event) => {
     setTime(event.target.value);
@@ -92,6 +110,24 @@ const NewActivityForm = ({ setActivities }) => {
       activityDescription,
     });
 
+    if (editingActivity) {
+      setActivities((prevActivities) =>
+        prevActivities.map((activity) =>
+          // TODO: Cambiar a ID
+          activity.time === editingActivity.time
+            ? {
+                time,
+                title: activityTitle,
+                description: activityDescription,
+              }
+            : activity
+        )
+      );
+      toast.success("Actividad actualizada con éxito");
+      setEditingActivity(null);
+      return;
+    }
+
     setActivities((prevActivities) => [
       ...prevActivities,
       {
@@ -162,10 +198,25 @@ const NewActivityForm = ({ setActivities }) => {
           </p>
         )}
       </div>
-      <button className="button button-secondary new-activity-button">
-        Agregar actividad
-        <PlusCircle size={20} />
-      </button>
+      <div className="buttons-container">
+        {editingActivity && (
+          <button
+            className="button button-outline"
+            onClick={() => setEditingActivity(null)}
+          >
+            Cancelar edición
+            <ArrowLeft size={20} />
+          </button>
+        )}
+        <button className="button button-primary">
+          {editingActivity ? "Actualizar actividad" : "Agregar actividad"}
+          {editingActivity ? (
+            <PencilSimple size={20} />
+          ) : (
+            <PlusCircle size={20} />
+          )}
+        </button>
+      </div>
     </form>
   );
 };
