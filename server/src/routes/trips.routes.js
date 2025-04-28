@@ -6,7 +6,6 @@ import {
   getTrip,
   updateTrip,
 } from "../services/trips.services.js";
-import { getUser } from "../services/users.services.js";
 
 const router = Router();
 
