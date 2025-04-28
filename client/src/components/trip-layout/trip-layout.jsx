@@ -1,21 +1,47 @@
-import React, { useState } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router";
+import { PencilSimple, Plus, Trash } from "phosphor-react";
 import toast from "react-hot-toast";
-import "../../routes/trip/trip.css";
-import "../../routes/new-trip/new-trip.css";
+import { addDays } from "date-fns";
+import { useEffect, useState } from "react";
+import { DATA, USERS_AVATARS } from "../../data/data";
 import Avatar from "../../components/avatar/avatar";
 import Modal from "../../components/modal/modal";
-import { DATA, USERS_AVATARS } from "../../data/data";
-import { PencilSimple, Plus, Trash } from "phosphor-react";
-import "./trip-layout.css";
 import { formatDay } from "../../utils/utils";
-import { addDays } from "date-fns";
+import "../../routes/new-trip/new-trip.css";
+import "../../routes/trip/trip.css";
+import "./trip-layout.css";
 
 const TripLayout = () => {
   const params = useParams();
   const location = useLocation();
   const TRIP = DATA.find((trip) => trip.id === parseInt(params.id));
   const [isOpen, setIsOpen] = useState(false);
+  const [trip, setTrip] = useState(null);
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/trips/${params.id}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al obtener el viaje");
+        }
+        return response.json();
+      })
+      .then((trip) => {
+        console.log(trip);
+        setTrip(trip);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, [params.id]);
+
+  if (!trip) {
+    return (
+      <div className="container">
+        <h1>Viaje no encontrado</h1>
+      </div>
+    );
+  }
 
   const handleClose = () => {
     setIsOpen(false);
@@ -42,11 +68,12 @@ const TripLayout = () => {
         <div className="container trip-container">
           <div className="card trip-info">
             <div className="trip-header">
-              <h1 className="title">{TRIP.title}</h1>
+              <h1 className="title">{trip.title}</h1>
               <p>
-                {formatDay(new Date(TRIP.startDate))}
+                {formatDay(new Date(trip.startDate))}
                 {" - "}
                 {formatDay(
+                  // TODO: Cuando se tengamos los days cambiar a trip
                   addDays(new Date(TRIP.startDate), TRIP.days.length - 1)
                 )}
               </p>
@@ -58,7 +85,7 @@ const TripLayout = () => {
                   ))}
                   <Link
                     className="avatar add-user"
-                    to={`/trip/${TRIP.id}/members`}
+                    to={`/trip/${trip.id}/members`}
                   >
                     <Plus size={22} />
                   </Link>
@@ -66,7 +93,7 @@ const TripLayout = () => {
               </div>
             </div>
             <div className="actions-container">
-              <Link to={`/trip/edit/${TRIP.id}`}>
+              <Link to={`/trip/edit/${trip.id}`}>
                 <button className="button button-outline">
                   Editar <PencilSimple size={20} />
                 </button>
@@ -83,19 +110,19 @@ const TripLayout = () => {
           <div className="card tabs-container">
             <Link
               className={`tab ${
-                location.pathname === `/trip/${TRIP.id}` ? "selected" : ""
+                location.pathname === `/trip/${trip.id}` ? "selected" : ""
               }`}
-              to={`/trip/${TRIP.id}`}
+              to={`/trip/${trip.id}`}
             >
               Trip
             </Link>
             <Link
               className={`tab ${
-                location.pathname === `/trip/${TRIP.id}/members`
+                location.pathname === `/trip/${trip.id}/members`
                   ? "selected"
                   : ""
               }`}
-              to={`/trip/${TRIP.id}/members`}
+              to={`/trip/${trip.id}/members`}
             >
               Amigos
             </Link>

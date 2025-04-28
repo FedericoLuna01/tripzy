@@ -1,9 +1,11 @@
 import { addDays, isEqual } from "date-fns";
+import { useParams } from "react-router";
+import { toast } from "react-hot-toast";
 import { CalendarPlus, Minus } from "phosphor-react";
 import { formatDay } from "../../utils/utils";
 
 const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
-  if (!activeDay) return null;
+  const params = useParams();
 
   const handleActiveDay = (day) => {
     setActiveDay(day);
@@ -11,6 +13,21 @@ const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
 
   const handleDeleteDay = (deleteDay) => {
     // TODO: En caso de que quede un solo dia, no permitir eliminarlo
+    if (days.length === 1) {
+      return toast.error("No puedes eliminar el último día");
+    }
+
+    // fetch(`http://localhost:3000/days/${deleteDay}`, {
+    //   method: "DELETE",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //   });
+
     const updateDays = days.filter((day) => day.date !== deleteDay);
     setDays(updateDays);
 
@@ -23,6 +40,22 @@ const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
   const handleAddDay = () => {
     const lastDay = new Date(days[days.length - 1].date);
     const newDay = addDays(new Date(lastDay), 1);
+
+    fetch(`http://localhost:3000/days`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        date: newDay,
+        tripId: params.id,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+
     setDays((prev) => [...prev, { date: newDay }]);
     setActiveDay(newDay);
   };
