@@ -3,6 +3,7 @@ import { sequelize } from "./db.js";
 import userRoutes from "./routes/users.routes.js";
 import tripsRoutes from "./routes/trips.routes.js";
 import daysRoutes from "./routes/days.routes.js";
+import authRoutes from "./routes/auth.routes.js";
 import "./models/Users.js";
 import "./models/UserTrip.js";
 import "./models/Trips.js";
@@ -22,6 +23,7 @@ try {
   app.use(userRoutes);
   app.use(tripsRoutes);
   app.use(daysRoutes);
+  app.use(authRoutes);
 
   await sequelize.sync();
 
