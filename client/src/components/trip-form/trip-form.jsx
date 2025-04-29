@@ -132,6 +132,7 @@ const TripForm = ({ initialTrip }) => {
       method,
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify({
         title,
@@ -143,13 +144,12 @@ const TripForm = ({ initialTrip }) => {
         isBlocked,
       }),
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error al crear el viaje");
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message) {
+          return toast.error(data.message);
         }
-        return response.json();
-      })
-      .then(() => {
+
         return toast.success(
           `Viaje${initialTrip ? " editado " : " creado "}correctamente`
         );

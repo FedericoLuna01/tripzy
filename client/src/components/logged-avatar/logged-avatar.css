@@ -1,0 +1,24 @@
+.menu-items-logged {
+  z-index: 10000;
+  width: 12em;
+}
+
+.menu-button-logged {
+  border-radius: 50%;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.menu-button-logged:focus-visible {
+  outline: none;
+  border: 1px solid transparent;
+}
+
+.menu-button[data-headlessui-state~="open"][data-headlessui-state~="active"] {
+  background-color: transparent;
+  border-radius: 50%;
+}
+
+.menu-items:focus {
+  outline: none;
+}

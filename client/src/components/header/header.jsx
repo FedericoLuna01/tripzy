@@ -2,8 +2,7 @@ import React from "react";
 import Logo from "../ui/logo/logo";
 import "./header.css";
 import { NavLink } from "react-router";
-import Avatar from "../avatar/avatar";
-import { USERS_AVATARS } from "../../data/data";
+import LoggedAvatar from "../logged-avatar/logged-avatar";
 
 export const NAV_LINKS = [
   {
@@ -22,7 +21,7 @@ export const NAV_LINKS = [
 
 const Header = () => {
   const IS_LOGGED = true;
-  const IS_ADMIN = true;
+  const IS_ADMIN = false;
 
   return (
     <header className="border-b">
@@ -36,9 +35,7 @@ const Header = () => {
           ))}
           {IS_ADMIN && <NavLink to="/admin">Admin</NavLink>}
           {IS_LOGGED ? (
-            <NavLink to="/profile">
-              <Avatar user={USERS_AVATARS[0]} />
-            </NavLink>
+            <LoggedAvatar />
           ) : (
             <NavLink className="botonP" to="/register">
               <button className="button button-primary">Registrarse</button>

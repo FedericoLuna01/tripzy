@@ -19,7 +19,13 @@ const TripLayout = () => {
   const [trip, setTrip] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/trips/${params.id}`)
+    fetch(`http://localhost:3000/trips/${params.id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener el viaje");
@@ -59,7 +65,7 @@ const TripLayout = () => {
   return (
     <>
       <Modal
-        entity={`${TRIP.title}`}
+        entity={`${trip.title}`}
         onSubmit={handleDelete}
         isOpen={isOpen}
         handleClose={handleClose}

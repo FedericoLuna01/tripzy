@@ -7,10 +7,18 @@ import { useEffect, useState } from "react";
 const Profile = () => {
   const [trips, setTrips] = useState([]);
   const getTrips = () => {
-    fetch("http://localhost:3000/trips")
+    fetch("http://localhost:3000/trips", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if (data.message) {
+          return;
+        }
         setTrips(data);
       });
   };
@@ -33,13 +41,17 @@ const Profile = () => {
       </div>
       <div className="separator"></div>
       <div className="container-info">
-        {trips.map((trip, index) => (
-          <Link key={index} to={`/trip/${trip.id}`} className="box-info">
-            <img src={trip.imageUrl} alt={`${trip.title} image`} />
-            <h3>{trip.title}</h3>
-            <p>{trip.description}</p>
-          </Link>
-        ))}
+        {trips.length === 0 ? (
+          <p>No hay viajes disponibles</p>
+        ) : (
+          trips.map((trip, index) => (
+            <Link key={index} to={`/trip/${trip.id}`} className="box-info">
+              <img src={trip.imageUrl} alt={`${trip.title} image`} />
+              <h3>{trip.title}</h3>
+              <p>{trip.description}</p>
+            </Link>
+          ))
+        )}
       </div>
     </div>
   );

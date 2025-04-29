@@ -4,7 +4,6 @@ import { UserTrip } from "../models/UserTrip.js";
 export const getAllTrips = async (req, res) => {
   try {
     const trips = await Trips.findAll();
-    console.log(trips);
     return res.json(trips);
   } catch (error) {
     console.log(error);
