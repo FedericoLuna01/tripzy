@@ -1,4 +1,5 @@
 import express from "express";
+import dotenv from "dotenv";
 import { sequelize } from "./db.js";
 import userRoutes from "./routes/users.routes.js";
 import tripsRoutes from "./routes/trips.routes.js";
@@ -9,6 +10,7 @@ import "./models/UserTrip.js";
 import "./models/Trips.js";
 import "./models/TripDays.js";
 
+dotenv.config();
 const app = express();
 const PORT = 3000;
 try {

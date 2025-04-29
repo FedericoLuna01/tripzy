@@ -64,10 +64,8 @@ export const loginUser = async (req, res) => {
     });
   }
 
-  const secretKey = "mi_clave_secreta";
-  const token = jwt.sign({ email }, secretKey, {
-    expiresIn: "1h",
-  });
+  const secretKey = process.env.SECRET_KEY;
+  const token = jwt.sign({ email }, secretKey);
 
   return res.json({ token });
 };

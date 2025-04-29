@@ -25,7 +25,6 @@ export const getUser = async (req, res) => {
 
 export const postUser = async (req, res) => {
   let { name, email, password, role, status } = req.body;
-  console.log({ name, email, password, role, status });
 
   if (!name || !email || !password) {
     return res.status(400).json({

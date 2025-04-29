@@ -10,12 +10,15 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: false, password: false });
   const navigate = useNavigate();
+
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
+
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrors({ email: false, password: false });
@@ -55,6 +58,7 @@ const Login = () => {
           return;
         }
         localStorage.setItem("token", data.token);
+        toast.success("Se inicio sesión correctamente");
         navigate("/");
       })
       .catch((error) => {
@@ -62,6 +66,7 @@ const Login = () => {
         toast.error("Error al iniciar sesión");
       });
   };
+
   return (
     <div className="container-login">
       <div className="container-form">
