@@ -2,20 +2,21 @@ import "./login.css";
 import React, { useState } from "react";
 import Logo from "../../components/ui/logo/logo";
 import Input from "../../components/ui/input/input";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: false, password: false });
+  const navigate = useNavigate();
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setErrors({ email: false, password: false });
     let hasError = false;
@@ -36,7 +37,30 @@ const Login = () => {
     if (hasError) {
       return;
     }
-    toast.success("inicio de sesión correcto");
+
+    await fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message) {
+          toast.error(data.message);
+          return;
+        }
+        localStorage.setItem("token", data.token);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Error al iniciar sesión");
+      });
   };
   return (
     <div className="container-login">

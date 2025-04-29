@@ -112,7 +112,7 @@ const Register = () => {
     if (hasError) return;
 
     try {
-      const res = await fetch("http://localhost:3000/users", {
+      await fetch("http://localhost:3000/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -122,15 +122,16 @@ const Register = () => {
           email,
           password,
         }),
-      });
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.message) {
+            return toast.error(data.message);
+          }
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        return toast.error(data.message);
-      }
-
-      toast.success("Registrado correctamente!");
+          toast.success("Registrado correctamente!");
+        })
+        .catch((error) => console.log(error));
     } catch (error) {
       console.log(error);
     }
