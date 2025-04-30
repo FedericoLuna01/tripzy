@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db.js";
+import { UserRole, UserStatus } from "../enums/enums.js";
 
 export const Users = sequelize.define(
   "users",
@@ -23,14 +24,14 @@ export const Users = sequelize.define(
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM("superadmin", "admin", "user"),
+      type: DataTypes.ENUM(Object.values(UserRole)),
       allowNull: false,
-      defaultValue: "user",
+      defaultValue: UserRole.USER,
     },
     status: {
-      type: DataTypes.ENUM("active", "blocked"),
+      type: DataTypes.ENUM(Object.values(UserStatus)),
       allowNull: false,
-      defaultValue: "active",
+      defaultValue: UserStatus.ACTIVE,
     },
   },
   {
