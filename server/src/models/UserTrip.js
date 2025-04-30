@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db.js";
-import { Users } from "./Users.js";
+import { UserTripRole } from "../enums/enums.js";
 
 export const UserTrip = sequelize.define(
   "user_trip",
@@ -11,8 +11,9 @@ export const UserTrip = sequelize.define(
       autoIncrement: true,
     },
     role: {
-      type: DataTypes.ENUM("owner", "editor", "viewer"),
-      defaultValue: "viewer",
+      type: DataTypes.ENUM(Object.values(UserTripRole)),
+      allowNull: false,
+      defaultValue: UserTripRole.VIEWER,
     },
     userId: {
       type: DataTypes.INTEGER,
