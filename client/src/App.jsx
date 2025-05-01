@@ -14,6 +14,7 @@ import Login from "./routes/login/login";
 import Admin from "./routes/admin/admin";
 import Home from "./routes/home/home";
 import Trip from "./routes/trip/trip";
+import ProtectedRoutes from "./routes/protected-routes/protected-routes";
 
 function App() {
   return (
@@ -25,16 +26,18 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/new-trip" element={<NewTrip />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/new-trip" element={<NewTrip />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/trip/edit/:id" element={<TripEdit />} />
+            <Route element={<TripLayout />}>
+              <Route path="/trip/:id" element={<Trip />} />
+              <Route path="/trip/:id/members" element={<TripMembers />} />
+            </Route>
+          </Route>
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/edit/:id" element={<AdminEdit />} />
-          <Route path="/trip/edit/:id" element={<TripEdit />} />
-          <Route element={<TripLayout />}>
-            <Route path="/trip/:id" element={<Trip />} />
-            <Route path="/trip/:id/members" element={<TripMembers />} />
-          </Route>
-          <Route path="/aboutUs" element={<AboutUs />} />
         </Route>
       </Routes>
     </BrowserRouter>

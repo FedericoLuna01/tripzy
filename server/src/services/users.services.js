@@ -1,4 +1,5 @@
 import { Users } from "../models/Users.js";
+import jwt from "jsonwebtoken";
 
 export const getAllUsers = async (req, res) => {
   const users = await Users.findAll();
@@ -59,9 +60,9 @@ export const postUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { name, email, password, role, status } = req.body;
+  const { name, email, role, status, imageUrl } = req.body;
 
-  if (!name || !email || !password || !role || !status) {
+  if (!name || !email || !role || !status) {
     return res.status(400).json({
       message: "Todos los campos son obligatorios",
     });
@@ -75,36 +76,29 @@ export const updateUser = async (req, res) => {
     });
   }
 
-  await Users.update(
-    {
-      name,
-      email,
-      password,
-      role,
-      status,
-    },
-    {
-      where: { id },
-    }
-  );
-  await Users.update(
-    { name, email, password, role, status },
-    { where: { id } }
-  );
-  const updatedUser = await Users.findByPk(id);
-  res.json(updatedUser);
+  await user.update({
+    name,
+    email,
+    role,
+    status,
+    imageUrl,
+  });
+
+  res.json(user);
 };
 
 export const deleteUser = async (req, res) => {
   const { id } = req.params;
+
   const user = await Users.findByPk(id);
+
   if (!user) {
     return res.status(404).json({
       message: "User not found for delete",
     });
   }
-  await Users.destroy({
-    where: { id },
-  });
+
+  await user.destroy();
+
   res.json({ message: "Usuario eliminado correctamente" });
 };

@@ -1,11 +1,13 @@
+import { Link } from "react-router";
+import { useEffect, useState } from "react";
 import Avatar from "../../components/avatar/avatar";
 import "./profile.css";
-import { Link } from "react-router";
-import { DATA, USERS_AVATARS } from "../../data/data";
-import { useEffect, useState } from "react";
+import { getProfile } from "../../services/getProfile";
 
 const Profile = () => {
   const [trips, setTrips] = useState([]);
+  const [user, setUser] = useState(null);
+
   const getTrips = () => {
     fetch("http://localhost:3000/trips", {
       method: "GET",
@@ -23,17 +25,35 @@ const Profile = () => {
       });
   };
 
+  const getUser = async () => {
+    const data = await getProfile();
+    if (data) {
+      setUser(data);
+    } else {
+      setUser(null);
+    }
+  };
+
   useEffect(() => {
     getTrips();
+    getUser();
   }, []);
+
+  if (!user) {
+    return (
+      <div className="container profile">
+        <h1>Cargando...</h1>
+      </div>
+    );
+  }
 
   return (
     <div className="container profile">
       <div className="container-avatar">
-        <Avatar user={USERS_AVATARS[0]} />
+        <Avatar user={user} />
         <div>
-          <h2>John Doe </h2>
-          <p>wellech@gmail.com</p>
+          <h2>{user.name}</h2>
+          <p>{user.email}</p>
         </div>
       </div>
       <div className="container-title">

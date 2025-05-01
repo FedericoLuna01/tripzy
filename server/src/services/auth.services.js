@@ -65,7 +65,35 @@ export const loginUser = async (req, res) => {
   }
 
   const secretKey = process.env.SECRET_KEY;
-  const token = jwt.sign({ email }, secretKey);
+  const token = jwt.sign(
+    {
+      email,
+      id: user.id,
+      name: user.name,
+      role: user.role,
+      status: user.status,
+      imageUrl: user.imageUrl,
+    },
+    secretKey
+  );
 
   return res.json({ token });
+};
+
+export const getProfile = async (req, res) => {
+  const header = req.header("Authorization") || "";
+  const token = header.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "No posee autorización" });
+  }
+
+  try {
+    const secretKey = process.env.SECRET_KEY;
+    const payload = jwt.verify(token, secretKey);
+    return res.json(payload);
+  } catch (error) {
+    console.log(error);
+    return res.status(403).json({ message: "No posee los permisos correctos" });
+  }
 };
