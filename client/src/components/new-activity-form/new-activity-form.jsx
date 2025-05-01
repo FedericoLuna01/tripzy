@@ -137,7 +137,22 @@ const NewActivityForm = ({
       },
     ]);
 
-    toast.success("Actividad agregada con éxito");
+    fetch(`http://localhost:3000/activities`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({
+        title: activityTitle,
+        description: activityDescription,
+        time,
+        tripDaysId: 1,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
 
     setTime("");
     setActivityTitle("");
