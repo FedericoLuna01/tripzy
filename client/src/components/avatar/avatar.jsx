@@ -11,7 +11,11 @@ const Avatar = ({ user }) => {
 
   return (
     <div className="avatar">
-      {user.image ? <img src={user.image} alt="" /> : getInitials(user.name)}
+      {user.imageUrl ? (
+        <img src={user.imageUrl} alt="" />
+      ) : (
+        getInitials(user.name)
+      )}
     </div>
   );
 };

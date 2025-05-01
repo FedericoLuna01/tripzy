@@ -19,6 +19,9 @@ export const Users = sequelize.define(
       allowNull: false,
       unique: true,
     },
+    imageUrl: {
+      type: DataTypes.STRING,
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,

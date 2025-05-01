@@ -9,7 +9,6 @@ export const verifyToken = (req, res, next) => {
   try {
     const secretKey = process.env.SECRET_KEY;
     const payload = jwt.verify(token, secretKey);
-    console.log(payload);
     next();
   } catch (error) {
     console.log(error);

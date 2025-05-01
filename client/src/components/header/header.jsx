@@ -11,7 +11,7 @@ export const NAV_LINKS = [
   },
   {
     name: "Sobre nosotros",
-    to: "/aboutUs",
+    to: "/about-us",
   },
   {
     name: "Nuevo viaje",
