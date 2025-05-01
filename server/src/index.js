@@ -5,10 +5,12 @@ import userRoutes from "./routes/users.routes.js";
 import tripsRoutes from "./routes/trips.routes.js";
 import daysRoutes from "./routes/days.routes.js";
 import authRoutes from "./routes/auth.routes.js";
+import activitiesRoutes from "./routes/activities.routes.js";
 import "./models/Users.js";
 import "./models/UserTrip.js";
 import "./models/Trips.js";
 import "./models/TripDays.js";
+import "./models/Activities.js";
 
 dotenv.config();
 const app = express();
@@ -25,6 +27,7 @@ try {
   app.use(userRoutes);
   app.use(tripsRoutes);
   app.use(daysRoutes);
+  app.use(activitiesRoutes);
   app.use(authRoutes);
 
   await sequelize.sync();
