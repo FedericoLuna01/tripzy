@@ -26,6 +26,46 @@ const Home = () => {
         <div className="gradient-1"></div>
         <img className="hero-img" src="/img-hero.png" alt="hero-img" />
       </div>
+      <section className="container">
+        <div className="title-container">
+          <h1>¿Cómo funciona?</h1>
+          <p>En cuatro simples pasos estarás organizando </p>
+        </div>
+        <div className="grid-container">
+          <div className="grid-card">
+            <h1>01</h1>
+            <p>Creá tu cuenta</p>
+            <p>
+              Registrate de forma gratuita y accede a todas las funcionalidades
+              de la plataforma.
+            </p>
+          </div>
+          <div className="grid-card">
+            <h1>02</h1>
+            <p>Planificá tu viaje</p>
+            <p>
+              Crea un nuevo viaje, definile fechas y añadí los destinos que
+              visitarás.
+            </p>
+          </div>
+          <div className="grid-card">
+            <h1>03</h1>
+            <p>Organizá actividades</p>
+            <p>
+              Para cada día, añade las actividades que realizarás incluyendo
+              horarios y ubicaciones.
+            </p>
+          </div>
+          <div className="grid-card">
+            <h1>04</h1>
+            <p>Comparte y colabora</p>
+            <p>
+              Invita a otras personas a ver o a editar tu itinerario según los
+              permisos que asignes.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
