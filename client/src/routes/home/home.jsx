@@ -1,28 +1,31 @@
 import React from "react";
-import { USERS_AVATARS } from "../../data/data";
-import Avatar from "../../components/avatar/avatar";
+import {
+  CaretRight,
+  UsersThree,
+  AirplaneTakeoff,
+  BellRinging,
+  GlobeHemisphereWest,
+  BookBookmark,
+  ChatTeardropDots,
+} from "phosphor-react";
+import { Link } from "react-router";
 import "./home.css";
-import { CaretRight } from "phosphor-react";
-import { UsersThree } from "phosphor-react";
-import { AirplaneTakeoff } from "phosphor-react";
-import { BellRinging } from "phosphor-react";
-import { GlobeHemisphereWest } from "phosphor-react";
-import { BookBookmark } from "phosphor-react";
-import { ChatTeardropDots } from "phosphor-react";
 
 const Home = () => {
   return (
     <div>
-      <div className="hero-container container">
+      <section className="hero-container container">
         <div className="gradient-1"></div>
         <div className="left-body-container">
           <h1> Tu proxima aventura te espera</h1>
           <p>
             Planea y organizá todo tu viaje con tus amigos de la mejor manera
           </p>
-          <button className="button button-primary">
-            Empezar <AirplaneTakeoff size={22} />
-          </button>
+          <Link className="link-button" to="/register">
+            <button className="button button-primary">
+              Empezar <AirplaneTakeoff size={22} />
+            </button>
+          </Link>
           <div className="avatars-container">
             {new Array(6).fill(0).map((_, index) => (
               <div className="avatar" key={index}>
@@ -34,10 +37,10 @@ const Home = () => {
         </div>
         <div className="gradient-1"></div>
         <img className="hero-img" src="/img-hero.png" alt="hero-img" />
-      </div>
+      </section>
 
       {/* Sección 1 */}
-      <section className="container">
+      <section className="container steps-section">
         <div className="title-container">
           <h1>¿Cómo funciona?</h1>
           <p>
@@ -59,7 +62,7 @@ const Home = () => {
             <h1>02</h1>
             <p className="grid-title">Planificá tu viaje</p>
             <p>
-              Crea un nuevo viaje, definile fechas y añadí los destinos que
+              Crea un nuevo viaje, definí fechas y añadí los destinos que
               visitarás
             </p>
           </div>
@@ -83,50 +86,48 @@ const Home = () => {
           </div>
         </div>
         <div className="container-button">
-          <button className="button">Comenzar ahora</button>
+          <Link className="link-button" to="/register">
+            <button className="button button-primary">Comenzar ahora</button>
+          </Link>
         </div>
       </section>
 
       {/* Sección 2 */}
-      <section class="container trip-cards">
-        <div class="card orange-card">
+      <section className="container trip-cards">
+        <div className="card orange-card">
           <h1>Invitá a todos tus amigos</h1>
-          <p>
+          <p className="card-text">
             Cada integrante puede agregar o modificar actividades, ajustando el
             viaje según sus preferencias
           </p>
-          <UsersThree size={72} className="UsersThree" />
+          <UsersThree size={72} className="icon" />
         </div>
-        <div class="right-column">
-          <div class="card gray-card full">
+        <div className="right-column">
+          <div className="card gray-card full">
             <h1>Organizá todo desde un solo lugar</h1>
-            <p>
+            <p className="card-text">
               Definí fechas, destinos, actividades y alojamiento. Todo el grupo
               puede ver y proponer cambios al instante
             </p>
-            <BookBookmark size={32} className="BookBookmark" color="orange" />
+            <BookBookmark size={32} className="icon" color="orange" />
           </div>
 
-          <div class="half-grid">
-            <div class="card gray-card">
+          <div className="half-grid">
+            <div className="card gray-card">
               <h1>Explorá y agregá destinos</h1>
-              <p>
+              <p className="card-text">
                 Planifiquen sus paradas, lugares turísticos o ciudades favoritas
                 directamente en el itinerario
               </p>
-              <GlobeHemisphereWest
-                size={32}
-                className="GlobeHemisphereWest"
-                color="orange"
-              />
+              <GlobeHemisphereWest size={32} className="icon" color="orange" />
             </div>
-            <div class="card gray-card">
+            <div className="card gray-card">
               <h1>Recibí notificaciones</h1>
-              <p>
+              <p className="card-text">
                 Mantenete al tanto de cambios, nuevas propuestas o comentarios
                 del grupo, todo en tiempo real
               </p>
-              <BellRinging size={32} className="BellRinging" color="orange" />
+              <BellRinging size={32} className="icon" color="orange" />
             </div>
           </div>
         </div>
@@ -177,17 +178,19 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="hero-section container">
+      <section className="divider-section container">
         <img
-          src="/public/trip.jpeg"
+          src="./trip.jpeg"
           alt="Persona mirando el paisaje"
-          className="hero-image"
+          className="divider-image"
         />
-        <div className="hero-content">
+        <div className="divider-content">
           <h2>¿Listo para empezar el viaje de tus sueños?</h2>
-          <button className="button">
-            Empezar <AirplaneTakeoff size={22}> </AirplaneTakeoff>{" "}
-          </button>
+          <Link className="link-button" to="/register">
+            <button className="button button-primary">
+              Empezar <AirplaneTakeoff size={20} />
+            </button>
+          </Link>
         </div>
       </section>
     </div>
