@@ -8,6 +8,7 @@ import { AirplaneTakeoff } from "phosphor-react";
 import { BellRinging } from "phosphor-react";
 import { GlobeHemisphereWest } from "phosphor-react";
 import { BookBookmark } from "phosphor-react";
+import { ChatTeardropDots } from "phosphor-react";
 
 const Home = () => {
   return (
@@ -29,11 +30,13 @@ const Home = () => {
               </div>
             ))}
           </div>
-          <p className="avatar-text">+1000 personas organizaron su viaje</p>
+          <p className="avatar-text">+1069 personas organizaron su viaje</p>
         </div>
         <div className="gradient-1"></div>
         <img className="hero-img" src="/img-hero.png" alt="hero-img" />
       </div>
+
+      {/* Sección 1 */}
       <section className="container">
         <div className="title-container">
           <h1>¿Cómo funciona?</h1>
@@ -48,7 +51,7 @@ const Home = () => {
             <p className="grid-title">Creá tu cuenta</p>
             <p>
               Registrate de forma gratuita y accede a todas las funcionalidades
-              de la plataforma.
+              de la plataforma
             </p>
           </div>
           <CaretRight size={60} />
@@ -57,7 +60,7 @@ const Home = () => {
             <p className="grid-title">Planificá tu viaje</p>
             <p>
               Crea un nuevo viaje, definile fechas y añadí los destinos que
-              visitarás.
+              visitarás
             </p>
           </div>
           <CaretRight size={60} />
@@ -66,7 +69,7 @@ const Home = () => {
             <p className="grid-title">Organizá actividades</p>
             <p>
               Para cada día, añade las actividades que realizarás incluyendo
-              horarios y ubicaciones.
+              horarios y ubicaciones
             </p>
           </div>
           <CaretRight size={60} />
@@ -75,7 +78,7 @@ const Home = () => {
             <p className="grid-title">Comparte y colabora</p>
             <p>
               Invita a otras personas a ver o a editar tu itinerario según los
-              permisos que asignes.
+              permisos que asignes
             </p>
           </div>
         </div>
@@ -83,22 +86,23 @@ const Home = () => {
           <button className="button">Comenzar ahora</button>
         </div>
       </section>
-      <section class="trip-cards">
+
+      {/* Sección 2 */}
+      <section class="container trip-cards">
         <div class="card orange-card">
           <h1>Invitá a todos tus amigos</h1>
           <p>
             Cada integrante puede agregar o modificar actividades, ajustando el
-            viaje según sus preferencias.
+            viaje según sus preferencias
           </p>
           <UsersThree size={72} className="UsersThree" />
         </div>
-
         <div class="right-column">
           <div class="card gray-card full">
             <h1>Organizá todo desde un solo lugar</h1>
             <p>
               Definí fechas, destinos, actividades y alojamiento. Todo el grupo
-              puede ver y proponer cambios al instante.
+              puede ver y proponer cambios al instante
             </p>
             <BookBookmark size={32} className="BookBookmark" />
           </div>
@@ -108,7 +112,7 @@ const Home = () => {
               <h1>Explorá y agregá destinos</h1>
               <p>
                 Planifiquen sus paradas, lugares turísticos o ciudades favoritas
-                directamente en el itinerario.
+                directamente en el itinerario
               </p>
               <GlobeHemisphereWest size={32} className="GlobeHemisphereWest" />
             </div>
@@ -116,10 +120,52 @@ const Home = () => {
               <h1>Recibí notificaciones</h1>
               <p>
                 Mantenete al tanto de cambios, nuevas propuestas o comentarios
-                del grupo, todo en tiempo real.
+                del grupo, todo en tiempo real
               </p>
               <BellRinging size={32} className="BellRinging" />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sección 3 */}
+      <section className="container comments">
+        <div className="title-container">
+          <h1>Lo que nuestros usuario opinan</h1>
+          <p>
+            Miles de viajeros ya están disfrutando de una mejor manera de
+            planificar sus aventuras.
+          </p>
+        </div>
+        <div className="grid-container">
+          <div className="grid-card">
+            <ChatTeardropDots size={32} />
+            <p>
+              Registrate de forma gratuita y accede a todas las funcionalidades
+              de la plataforma
+            </p>
+            <p className="grid-title">Federico Luna</p>
+            <p className="grid-title">Viajero Frecuente</p>
+          </div>
+
+          <div className="grid-card">
+            <ChatTeardropDots size={32} />
+            <p>
+              Crea un nuevo viaje, definile fechas y añadí los destinos que
+              visitarás
+            </p>
+            <p className="grid-title">Álvaro Reynoso</p>
+            <p className="grid-title">Aventurero</p>
+          </div>
+
+          <div className="grid-card">
+            <ChatTeardropDots size={32} />
+            <p>
+              Para cada día, añade las actividades que realizarás incluyendo
+              horarios y ubicaciones
+            </p>
+            <p className="grid-title">Luciano Tessa</p>
+            <p className="grid-title">Ejecutivo</p>
           </div>
         </div>
       </section>
