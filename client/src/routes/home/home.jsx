@@ -3,6 +3,11 @@ import { USERS_AVATARS } from "../../data/data";
 import Avatar from "../../components/avatar/avatar";
 import "./home.css";
 import { CaretRight } from "phosphor-react";
+import { UsersThree } from "phosphor-react";
+import { AirplaneTakeoff } from "phosphor-react";
+import { BellRinging } from "phosphor-react";
+import { GlobeHemisphereWest } from "phosphor-react";
+import { BookBookmark } from "phosphor-react";
 
 const Home = () => {
   return (
@@ -14,7 +19,9 @@ const Home = () => {
           <p>
             Planea y organizá todo tu viaje con tus amigos de la mejor manera
           </p>
-          <button className="button button-primary">Empezar</button>
+          <button className="button button-primary">
+            Empezar <AirplaneTakeoff size={22} />
+          </button>
           <div className="avatars-container">
             {new Array(6).fill(0).map((_, index) => (
               <div className="avatar" key={index}>
@@ -70,6 +77,49 @@ const Home = () => {
               Invita a otras personas a ver o a editar tu itinerario según los
               permisos que asignes.
             </p>
+          </div>
+        </div>
+        <div className="container-button">
+          <button className="button">Comenzar ahora</button>
+        </div>
+      </section>
+      <section class="trip-cards">
+        <div class="card orange-card">
+          <h1>Invitá a todos tus amigos</h1>
+          <p>
+            Cada integrante puede agregar o modificar actividades, ajustando el
+            viaje según sus preferencias.
+          </p>
+          <UsersThree size={72} className="UsersThree" />
+        </div>
+
+        <div class="right-column">
+          <div class="card gray-card full">
+            <h1>Organizá todo desde un solo lugar</h1>
+            <p>
+              Definí fechas, destinos, actividades y alojamiento. Todo el grupo
+              puede ver y proponer cambios al instante.
+            </p>
+            <BookBookmark size={32} className="BookBookmark" />
+          </div>
+
+          <div class="half-grid">
+            <div class="card gray-card">
+              <h1>Explorá y agregá destinos</h1>
+              <p>
+                Planifiquen sus paradas, lugares turísticos o ciudades favoritas
+                directamente en el itinerario.
+              </p>
+              <GlobeHemisphereWest size={32} className="GlobeHemisphereWest" />
+            </div>
+            <div class="card gray-card">
+              <h1>Recibí notificaciones</h1>
+              <p>
+                Mantenete al tanto de cambios, nuevas propuestas o comentarios
+                del grupo, todo en tiempo real.
+              </p>
+              <BellRinging size={32} className="BellRinging" />
+            </div>
           </div>
         </div>
       </section>
