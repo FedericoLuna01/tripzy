@@ -104,7 +104,7 @@ const Home = () => {
               Definí fechas, destinos, actividades y alojamiento. Todo el grupo
               puede ver y proponer cambios al instante
             </p>
-            <BookBookmark size={32} className="BookBookmark" />
+            <BookBookmark size={32} className="BookBookmark" color="orange" />
           </div>
 
           <div class="half-grid">
@@ -114,7 +114,11 @@ const Home = () => {
                 Planifiquen sus paradas, lugares turísticos o ciudades favoritas
                 directamente en el itinerario
               </p>
-              <GlobeHemisphereWest size={32} className="GlobeHemisphereWest" />
+              <GlobeHemisphereWest
+                size={32}
+                className="GlobeHemisphereWest"
+                color="orange"
+              />
             </div>
             <div class="card gray-card">
               <h1>Recibí notificaciones</h1>
@@ -122,7 +126,7 @@ const Home = () => {
                 Mantenete al tanto de cambios, nuevas propuestas o comentarios
                 del grupo, todo en tiempo real
               </p>
-              <BellRinging size={32} className="BellRinging" />
+              <BellRinging size={32} className="BellRinging" color="orange" />
             </div>
           </div>
         </div>
