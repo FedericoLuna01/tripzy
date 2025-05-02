@@ -172,6 +172,20 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      <section className="hero-section container">
+        <img
+          src="/public/trip.jpeg"
+          alt="Persona mirando el paisaje"
+          className="hero-image"
+        />
+        <div className="hero-content">
+          <h2>¿Listo para empezar el viaje de tus sueños?</h2>
+          <button className="button">
+            Empezar <AirplaneTakeoff size={22}> </AirplaneTakeoff>{" "}
+          </button>
+        </div>
+      </section>
     </div>
   );
 };

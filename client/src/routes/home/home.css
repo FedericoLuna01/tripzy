@@ -255,3 +255,47 @@
 .title-container p {
   color: white;
 }
+
+.container {
+  border-radius: 15px;
+}
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  border-radius: 35px;
+  overflow: hidden;
+}
+
+.hero-image {
+  height: 400px;
+  width: 100%;
+  display: block;
+  border-radius: 35px;
+}
+
+.hero-content {
+  position: absolute;
+  top: 30%;
+  left: 5%;
+  color: white;
+  max-width: 600px;
+}
+
+.hero-content h2 {
+  margin-top: 1.5em;
+  font-size: 2.7rem;
+  margin-bottom: 20px;
+}
+
+.hero-content button {
+  background-color: #df6d14;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
