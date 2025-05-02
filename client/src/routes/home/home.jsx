@@ -131,41 +131,44 @@ const Home = () => {
       {/* Sección 3 */}
       <section className="container comments">
         <div className="title-container">
-          <h1>Lo que nuestros usuario opinan</h1>
+          <h1>Lo que nuestros usuarios opinan</h1>
           <p>
             Miles de viajeros ya están disfrutando de una mejor manera de
             planificar sus aventuras.
           </p>
         </div>
         <div className="grid-container">
-          <div className="grid-card">
-            <ChatTeardropDots size={32} />
+          <div className="grid-card2">
+            <ChatTeardropDots size={32} color="orange" />
             <p>
-              Registrate de forma gratuita y accede a todas las funcionalidades
-              de la plataforma
+              Esta plataforma ha hecho que planificar nuestro viaje familiar sea
+              muy sencillo. No más hojas de cálculo confusas o mensajes
+              perdidos.
             </p>
             <p className="grid-title">Federico Luna</p>
-            <p className="grid-title">Viajero Frecuente</p>
+            <p className="profession">Viajero Frecuente</p>
           </div>
 
-          <div className="grid-card">
-            <ChatTeardropDots size={32} />
+          <div className="grid-card2">
+            <ChatTeardropDots size={32} color="orange" />
             <p>
-              Crea un nuevo viaje, definile fechas y añadí los destinos que
-              visitarás
+              Como mochilero, necesito flexibilidad. Esta app me permite
+              modificar mis planes sobre la marcha y mantener a mis amigos
+              informados.
             </p>
             <p className="grid-title">Álvaro Reynoso</p>
-            <p className="grid-title">Aventurero</p>
+            <p className="profession">Aventurero</p>
           </div>
 
-          <div className="grid-card">
-            <ChatTeardropDots size={32} />
+          <div className="grid-card2">
+            <ChatTeardropDots size={32} color="orange" />
             <p>
-              Para cada día, añade las actividades que realizarás incluyendo
-              horarios y ubicaciones
+              Uso Tripzy para todos mis viajes de negocios. Es muy cómodo, pero
+              la capacidad de poder compartir itinerarios con mis colegas es
+              invaluable.
             </p>
             <p className="grid-title">Luciano Tessa</p>
-            <p className="grid-title">Ejecutivo</p>
+            <p className="profession">Ejecutivo</p>
           </div>
         </div>
       </section>

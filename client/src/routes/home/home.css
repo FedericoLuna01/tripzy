@@ -120,14 +120,10 @@
 
 .grid-title {
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-bottom: 0.5rem;
-  color: #1d3557;
-}
-
-.grid-card p {
-  font-size: 0.95rem;
-  color: #444;
+  margin-top: 1.2rem;
+  color: #000000;
 }
 
 .trip-cards {
@@ -174,7 +170,7 @@
 }
 
 .orange-card {
-  background-color: #f97316;
+  background-color: #df6d14;
   color: white;
   flex: 1;
 }
@@ -228,16 +224,34 @@
   flex: 1;
 }
 
-.card img {
-  width: 40px;
-  height: 40px;
-  align-self: flex-end;
-}
-
 .card p {
   margin-top: 20px;
 }
 
 .comments {
-  background-color: #ffdbc7;
+  background-color: #df6d14;
+}
+
+.profession {
+  font-size: 0.8rem;
+}
+
+.grid-card2 {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
+  align-items: flex-start;
+  transition: transform 0.3s;
+  width: 25em;
+  min-height: 15em;
+}
+
+.title-container h1 {
+  color: white;
+}
+
+.title-container p {
+  color: white;
 }
