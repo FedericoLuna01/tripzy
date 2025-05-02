@@ -2,6 +2,7 @@ import React from "react";
 import { USERS_AVATARS } from "../../data/data";
 import Avatar from "../../components/avatar/avatar";
 import "./home.css";
+import { CaretRight } from "phosphor-react";
 
 const Home = () => {
   return (
@@ -43,6 +44,7 @@ const Home = () => {
               de la plataforma.
             </p>
           </div>
+          <CaretRight size={60} />
           <div className="grid-card">
             <h1>02</h1>
             <p className="grid-title">Planificá tu viaje</p>
@@ -51,6 +53,7 @@ const Home = () => {
               visitarás.
             </p>
           </div>
+          <CaretRight size={60} />
           <div className="grid-card">
             <h1>03</h1>
             <p className="grid-title">Organizá actividades</p>
@@ -59,6 +62,7 @@ const Home = () => {
               horarios y ubicaciones.
             </p>
           </div>
+          <CaretRight size={60} />
           <div className="grid-card">
             <h1>04</h1>
             <p className="grid-title">Comparte y colabora</p>

@@ -90,8 +90,9 @@
 }
 
 .grid-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 1.5rem;
 }
 
@@ -100,10 +101,11 @@
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  display: flex;
   flex-direction: column;
   align-items: flex-start;
   transition: transform 0.3s;
+  width: 25em;
+  min-height: 13em;
 }
 
 .grid-card:hover {
