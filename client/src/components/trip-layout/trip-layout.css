@@ -11,6 +11,10 @@
   margin-left: -8px;
 }
 
+.avatars-container > .avatar:first-child {
+  margin-left: 0;
+}
+
 .trip-container {
   display: flex;
   flex-direction: column;
