@@ -29,12 +29,15 @@ const Home = () => {
       <section className="container">
         <div className="title-container">
           <h1>¿Cómo funciona?</h1>
-          <p>En cuatro simples pasos estarás organizando </p>
+          <p>
+            En cuatro simples pasos estarás organizando tus viajes como un
+            profesional
+          </p>
         </div>
         <div className="grid-container">
           <div className="grid-card">
             <h1>01</h1>
-            <p>Creá tu cuenta</p>
+            <p className="grid-title">Creá tu cuenta</p>
             <p>
               Registrate de forma gratuita y accede a todas las funcionalidades
               de la plataforma.
@@ -42,7 +45,7 @@ const Home = () => {
           </div>
           <div className="grid-card">
             <h1>02</h1>
-            <p>Planificá tu viaje</p>
+            <p className="grid-title">Planificá tu viaje</p>
             <p>
               Crea un nuevo viaje, definile fechas y añadí los destinos que
               visitarás.
@@ -50,7 +53,7 @@ const Home = () => {
           </div>
           <div className="grid-card">
             <h1>03</h1>
-            <p>Organizá actividades</p>
+            <p className="grid-title">Organizá actividades</p>
             <p>
               Para cada día, añade las actividades que realizarás incluyendo
               horarios y ubicaciones.
@@ -58,7 +61,7 @@ const Home = () => {
           </div>
           <div className="grid-card">
             <h1>04</h1>
-            <p>Comparte y colabora</p>
+            <p className="grid-title">Comparte y colabora</p>
             <p>
               Invita a otras personas a ver o a editar tu itinerario según los
               permisos que asignes.
