@@ -1,5 +1,3 @@
-@import url("../../variables.css");
-
 .new-itinerary-bg {
   background-color: var(--color-secondary);
 }

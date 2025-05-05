@@ -1,5 +1,3 @@
-@import url("../../variables.css");
-
 .container-register {
   display: grid;
   grid-template-columns: 1fr 1fr;

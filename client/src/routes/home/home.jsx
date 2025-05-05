@@ -94,7 +94,7 @@ const Home = () => {
 
       {/* Sección 2 */}
       <section className="container trip-cards">
-        <div className="card orange-card">
+        <div className="card-home orange-card">
           <h1>Invitá a todos tus amigos</h1>
           <p className="card-text">
             Cada integrante puede agregar o modificar actividades, ajustando el
@@ -103,7 +103,7 @@ const Home = () => {
           <UsersThree size={72} className="icon" />
         </div>
         <div className="right-column">
-          <div className="card gray-card full">
+          <div className="card-home gray-card full">
             <h1>Organizá todo desde un solo lugar</h1>
             <p className="card-text">
               Definí fechas, destinos, actividades y alojamiento. Todo el grupo
@@ -113,7 +113,7 @@ const Home = () => {
           </div>
 
           <div className="half-grid">
-            <div className="card gray-card">
+            <div className="card-home gray-card">
               <h1>Explorá y agregá destinos</h1>
               <p className="card-text">
                 Planifiquen sus paradas, lugares turísticos o ciudades favoritas
@@ -121,7 +121,7 @@ const Home = () => {
               </p>
               <GlobeHemisphereWest size={32} className="icon" color="orange" />
             </div>
-            <div className="card gray-card">
+            <div className="card-home gray-card">
               <h1>Recibí notificaciones</h1>
               <p className="card-text">
                 Mantenete al tanto de cambios, nuevas propuestas o comentarios

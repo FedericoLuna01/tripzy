@@ -1,5 +1,3 @@
-@import url("../../variables.css");
-
 .avatars-container {
   display: flex;
   flex-direction: row;
