@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import Modal from "../../components/modal/modal";
 import toast from "react-hot-toast";
 
-export const TripMembers = () => {
+const TripMembers = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [users, setUsers] = useState(USERS_AVATARS);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -84,3 +84,5 @@ export const TripMembers = () => {
     </>
   );
 };
+
+export default TripMembers;

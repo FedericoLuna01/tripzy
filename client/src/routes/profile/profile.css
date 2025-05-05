@@ -1,5 +1,3 @@
-@import url("../../variables.css");
-
 .container.profile {
   display: flex;
   flex-direction: column;

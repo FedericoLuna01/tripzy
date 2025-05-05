@@ -97,3 +97,42 @@ export const getProfile = async (req, res) => {
     return res.status(403).json({ message: "No posee los permisos correctos" });
   }
 };
+
+export const updateProfile = async (req, res) => {
+  const { id } = req.params;
+  const { name, imageUrl } = req.body;
+
+  if (!name || !imageUrl) {
+    return res.status(400).json({
+      message: "Todos los campos son obligatorios",
+    });
+  }
+
+  const user = await Users.findByPk(id);
+
+  if (!user) {
+    return res.status(404).json({
+      message: "El usuario no existe",
+    });
+  }
+
+  await user.update({
+    name,
+    imageUrl,
+  });
+
+  const secretKey = process.env.SECRET_KEY;
+  const newToken = jwt.sign(
+    {
+      email: user.email,
+      id: user.id,
+      name: user.name,
+      role: user.role,
+      status: user.status,
+      imageUrl: user.imageUrl,
+    },
+    secretKey
+  );
+
+  return res.json({ user, token: newToken });
+};

@@ -3,7 +3,9 @@ import { Toaster } from "react-hot-toast";
 import TripLayout from "./components/trip-layout/trip-layout";
 import AboutUs from "./components/about-us/about-us";
 import Layout from "./components/layout/layout";
-import { TripMembers } from "./routes/trip-members/trip-members";
+import ProtectedRoutes from "./routes/protected-routes/protected-routes";
+import TripMembers from "./routes/trip-members/trip-members";
+import ProfileEdit from "./routes/profile-edit/profile-edit";
 import AdminEdit from "./routes/admin-edit/admin-edit";
 import NotFound from "./routes/not-found/not-found";
 import TripEdit from "./routes/trip-edit/trip-edit";
@@ -14,7 +16,6 @@ import Login from "./routes/login/login";
 import Admin from "./routes/admin/admin";
 import Home from "./routes/home/home";
 import Trip from "./routes/trip/trip";
-import ProtectedRoutes from "./routes/protected-routes/protected-routes";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route element={<ProtectedRoutes />}>
             <Route path="/new-trip" element={<NewTrip />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/edit" element={<ProfileEdit />} />
             <Route path="/trip/edit/:id" element={<TripEdit />} />
             <Route element={<TripLayout />}>
               <Route path="/trip/:id" element={<Trip />} />
