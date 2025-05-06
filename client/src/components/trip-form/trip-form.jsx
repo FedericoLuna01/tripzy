@@ -170,7 +170,7 @@ const TripForm = ({ initialTrip }) => {
       <div className="card new-trip-card">
         <h2>Descripción general</h2>
         <div className="inputs-container">
-          <div>
+          <div className="input-group">
             <label htmlFor="title">Titulo</label>
             <Input
               ref={inputTitleRef}
@@ -179,14 +179,14 @@ const TripForm = ({ initialTrip }) => {
               id={"title"}
               className={`${errors.title ? "error" : ""}`}
             />
-            <p>Titulo de tu viaje</p>
+            <p className="input-description">Titulo de tu viaje</p>
             {errors.title && (
               <p className="error-message">
                 El titulo debe contener al menos 5 caracteres
               </p>
             )}
           </div>
-          <div>
+          <div className="input-group">
             <label htmlFor="description">Descripción</label>
             <Input
               ref={inputDescriptionRef}
@@ -195,14 +195,16 @@ const TripForm = ({ initialTrip }) => {
               id={"description"}
               className={`${errors.description ? "error" : ""}`}
             />
-            <p>Una pequeña descripción de tu viaje</p>
+            <p className="input-description">
+              Una pequeña descripción de tu viaje
+            </p>
             {errors.description && (
               <p className="error-message">
                 La descripción debe contener al menos 10 caracteres
               </p>
             )}
           </div>
-          <div>
+          <div className="input-group">
             <label htmlFor="date">Inicio del viaje</label>
             <Input
               ref={inputTripStartRef}
@@ -212,12 +214,12 @@ const TripForm = ({ initialTrip }) => {
               id={"date"}
               className={`${errors.tripStart ? "error" : ""}`}
             />
-            <p>La fecha de inicio de tu viaje</p>
+            <p className="input-description">La fecha de inicio de tu viaje</p>
             {errors.tripStart && (
               <p className="error-message">La fecha debe ser posterior a hoy</p>
             )}
           </div>
-          <div>
+          <div className="input-group">
             <label htmlFor="imageUrl">Url de la imagen</label>
             <Input
               ref={inputImageUrlRef}
@@ -226,7 +228,7 @@ const TripForm = ({ initialTrip }) => {
               id={"imageUrl"}
               className={`${errors.imageUrl ? "error" : ""}`}
             />
-            <p>Imagen de portada de tu viaje</p>
+            <p className="input-description">Imagen de portada de tu viaje</p>
             {errors.imageUrl && (
               <p className="error-message">
                 La url de la imagen no puede estar vacía
@@ -242,10 +244,12 @@ const TripForm = ({ initialTrip }) => {
               type="checkbox"
               style={{ width: "fit-content" }}
             />
-            <p>Cualquier persona podrá unirse al itinerario</p>
+            <p className="input-description">
+              Cualquier persona podrá unirse al itinerario
+            </p>
           </div>
           {IS_ADMIN && (
-            <div className="checkbox-container">
+            <div className="input-group">
               <label htmlFor="blocked">Bloqueado</label>
               <Input
                 onChange={handleIsBlocked}
@@ -254,7 +258,9 @@ const TripForm = ({ initialTrip }) => {
                 type="checkbox"
                 style={{ width: "fit-content" }}
               />
-              <p>El viaje no será visible para los usuarios</p>
+              <p className="input-description">
+                El viaje no será visible para los usuarios
+              </p>
             </div>
           )}
         </div>

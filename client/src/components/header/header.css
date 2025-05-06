@@ -19,6 +19,15 @@ header {
   align-items: center;
 }
 
+.header-links a {
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.header-links a:hover {
+  color: var(--color-primary);
+}
+
 .botonP {
   text-decoration: none;
 }

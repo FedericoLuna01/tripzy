@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Avatar from "../../components/avatar/avatar";
 import "./profile.css";
 import { getProfile } from "../../services/getProfile";
+import { User } from "phosphor-react";
 
 const Profile = () => {
   const [trips, setTrips] = useState([]);
@@ -54,6 +55,9 @@ const Profile = () => {
         <div>
           <h2>{user.name}</h2>
           <p>{user.email}</p>
+          <Link className="edit-profile" to={"/profile/edit"}>
+            Editar perfil
+          </Link>
         </div>
       </div>
       <div className="container-title">
