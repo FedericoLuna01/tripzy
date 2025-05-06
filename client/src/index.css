@@ -45,6 +45,8 @@ h1 {
 .button-primary {
   background-color: var(--color-primary);
   border: none;
+  color: white;
+  font-size: 0.9em;
 }
 
 .button-secondary {

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./profile-edit.css";
 import Input from "../../components/ui/input/input";
-import { PencilSimple } from "phosphor-react";
+import { ArrowLeft, PencilSimple } from "phosphor-react";
 import { getProfile } from "../../services/getProfile";
 import toast from "react-hot-toast";
 
@@ -148,9 +148,15 @@ const ProfileEdit = () => {
               />
             )}
           </div>
-          <button className="button button-primary profile-edit-button">
-            Guardar cambios <PencilSimple size={20} />
-          </button>
+          <div className="edit-profile-buttons-container">
+            <button className="button button-secondary ">
+              <ArrowLeft size={16} />
+              Cancelar
+            </button>
+            <button className="button button-primary profile-edit-button">
+              Guardar cambios <PencilSimple size={20} />
+            </button>
+          </div>
         </form>
       </div>
     </section>

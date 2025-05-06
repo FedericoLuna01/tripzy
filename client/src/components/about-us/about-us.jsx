@@ -5,9 +5,6 @@ import Logo from "../ui/logo/logo";
 const AboutUs = () => {
   return (
     <div className="container-aboutUs">
-      <div className="title-aboutUs">
-        <Logo />
-      </div>
       <div className="content-aboutUs">
         <p>
           Somos un grupo de desarrolladores apasionados por la tecnología y la

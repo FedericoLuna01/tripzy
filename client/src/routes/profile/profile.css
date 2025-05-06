@@ -81,3 +81,12 @@ a.box-info {
 .box-info:hover h3 {
   color: var(--color-primary);
 }
+
+.edit-profile {
+  text-decoration: none;
+  color: var(--color-primary);
+}
+
+.edit-profile:hover {
+  filter: brightness(0.8);
+}
