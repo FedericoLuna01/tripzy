@@ -100,7 +100,7 @@ const TripLayout = () => {
             </div>
             <div className="actions-container">
               <Link to={`/trip/edit/${trip.id}`}>
-                <button className="button button-outline">
+                <button className=" button button-outline ">
                   Editar <PencilSimple size={20} />
                 </button>
               </Link>

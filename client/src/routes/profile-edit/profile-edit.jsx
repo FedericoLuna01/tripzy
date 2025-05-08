@@ -4,6 +4,7 @@ import Input from "../../components/ui/input/input";
 import { ArrowLeft, PencilSimple } from "phosphor-react";
 import { getProfile } from "../../services/getProfile";
 import toast from "react-hot-toast";
+import { Link } from "react-router";
 
 const ProfileEdit = () => {
   const [user, setUser] = useState(null);
@@ -149,10 +150,12 @@ const ProfileEdit = () => {
             )}
           </div>
           <div className="edit-profile-buttons-container">
-            <button className="button button-secondary ">
-              <ArrowLeft size={16} />
-              Cancelar
-            </button>
+            <Link className="link-button " to={"/profile"}>
+              <button className="button button-secondary">
+                <ArrowLeft size={16} />
+                Cancelar
+              </button>
+            </Link>
             <button className="button button-primary profile-edit-button">
               Guardar cambios <PencilSimple size={20} />
             </button>

@@ -13,12 +13,6 @@ header {
   align-items: center;
 }
 
-.header-links {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
 .header-links a {
   text-decoration: none;
   color: var(--color-text);
@@ -26,6 +20,12 @@ header {
 
 .header-links a:hover {
   color: var(--color-primary);
+}
+
+.header-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }
 
 .botonP {

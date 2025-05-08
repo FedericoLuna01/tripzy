@@ -21,6 +21,10 @@ p.input-description {
   flex-direction: column;
 }
 
+.input-group-label {
+  margin-top: 8px;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -29,6 +33,11 @@ form {
 
 .p-description {
   margin: 0 auto;
+}
+
+.name-description {
+  font-size: 0.8em;
+  margin: 0;
 }
 
 .a-a {
