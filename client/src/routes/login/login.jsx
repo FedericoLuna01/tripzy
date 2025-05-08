@@ -75,7 +75,9 @@ const Login = () => {
         <p>Planea tus viajes de manera fácil y rápida</p>
         <form onSubmit={handleSubmit} action="">
           <div className="input-group">
-            <label htmlFor="email">Email</label>
+            <label className="input-group-label" htmlFor="email">
+              Email
+            </label>
             <Input
               value={email}
               placeholder={"ej: alvaroreynoso@gmail.com"}

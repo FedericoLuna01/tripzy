@@ -144,8 +144,10 @@ const Register = () => {
         <h1 className="register-title">Crea tu cuenta</h1>
         <p>Planea tus viajes de manera fácil y rápida</p>
         <form action="" onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label htmlFor="name">Nombre</label>
+          <div className="input-group ">
+            <label className="input-group-label" htmlFor="name">
+              Nombre
+            </label>
             <Input
               ref={inputNameRef}
               placeholder={"ej: John Doe"}
