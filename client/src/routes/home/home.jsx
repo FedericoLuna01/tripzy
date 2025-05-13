@@ -9,6 +9,14 @@ import {
 } from "phosphor-react";
 import { Link } from "react-router";
 import "./home.css";
+
+import EmblaCarousel from "../../components/carousel/carousel";
+
+const Home = () => {
+  const SLIDE_COUNT = 6;
+  const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
+
+=======
 import SlideIn from "../../components/ui/slide-in/slide-in";
 
 const Home = () => {
@@ -34,6 +42,7 @@ const Home = () => {
         "Invita a otras personas a ver o a editar tu itinerario según los permisos que asignes",
     },
   ];
+
   return (
     <div className="overflow-hidden">
       <div className="gradient-1"></div>
@@ -141,39 +150,8 @@ const Home = () => {
             planificar sus aventuras.
           </p>
         </div>
-        <div className="grid-container">
-          <div className="grid-card2">
-            <ChatTeardropDots size={32} color="orange" />
-            <p>
-              Esta plataforma ha hecho que planificar nuestro viaje familiar sea
-              muy sencillo. No más hojas de cálculo confusas o mensajes
-              perdidos.
-            </p>
-            <p className="grid-title">Federico Luna</p>
-            <p className="profession">Viajero Frecuente</p>
-          </div>
-
-          <div className="grid-card2">
-            <ChatTeardropDots size={32} color="orange" />
-            <p>
-              Como mochilero, necesito flexibilidad. Esta app me permite
-              modificar mis planes sobre la marcha y mantener a mis amigos
-              informados.
-            </p>
-            <p className="grid-title">Álvaro Reynoso</p>
-            <p className="profession">Aventurero</p>
-          </div>
-
-          <div className="grid-card2">
-            <ChatTeardropDots size={32} color="orange" />
-            <p>
-              Uso Tripzy para todos mis viajes de negocios. Es muy cómodo, pero
-              la capacidad de poder compartir itinerarios con mis colegas es
-              invaluable.
-            </p>
-            <p className="grid-title">Luciano Tessa</p>
-            <p className="profession">Ejecutivo</p>
-          </div>
+        <div className="grid-container ">
+          <EmblaCarousel />
         </div>
       </section>
 

@@ -12,6 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^2.2.2",
     "date-fns": "^4.1.0",
+    "embla-carousel-react": "^8.6.0",
     "motion": "^12.11.0",
     "phosphor-react": "^1.4.1",
     "react": "^19.0.0",
