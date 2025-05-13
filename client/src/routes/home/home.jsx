@@ -93,7 +93,6 @@ const Home = () => {
           </Link>
         </div>
       </section>
-
       {/* Sección 2 */}
       <section className="container trip-cards">
         <SlideIn className="card-home orange-card">
