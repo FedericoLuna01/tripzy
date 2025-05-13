@@ -9,6 +9,7 @@
     "headlessui",
     "Ingresá",
     "ingridgrolimund",
+    "Invitá",
     "Lisboa",
     "lucianotessa",
     "olvidás",
@@ -23,11 +24,11 @@
     "Tripzy"
   ],
   "github.copilot.enable": {
-    "*": false,
+    "*": true,
     "plaintext": false,
     "markdown": false,
     "scminput": false,
-    "typescript": false,
-    "yaml": false
+    "yaml": false,
+    "typescript": false
   }
 }
