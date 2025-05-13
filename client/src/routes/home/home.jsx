@@ -1,4 +1,3 @@
-import React from "react";
 import {
   CaretRight,
   UsersThree,
@@ -10,17 +9,46 @@ import {
 } from "phosphor-react";
 import { Link } from "react-router";
 import "./home.css";
+
 import EmblaCarousel from "../../components/carousel/carousel";
 
 const Home = () => {
   const SLIDE_COUNT = 6;
   const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 
+=======
+import SlideIn from "../../components/ui/slide-in/slide-in";
+
+const Home = () => {
+  const GRID_CARD_ITEMS = [
+    {
+      title: "Creá tu cuenta",
+      description:
+        "Registrate de forma gratuita y accede a todas las funcionalidades de la plataforma",
+    },
+    {
+      title: "Planificá tu viaje",
+      description:
+        "Crea un nuevo viaje, definí fechas y añadí los destinos que visitarás",
+    },
+    {
+      title: "Organizá actividades",
+      description:
+        "Para cada día, añade las actividades que realizarás incluyendo horarios y ubicaciones",
+    },
+    {
+      title: "Comparte y colabora",
+      description:
+        "Invita a otras personas a ver o a editar tu itinerario según los permisos que asignes",
+    },
+  ];
+
   return (
-    <div>
-      <section className="hero-container container">
-        <div className="gradient-1"></div>
-        <div className="left-body-container">
+    <div className="overflow-hidden">
+      <div className="gradient-1"></div>
+      <div className="gradient-1"></div>
+      <section className="hero-container container ">
+        <SlideIn className="left-body-container">
           <h1> Tu proxima aventura te espera</h1>
           <p>
             Planea y organizá todo tu viaje con tus amigos de la mejor manera
@@ -38,56 +66,32 @@ const Home = () => {
             ))}
           </div>
           <p className="avatar-text">+1069 personas organizaron su viaje</p>
-        </div>
-        <div className="gradient-1"></div>
-        <img className="hero-img" src="/img-hero.png" alt="hero-img" />
+        </SlideIn>
+        <SlideIn side="right">
+          <img className="hero-img" src="/img-hero.png" alt="hero-img" />
+        </SlideIn>
       </section>
 
       {/* Sección 1 */}
       <section className="container steps-section">
-        <div className="title-container">
+        <SlideIn className="title-container">
           <h1>¿Cómo funciona?</h1>
           <p>
             En cuatro simples pasos estarás organizando tus viajes como un
             profesional
           </p>
-        </div>
+        </SlideIn>
         <div className="grid-container">
-          <div className="grid-card">
-            <h1>01</h1>
-            <p className="grid-title">Creá tu cuenta</p>
-            <p>
-              Registrate de forma gratuita y accede a todas las funcionalidades
-              de la plataforma
-            </p>
-          </div>
-          <CaretRight size={60} />
-          <div className="grid-card">
-            <h1>02</h1>
-            <p className="grid-title">Planificá tu viaje</p>
-            <p>
-              Crea un nuevo viaje, definí fechas y añadí los destinos que
-              visitarás
-            </p>
-          </div>
-          <CaretRight size={60} />
-          <div className="grid-card">
-            <h1>03</h1>
-            <p className="grid-title">Organizá actividades</p>
-            <p>
-              Para cada día, añade las actividades que realizarás incluyendo
-              horarios y ubicaciones
-            </p>
-          </div>
-          <CaretRight size={60} />
-          <div className="grid-card">
-            <h1>04</h1>
-            <p className="grid-title">Comparte y colabora</p>
-            <p>
-              Invita a otras personas a ver o a editar tu itinerario según los
-              permisos que asignes
-            </p>
-          </div>
+          {GRID_CARD_ITEMS.map((item, index) => (
+            <>
+              <SlideIn delay={index * 0.2} className="grid-card" key={index}>
+                <h1>{`0${index + 1}`}</h1>
+                <p className="grid-title">{item.title}</p>
+                <p>{item.description}</p>
+              </SlideIn>
+              {index < GRID_CARD_ITEMS.length - 1 && <CaretRight size={60} />}
+            </>
+          ))}
         </div>
         <div className="container-button">
           <Link className="link-button" to="/register">
@@ -98,41 +102,41 @@ const Home = () => {
 
       {/* Sección 2 */}
       <section className="container trip-cards">
-        <div className="card-home orange-card">
+        <SlideIn className="card-home orange-card">
           <h1>Invitá a todos tus amigos</h1>
           <p className="card-text">
             Cada integrante puede agregar o modificar actividades, ajustando el
             viaje según sus preferencias
           </p>
           <UsersThree size={72} className="icon" />
-        </div>
+        </SlideIn>
         <div className="right-column">
-          <div className="card-home gray-card full">
+          <SlideIn delay={0.1} className="card-home gray-card full">
             <h1>Organizá todo desde un solo lugar</h1>
             <p className="card-text">
               Definí fechas, destinos, actividades y alojamiento. Todo el grupo
               puede ver y proponer cambios al instante
             </p>
             <BookBookmark size={32} className="icon" color="orange" />
-          </div>
+          </SlideIn>
 
           <div className="half-grid">
-            <div className="card-home gray-card">
+            <SlideIn delay={0.2} className="card-home gray-card">
               <h1>Explorá y agregá destinos</h1>
               <p className="card-text">
                 Planifiquen sus paradas, lugares turísticos o ciudades favoritas
                 directamente en el itinerario
               </p>
               <GlobeHemisphereWest size={32} className="icon" color="orange" />
-            </div>
-            <div className="card-home gray-card">
+            </SlideIn>
+            <SlideIn delay={0.3} className="card-home gray-card">
               <h1>Recibí notificaciones</h1>
               <p className="card-text">
                 Mantenete al tanto de cambios, nuevas propuestas o comentarios
                 del grupo, todo en tiempo real
               </p>
               <BellRinging size={32} className="icon" color="orange" />
-            </div>
+            </SlideIn>
           </div>
         </div>
       </section>
@@ -157,14 +161,14 @@ const Home = () => {
           alt="Persona mirando el paisaje"
           className="divider-image"
         />
-        <div className="divider-content">
+        <SlideIn className="divider-content">
           <h2>¿Listo para empezar el viaje de tus sueños?</h2>
           <Link className="link-button" to="/register">
             <button className="button button-primary">
               Empezar <AirplaneTakeoff size={20} />
             </button>
           </Link>
-        </div>
+        </SlideIn>
       </section>
     </div>
   );
