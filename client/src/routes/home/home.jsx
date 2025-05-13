@@ -13,9 +13,6 @@ import "./home.css";
 import EmblaCarousel from "../../components/carousel/carousel";
 
 const Home = () => {
-  const SLIDE_COUNT = 6;
-  const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
-
   return (
     <div>
       <section className="hero-container container">
