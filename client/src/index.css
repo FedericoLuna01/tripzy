@@ -132,6 +132,10 @@ a:visited {
   text-decoration: none;
 }
 
+.overflow-hidden {
+  overflow: hidden;
+}
+
 @media (min-width: 640px) {
   .container {
     max-width: 640px;
