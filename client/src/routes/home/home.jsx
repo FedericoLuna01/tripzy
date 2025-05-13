@@ -13,6 +13,39 @@ import "./home.css";
 import EmblaCarousel from "../../components/carousel/carousel";
 
 const Home = () => {
+<<<<<<< HEAD
+=======
+  const SLIDE_COUNT = 6;
+  const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
+
+=======
+import SlideIn from "../../components/ui/slide-in/slide-in";
+
+const Home = () => {
+  const GRID_CARD_ITEMS = [
+    {
+      title: "Creá tu cuenta",
+      description:
+        "Registrate de forma gratuita y accede a todas las funcionalidades de la plataforma",
+    },
+    {
+      title: "Planificá tu viaje",
+      description:
+        "Crea un nuevo viaje, definí fechas y añadí los destinos que visitarás",
+    },
+    {
+      title: "Organizá actividades",
+      description:
+        "Para cada día, añade las actividades que realizarás incluyendo horarios y ubicaciones",
+    },
+    {
+      title: "Comparte y colabora",
+      description:
+        "Invita a otras personas a ver o a editar tu itinerario según los permisos que asignes",
+    },
+  ];
+
+>>>>>>> fd422b878dd1713351f01d592b40157f8be0ef34
   return (
     <div className="overflow-hidden">
       <div className="gradient-1"></div>
