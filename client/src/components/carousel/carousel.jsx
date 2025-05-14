@@ -8,6 +8,8 @@ import useEmblaCarousel from "embla-carousel-react";
 import "./carousel.css";
 import { ChatTeardropDots } from "phosphor-react";
 
+// ANDA ESA VERGA O QUE?
+
 const EmblaCarousel = () => {
   const SLIDES = [
     {

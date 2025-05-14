@@ -73,3 +73,12 @@
   width: 35%;
   height: 35%;
 }
+
+.embla__buttons > button:hover {
+  color: var(--color-primary);
+}
+
+.embla__buttons > button:active {
+  color: var(--color-primary);
+  transform: scale(1.1);
+}

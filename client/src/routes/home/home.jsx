@@ -9,15 +9,9 @@ import {
 } from "phosphor-react";
 import { Link } from "react-router";
 import "./home.css";
-
-import EmblaCarousel from "../../components/carousel/carousel";
-
-const Home = () => {
-  const SLIDE_COUNT = 6;
-  const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
-
-=======
 import SlideIn from "../../components/ui/slide-in/slide-in";
+import EmblaCarousel from "../../components/carousel/carousel";
+// import { motion } from "framer-motion";
 
 const Home = () => {
   const GRID_CARD_ITEMS = [
@@ -99,7 +93,6 @@ const Home = () => {
           </Link>
         </div>
       </section>
-
       {/* Sección 2 */}
       <section className="container trip-cards">
         <SlideIn className="card-home orange-card">
