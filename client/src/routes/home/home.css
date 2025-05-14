@@ -206,10 +206,6 @@
   background-color: #fff;
   border-radius: var(--border-radius-medium);
   padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  flex-direction: column;
-  align-items: flex-start;
-  transition: transform 0.3s;
   width: 25em;
   min-height: 15em;
 }
@@ -221,7 +217,6 @@
 }
 
 .divider-section.container:hover {
-  /* aumentar el tamaño */
   transform: scale(1.02);
   transition: transform 0.5s;
   transition-timing-function: ease-in-out;

@@ -1,74 +1,79 @@
-import React from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { ChatTeardropDots } from "phosphor-react";
+import Autoplay from "embla-carousel-autoplay";
 import {
   PrevButton,
   NextButton,
   usePrevNextButtons,
 } from "./carousel-arrow-button";
-import useEmblaCarousel from "embla-carousel-react";
 import "./carousel.css";
-import { ChatTeardropDots } from "phosphor-react";
 
-//
-
-const EmblaCarousel = () => {
+const Carousel = () => {
   const SLIDES = [
     {
       description:
-        "Gracias a esta plataforma, organizar mis escapadas de fin de semana es rápido y sin estrés. Todo está en un solo lugar.",
-      name: "Luciano Tessa",
-      role: "Explorador Urbano",
+        "Esta plataforma revolucionó la forma en que planifico mis viajes de negocios. Todo está optimizado para máxima eficiencia.",
+      name: "Carlos Méndez",
+      role: "Ejecutivo de Ventas",
     },
     {
       description:
-        "Me encantó lo intuitiva que es la herramienta. Pude coordinar un viaje con amigos sin complicaciones ni malos entendidos.",
-      name: "Álvaro Reynoso",
-      role: "Aventurero Social",
+        "Como mochilero, necesito flexibilidad. Esta herramienta me permite ajustar mis planes sobre la marcha sin perder el control.",
+      name: "Daniela Ríos",
+      role: "Viajera Mochilera",
     },
     {
       description:
-        "Planear unas vacaciones familiares solía ser un caos. Ahora todo fluye de forma ordenada y hasta divertida.",
-      name: "Ingrid Grolimund",
-      role: "Mamá Viajera",
+        "Organizar nuestro viaje de graduación fue pan comido. Todos pudieron colaborar y ver los planes en tiempo real.",
+      name: "Fernando Torres",
+      role: "Estudiante Universitario",
     },
     {
       description:
-        "Nunca pensé que coordinar un viaje en grupo pudiera ser tan sencillo. Esta plataforma me ahorró horas de trabajo.",
-      name: "Luciano Tessa",
-      role: "Coordinador de Viajes",
+        "Finalmente una solución que entiende las necesidades de los viajeros frecuentes. Integra perfectamente todos mis itinerarios.",
+      name: "Mariana Costa",
+      role: "Consultora Internacional",
     },
     {
       description:
-        "Una solución genial para los que amamos viajar pero no tanto planificar. Todo claro, visual y fácil de seguir.",
-      name: "Ingrid Grolimund",
-      role: "Amante de la Aventura",
+        "La función de presupuesto compartido nos salvó de muchas discusiones en nuestro viaje de amigos. ¡Totalmente recomendado!",
+      name: "Roberto Salinas",
+      role: "Organizador de Grupos",
     },
     {
       description:
-        "Planear unas vacaciones familiares solía ser un caos. Ahora todo fluye de forma ordenada y hasta divertida.",
-      name: "Ingrid Grolimund",
-      role: "Mamá Viajera",
+        "Como fotógrafo profesional, necesito planificar ubicaciones exactas. Esta plataforma me ayuda a coordinar mis sesiones de viaje.",
+      name: "Lucía Valdivia",
+      role: "Fotógrafa de Viajes",
     },
     {
       description:
-        "Nunca pensé que coordinar un viaje en grupo pudiera ser tan sencillo. Esta plataforma me ahorró horas de trabajo.",
-      name: "Luciano Tessa",
-      role: "Coordinador de Viajes",
+        "Nunca había visto una herramienta tan completa para viajes en pareja. Nos mantiene sincronizados en todos los detalles.",
+      name: "Alejandro y Camila",
+      role: "Viajeros en Pareja",
     },
     {
       description:
-        "Una solución genial para los que amamos viajar pero no tanto planificar. Todo claro, visual y fácil de seguir.",
-      name: "Ingrid Grolimund",
-      role: "Amante de la Aventura",
+        "La integración con mapas y transporte público hace que explorar ciudades nuevas sea mucho más accesible.",
+      name: "Sofía Nakamura",
+      role: "Turista Cultural",
     },
     {
       description:
-        "Planear unas vacaciones familiares solía ser un caos. Ahora todo fluye de forma ordenada y hasta divertida.",
-      name: "Ingrid Grolimund",
-      role: "Mamá Viajera",
+        "Perfecto para familias numerosas. Todos pueden ver el itinerario y agregar sus preferencias fácilmente.",
+      name: "Los García",
+      role: "Familia Viajera",
     },
   ];
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start" });
+  const carouselOptions = {
+    align: "start",
+    loop: true,
+  };
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(carouselOptions, [
+    Autoplay({ delay: 4000, stopOnInteraction: true }),
+  ]);
   const {
     prevBtnDisabled,
     nextBtnDisabled,
@@ -81,7 +86,7 @@ const EmblaCarousel = () => {
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           {SLIDES.map((slide, index) => (
-            <div className="grid-card2 embla__slide" key={index}>
+            <div className="grid-card2 embla__slide shadow" key={index}>
               <ChatTeardropDots size={32} color="orange" />
               <p>{slide.description}</p>
               <p className="grid-title">{slide.name}</p>
@@ -101,4 +106,4 @@ const EmblaCarousel = () => {
   );
 };
 
-export default EmblaCarousel;
+export default Carousel;
