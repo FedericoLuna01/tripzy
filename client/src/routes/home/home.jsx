@@ -5,13 +5,12 @@ import {
   BellRinging,
   GlobeHemisphereWest,
   BookBookmark,
-  ChatTeardropDots,
 } from "phosphor-react";
 import { Link } from "react-router";
 import "./home.css";
 import SlideIn from "../../components/ui/slide-in/slide-in";
-import EmblaCarousel from "../../components/carousel/carousel";
-// import { motion } from "framer-motion";
+import Carousel from "../../components/carousel/carousel";
+import React from "react";
 
 const Home = () => {
   const GRID_CARD_ITEMS = [
@@ -65,7 +64,6 @@ const Home = () => {
           <img className="hero-img" src="/img-hero.png" alt="hero-img" />
         </SlideIn>
       </section>
-
       {/* Sección 1 */}
       <section className="container steps-section">
         <SlideIn className="title-container">
@@ -77,14 +75,14 @@ const Home = () => {
         </SlideIn>
         <div className="grid-container">
           {GRID_CARD_ITEMS.map((item, index) => (
-            <>
-              <SlideIn delay={index * 0.2} className="grid-card" key={index}>
+            <React.Fragment key={index}>
+              <SlideIn delay={index * 0.2} className="grid-card">
                 <h1>{`0${index + 1}`}</h1>
                 <p className="grid-title">{item.title}</p>
                 <p>{item.description}</p>
               </SlideIn>
               {index < GRID_CARD_ITEMS.length - 1 && <CaretRight size={60} />}
-            </>
+            </React.Fragment>
           ))}
         </div>
         <div className="container-button">
@@ -133,7 +131,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
       {/* Sección 3 */}
       <section className="container comments">
         <div className="title-container">
@@ -144,10 +141,10 @@ const Home = () => {
           </p>
         </div>
         <div className="grid-container ">
-          <EmblaCarousel />
+          <Carousel />
         </div>
       </section>
-
+      {/* Divider section */}
       <section className="divider-section container">
         <img
           src="./trip.jpeg"
