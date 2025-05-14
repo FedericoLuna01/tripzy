@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import { ThemeContext } from "./theme.context";
 
+const themeValue = localStorage.getItem("theme");
+
 export const ThemeContextProvider = ({ children }) => {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState(themeValue);
+  useEffect(() => {
+    document.querySelector("#root").classList.add(theme);
+  }, [theme]);
+
   const toggleTheme = () => {
     if (theme === "light") {
       document.querySelector("#root").classList.add("dark");
@@ -14,9 +20,5 @@ export const ThemeContextProvider = ({ children }) => {
       setTheme("light");
     }
   };
-  return (
-    <ThemeContextProvider value={{ theme, toggleTheme }}>
-      {children}
-    </ThemeContextProvider>
-  );
+  return <ThemeContext value={{ theme, toggleTheme }}>{children}</ThemeContext>;
 };

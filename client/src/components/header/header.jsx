@@ -3,6 +3,7 @@ import Logo from "../ui/logo/logo";
 import "./header.css";
 import { NavLink } from "react-router";
 import LoggedAvatar from "../logged-avatar/logged-avatar";
+import ToggleTheme from "../toggle-theme/toggle-theme";
 
 export const NAV_LINKS = [
   {
@@ -41,6 +42,7 @@ const Header = () => {
               <button className="button button-primary">Registrarse</button>
             </NavLink>
           )}
+          <ToggleTheme />
         </div>
       </div>
     </header>
