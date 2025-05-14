@@ -15,4 +15,15 @@
 
   --border-radius-small: 0.2em;
   --border-radius-medium: 0.5em;
+
+  .dark {
+    --color-text: #ffffff;
+    --color-background: #3a3b3c;
+    --color-primary: #df6d14;
+    --color-secondary: #313131;
+    --color-accent: #3a7d44;
+    --color-muted: #3f3f3f;
+    --color-destructive: #e7000b;
+    --color-border: #767676;
+  }
 }
