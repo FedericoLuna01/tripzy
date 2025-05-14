@@ -5,10 +5,7 @@ import { Moon, Sun } from "phosphor-react";
 const ToggleTheme = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   return (
-    <button
-      className="button button-outline button-square"
-      onClick={toggleTheme}
-    >
+    <button className="button button-outline button-square">
       {theme == "dark" ? <Moon size={20} /> : <Sun size={20} />}
     </button>
   );
