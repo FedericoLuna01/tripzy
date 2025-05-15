@@ -42,9 +42,9 @@ const Home = () => {
       <div className="gradient-1"></div>
       <section className="hero-container container">
         <SlideIn className="left-body-container">
-          <h1> Tu proxima aventura te espera</h1>
+          <h1> Tu próxima aventura te espera</h1>
           <p>
-            Planea y organizá todo tu viaje con tus amigos de la mejor manera
+            Planeá y organizá todo tu viaje con tus amigos de la mejor manera
           </p>
           <Link className="link-button" to="/register">
             <button className="button button-primary">
@@ -93,7 +93,7 @@ const Home = () => {
       </section>
       {/* Sección 2 */}
       <section className="container trip-cards">
-        <SlideIn className="card-home orange-card">
+        <SlideIn className="card-home orange-card shadow">
           <h1>Invitá a todos tus amigos</h1>
           <p className="card-text">
             Cada integrante puede agregar o modificar actividades, ajustando el
@@ -102,7 +102,7 @@ const Home = () => {
           <UsersThree size={72} className="icon" />
         </SlideIn>
         <div className="right-column">
-          <SlideIn delay={0.1} className="card-home gray-card full">
+          <SlideIn delay={0.1} className="card-home gray-card full shadow">
             <h1>Organizá todo desde un solo lugar</h1>
             <p className="card-text">
               Definí fechas, destinos, actividades y alojamiento. Todo el grupo
@@ -112,7 +112,7 @@ const Home = () => {
           </SlideIn>
 
           <div className="half-grid">
-            <SlideIn delay={0.2} className="card-home gray-card">
+            <SlideIn delay={0.2} className="card-home gray-card shadow">
               <h1>Explorá y agregá destinos</h1>
               <p className="card-text">
                 Planifiquen sus paradas, lugares turísticos o ciudades favoritas
@@ -120,7 +120,7 @@ const Home = () => {
               </p>
               <GlobeHemisphereWest size={32} className="icon" color="orange" />
             </SlideIn>
-            <SlideIn delay={0.3} className="card-home gray-card">
+            <SlideIn delay={0.3} className="card-home gray-card shadow">
               <h1>Recibí notificaciones</h1>
               <p className="card-text">
                 Mantenete al tanto de cambios, nuevas propuestas o comentarios

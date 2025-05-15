@@ -76,12 +76,12 @@ const TripLayout = () => {
             <div className="trip-header">
               <h1 className="title">{trip.title}</h1>
               <p>
-                {formatDay(new Date(trip.startDate))}
+                {formatDay(new Date(trip?.startDate))}
                 {" - "}
-                {formatDay(
+                {/* {formatDay(
                   // TODO: Cuando se tengamos los days cambiar a trip
                   addDays(new Date(TRIP.startDate), TRIP.days.length - 1)
-                )}
+                )} */}
               </p>
               <div className="friends-container">
                 <p>Amigos de viaje:</p>

@@ -7,7 +7,7 @@
   --color-muted: #717171;
   --color-destructive: #e7000b;
   --color-border: #c8c8c8;
-
+  --color-card: #f0f0f0;
   --font-size-small: 0.875em;
   --font-size-medium: 1.5em;
   --font-size-large: 3em;
@@ -24,5 +24,6 @@
     --color-muted: #b7b7b7;
     --color-destructive: #e7000b;
     --color-border: #767676;
+    --color-card: #4e4e4e;
   }
 }

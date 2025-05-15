@@ -41,7 +41,6 @@
 }
 
 .embla__button {
-  -webkit-tap-highlight-color: rgba(var(--text-high-contrast-rgb-value), 0.5);
   -webkit-appearance: none;
   appearance: none;
   background-color: transparent;
@@ -70,6 +69,7 @@
 .embla__button__svg {
   width: 35%;
   height: 35%;
+  color: var(--color-text);
 }
 
 .embla__buttons > button:hover {

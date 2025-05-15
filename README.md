@@ -33,13 +33,11 @@ Instalar con npm
 
 
 ## ToDo's
-[ ] Card Register y Login (como new-trip)
-[ ] Animaciones en home, carrusel en testimonios
+[ ] Despues de crear un viaje en new-trip redireccionar al viaje
 [ ] Redirigir al login luego de registrarse
 [ ] Cambiar header para que tenga el boton de login
 [ ] Despues de editar perfil guardar el jwt en localStorage
 [ ] Crear estado vacio de viajes en perfil
-[ ] Despues de crear un viaje en new-trip redireccionar al viaje
 [ ] En trip ..funcionalidades
 [ ] En members agregar el back y funcionalidad para invitar
 
