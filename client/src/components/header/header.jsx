@@ -21,7 +21,7 @@ export const NAV_LINKS = [
 ];
 
 const Header = () => {
-  const IS_LOGGED = true;
+  const IS_LOGGED = false;
   const IS_ADMIN = false;
 
   return (
@@ -38,9 +38,16 @@ const Header = () => {
           {IS_LOGGED ? (
             <LoggedAvatar />
           ) : (
-            <NavLink className="botonP" to="/register">
-              <button className="button button-primary">Registrarse</button>
-            </NavLink>
+            <div className="header-log-register-container">
+              <NavLink className="botonP" to="/login">
+                <button className="button button-secondary ">
+                  Iniciar sesión
+                </button>
+              </NavLink>
+              <NavLink className="botonP" to="/register">
+                <button className="button button-primary">Registrarse</button>
+              </NavLink>
+            </div>
           )}
           <ToggleTheme />
         </div>
