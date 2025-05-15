@@ -1,3 +1,4 @@
+import { TripDays } from "../models/TripDays.js";
 import { Trips } from "../models/Trips.js";
 import { UserTrip } from "../models/UserTrip.js";
 
@@ -15,13 +16,30 @@ export const getAllTrips = async (req, res) => {
 
 export const getTrip = async (req, res) => {
   const { id } = req.params;
-  const trip = await Trips.findByPk(id);
-  if (!trip) {
-    return res.status(404).json({
-      message: "No se encuentra el viaje",
+
+  try {
+    const trip = await Trips.findByPk(id, {
+      include: [
+        {
+          model: TripDays,
+          as: "days", // Este alias debe coincidir con el definido en las asociaciones
+        },
+      ],
+    });
+
+    if (!trip) {
+      return res.status(404).json({
+        message: "No se encuentra el viaje",
+      });
+    }
+
+    res.json(trip);
+  } catch (error) {
+    console.error("Error al obtener el viaje:", error);
+    res.status(500).json({
+      message: "Error al obtener el viaje",
     });
   }
-  res.json(trip);
 };
 
 export const createTrip = async (req, res) => {

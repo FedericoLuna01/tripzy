@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { AirplaneTakeoff } from "phosphor-react";
 import { toast } from "react-hot-toast";
 import Input from "../../components/ui/input/input";
+import { useNavigate } from "react-router";
 
 const TripForm = ({ initialTrip }) => {
   const IS_ADMIN = true;
@@ -12,6 +13,7 @@ const TripForm = ({ initialTrip }) => {
   const [isPublic, setIsPublic] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [isBlocked, setIsBlocked] = useState(false);
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({
     title: false,
     tripStart: false,
@@ -79,6 +81,14 @@ const TripForm = ({ initialTrip }) => {
   const handleIsBlocked = (event) => {
     setIsBlocked(event.target.checked);
   };
+
+  // const navigate = useNavigate();
+  // const handleRedirect = () => {
+  //   toast.success("Viaje creado correctamente");
+  //   setTimeout(()=>{})
+  //   navigate("/trips");
+
+  // };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -149,7 +159,9 @@ const TripForm = ({ initialTrip }) => {
         if (data.message) {
           return toast.error(data.message);
         }
-
+        setTimeout(() => {
+          navigate(`/trip/${data.id}`);
+        }, 1200);
         return toast.success(
           `Viaje${initialTrip ? " editado " : " creado "}correctamente`
         );
@@ -159,6 +171,7 @@ const TripForm = ({ initialTrip }) => {
         toast.error("Error al crear el viaje");
       });
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <h1 className="title">

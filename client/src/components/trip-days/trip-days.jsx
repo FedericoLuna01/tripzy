@@ -12,7 +12,6 @@ const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
   };
 
   const handleDeleteDay = (deleteDay) => {
-    // TODO: En caso de que quede un solo dia, no permitir eliminarlo
     if (days.length === 1) {
       return toast.error("No puedes eliminar el último día");
     }

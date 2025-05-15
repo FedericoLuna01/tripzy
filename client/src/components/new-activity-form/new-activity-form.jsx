@@ -110,11 +110,11 @@ const NewActivityForm = ({
       activityDescription,
     });
 
+    // TODOS: Cambiar el id por el id de la actividad, no funciona]
     if (editingActivity) {
       setActivities((prevActivities) =>
         prevActivities.map((activity) =>
-          // TODO: Cambiar a ID
-          activity.time === editingActivity.time
+          activity.id === editingActivity.id
             ? {
                 time,
                 title: activityTitle,

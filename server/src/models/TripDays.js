@@ -9,20 +9,21 @@ export const TripDays = sequelize.define(
       primaryKey: true,
       autoIncrement: true,
     },
-    date: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
     tripId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "trips",
+        model: "trips", // Nombre de la tabla Trips
         key: "id",
       },
     },
+    date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
   },
   {
+    tableName: "trip_days", // Nombre de la tabla en la base de datos
     timestamps: false,
   }
 );
