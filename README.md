@@ -35,7 +35,6 @@ Instalar con npm
 ## ToDo's
 [ ] Despues de crear un viaje en new-trip redireccionar al viaje
 [ ] Redirigir al login luego de registrarse
-[ ] Cambiar header para que tenga el boton de login
 [ ] Despues de editar perfil guardar el jwt en localStorage
 [ ] Crear estado vacio de viajes en perfil
 [ ] En trip ..funcionalidades
