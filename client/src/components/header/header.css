@@ -31,3 +31,9 @@ header {
 .botonP {
   text-decoration: none;
 }
+
+.heaer-log-register-container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
