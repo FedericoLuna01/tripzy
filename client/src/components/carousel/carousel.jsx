@@ -74,6 +74,7 @@ const Carousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel(carouselOptions, [
     Autoplay({ delay: 4000, stopOnInteraction: true }),
   ]);
+
   const {
     prevBtnDisabled,
     nextBtnDisabled,

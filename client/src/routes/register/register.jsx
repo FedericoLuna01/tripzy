@@ -156,7 +156,7 @@ const Register = () => {
               value={name}
               className={`${errors.name || errors.validName ? "error" : ""}`}
             />
-            <p className="name-description">
+            <p className="input-description">
               Este nombre es publico en la pagina
             </p>
             {errors.validName && (

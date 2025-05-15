@@ -12,6 +12,7 @@
 .embla__container {
   backface-visibility: hidden;
   display: flex;
+  gap: 16px;
   touch-action: pan-y pinch-zoom;
   margin-left: calc(var(--slide-spacing) * -1);
   padding: 1em;
@@ -21,6 +22,7 @@
   min-width: 0;
   flex: 0 0 var(--slide-size);
   padding-left: var(--slide-spacing);
+  flex-basis: 1/3;
 }
 
 .embla__controls {

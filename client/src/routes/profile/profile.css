@@ -1,3 +1,7 @@
+.profile-container {
+  background-color: var(--color-background);
+}
+
 .container.profile {
   display: flex;
   flex-direction: column;

@@ -33,7 +33,7 @@
 
 .avatar.add-user {
   background-color: var(--color-secondary);
-  color: black;
+  color: var(--color-text);
 }
 
 .activity-card-buttons {

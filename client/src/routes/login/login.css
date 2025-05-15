@@ -1,13 +1,10 @@
-input {
-  width: 100%;
-}
-
 .container-login {
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-content: center;
   align-items: center;
   max-height: 100vh;
+  background-color: var(--color-background);
 }
 
 .container-form {
@@ -25,10 +22,6 @@ input {
   font-size: 4em;
 }
 
-p {
-  color: var(--color-muted);
-}
-
 p.input-description {
   font-size: 0.8em;
   margin: 0;
@@ -39,6 +32,10 @@ p.input-description {
   flex-direction: column;
   gap: 5px;
   margin-bottom: 5px;
+}
+
+.input-group-label {
+  margin-top: 8px;
 }
 
 .input-group-password {
@@ -58,6 +55,7 @@ form {
 
 .p-description {
   margin: 0 auto;
+  color: var(--color-text);
 }
 
 .a-a {

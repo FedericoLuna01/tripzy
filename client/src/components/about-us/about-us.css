@@ -14,6 +14,7 @@
       rgba(189, 255, 211, 0.235),
       transparent 50%
     );
+  background-color: var(--color-background);
   z-index: 100;
 }
 
