@@ -96,6 +96,10 @@
   gap: 1.5rem;
 }
 
+.caretRight {
+  color: var(--color-text);
+}
+
 .comments {
   margin-top: 10em;
   margin-bottom: 10em;
