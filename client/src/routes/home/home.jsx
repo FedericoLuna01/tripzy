@@ -81,7 +81,9 @@ const Home = () => {
                 <p className="grid-title">{item.title}</p>
                 <p>{item.description}</p>
               </SlideIn>
-              {index < GRID_CARD_ITEMS.length - 1 && <CaretRight size={60} />}
+              {index < GRID_CARD_ITEMS.length - 1 && (
+                <CaretRight className="caretRight" size={60} />
+              )}
             </React.Fragment>
           ))}
         </div>
