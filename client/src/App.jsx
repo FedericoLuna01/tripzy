@@ -28,8 +28,8 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/about-us" element={<AboutUs />} />
-          <Route path="/new-trip" element={<NewTrip />} />
           <Route element={<ProtectedRoutes />}>
+            <Route path="/new-trip" element={<NewTrip />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/edit" element={<ProfileEdit />} />
             <Route path="/trip/edit/:id" element={<TripEdit />} />

@@ -82,14 +82,6 @@ const TripForm = ({ initialTrip }) => {
     setIsBlocked(event.target.checked);
   };
 
-  // const navigate = useNavigate();
-  // const handleRedirect = () => {
-  //   toast.success("Viaje creado correctamente");
-  //   setTimeout(()=>{})
-  //   navigate("/trips");
-
-  // };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrors({ title: false, tripStart: false, description: false });
@@ -159,9 +151,9 @@ const TripForm = ({ initialTrip }) => {
         if (data.message) {
           return toast.error(data.message);
         }
-        setTimeout(() => {
-          navigate(`/trip/${data.id}`);
-        }, 1200);
+
+        navigate(`/trip/${data.id}`);
+
         return toast.success(
           `Viaje${initialTrip ? " editado " : " creado "}correctamente`
         );
