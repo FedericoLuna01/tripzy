@@ -9,7 +9,7 @@ const ToggleTheme = () => {
       className="button button-outline button-square"
       onClick={toggleTheme}
     >
-      {theme == "dark" ? <Moon size={20} /> : <Sun size={20} />}
+      {theme == "dark" ? <Sun size={20} /> : <Moon size={20} />}
     </button>
   );
 };

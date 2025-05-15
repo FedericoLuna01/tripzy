@@ -1,15 +1,17 @@
 import "./login.css";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Logo from "../../components/ui/logo/logo";
 import Input from "../../components/ui/input/input";
 import { Link, useNavigate } from "react-router";
 import toast from "react-hot-toast";
+import { UserContext } from "../../contexts/user-context/user-context";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: false, password: false });
   const navigate = useNavigate();
+  const { handleUserLogin } = useContext(UserContext);
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -57,7 +59,7 @@ const Login = () => {
           toast.error(data.message);
           return;
         }
-        localStorage.setItem("token", data.token);
+        handleUserLogin(data.token);
         toast.success("Se inicio sesión correctamente");
         navigate("/");
       })

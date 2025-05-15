@@ -15,6 +15,7 @@
   flex-direction: column;
   gap: 1em;
   background-color: var(--color-card);
+  margin-top: 1em;
 }
 
 .inputs-container {
