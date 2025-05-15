@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import Logo from "../ui/logo/logo";
 import "./header.css";
 import { NavLink } from "react-router";
 import LoggedAvatar from "../logged-avatar/logged-avatar";
 import ToggleTheme from "../toggle-theme/toggle-theme";
+import { UserContext } from "../../contexts/user-context/user-context";
 
 export const NAV_LINKS = [
   {
@@ -17,9 +18,8 @@ export const NAV_LINKS = [
 ];
 
 const Header = () => {
-  const IS_LOGGED = false;
-  const IS_ADMIN = false;
-
+  const { user } = useContext(UserContext);
+  console.log(user);
   return (
     <header className="border-b">
       <div className="container-header container">
@@ -30,15 +30,18 @@ const Header = () => {
               {name}
             </NavLink>
           ))}
-          {IS_ADMIN && <NavLink to="/admin">Admin</NavLink>}
-          {IS_LOGGED ? (
+          {/* TODO: Arregla, anda mal  */}
+          {user && user.role === "admin" && (
+            <NavLink to="/admin">Admin</NavLink>
+          )}
+          {user ? (
             <>
               <NavLink to="/new-trip">Nuevo viaje</NavLink>
               <LoggedAvatar />
             </>
           ) : (
             <div className="heaer-log-register-container">
-              <NavLink className="botonP" to="/register">
+              <NavLink className="botonP" to="/login">
                 <button className="button button-secondary">
                   Iniciar sesion
                 </button>
