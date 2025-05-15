@@ -1,9 +1,8 @@
-import { Link } from "react-router";
 import { useEffect, useState } from "react";
-import Avatar from "../../components/avatar/avatar";
+import { Link } from "react-router";
 import "./profile.css";
+import Avatar from "../../components/avatar/avatar";
 import { getProfile } from "../../services/getProfile";
-import { User } from "phosphor-react";
 
 const Profile = () => {
   const [trips, setTrips] = useState([]);
@@ -49,33 +48,35 @@ const Profile = () => {
   }
 
   return (
-    <div className="container profile">
-      <div className="container-avatar">
-        <Avatar user={user} />
-        <div>
-          <h2>{user.name}</h2>
-          <p>{user.email}</p>
-          <Link className="edit-profile" to={"/profile/edit"}>
-            Editar perfil
-          </Link>
-        </div>
-      </div>
-      <div className="container-title">
-        <h1>Mis viajes</h1>
-      </div>
-      <div className="separator"></div>
-      <div className="container-info">
-        {trips.length === 0 ? (
-          <p>No hay viajes disponibles</p>
-        ) : (
-          trips.map((trip, index) => (
-            <Link key={index} to={`/trip/${trip.id}`} className="box-info">
-              <img src={trip.imageUrl} alt={`${trip.title} image`} />
-              <h3>{trip.title}</h3>
-              <p>{trip.description}</p>
+    <div className="profile-container">
+      <div className="container profile">
+        <div className="container-avatar">
+          <Avatar user={user} />
+          <div>
+            <h2>{user.name}</h2>
+            <p>{user.email}</p>
+            <Link className="edit-profile" to={"/profile/edit"}>
+              Editar perfil
             </Link>
-          ))
-        )}
+          </div>
+        </div>
+        <div className="container-title">
+          <h1>Mis viajes</h1>
+        </div>
+        <div className="separator"></div>
+        <div className="container-info">
+          {trips.length === 0 ? (
+            <p>No hay viajes disponibles</p>
+          ) : (
+            trips.map((trip, index) => (
+              <Link key={index} to={`/trip/${trip.id}`} className="box-info">
+                <img src={trip.imageUrl} alt={`${trip.title} image`} />
+                <h3>{trip.title}</h3>
+                <p>{trip.description}</p>
+              </Link>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

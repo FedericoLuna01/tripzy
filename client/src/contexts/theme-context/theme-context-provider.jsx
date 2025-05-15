@@ -10,15 +10,27 @@ export const ThemeContextProvider = ({ children }) => {
   }, [theme]);
 
   const toggleTheme = () => {
-    if (theme === "light") {
-      document.querySelector("#root").classList.add("dark");
-      localStorage.setItem("theme", "dark");
-      setTheme("dark");
+    const switchTheme = () => {
+      const root = document.querySelector("#root");
+      if (theme === "light") {
+        root.classList.add("dark");
+        root.classList.remove("light");
+        localStorage.setItem("theme", "dark");
+        setTheme("dark");
+      } else {
+        root.classList.remove("dark");
+        root.classList.add("light");
+        localStorage.setItem("theme", "light");
+        setTheme("light");
+      }
+    };
+
+    if (!document.startViewTransition) {
+      switchTheme();
     } else {
-      document.querySelector("#root").classList.remove("dark");
-      localStorage.setItem("theme", "light");
-      setTheme("light");
+      document.startViewTransition(switchTheme);
     }
   };
+
   return <ThemeContext value={{ theme, toggleTheme }}>{children}</ThemeContext>;
 };

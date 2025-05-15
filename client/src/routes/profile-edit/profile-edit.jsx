@@ -152,7 +152,7 @@ const ProfileEdit = () => {
           <div className="edit-profile-buttons-container">
             <Link className="link-button " to={"/profile"}>
               <button className="button button-secondary">
-                <ArrowLeft size={16} />
+                <ArrowLeft size={20} />
                 Cancelar
               </button>
             </Link>

@@ -1,47 +1,20 @@
 .container-register {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  background-color: var(--color-background);
+}
+
+.container-form > p {
+  color: var(--color-text);
 }
 
 .register-title {
   font-size: 4em;
 }
 
-p {
-  color: var(--color-muted);
-}
-
 p.input-description {
   font-size: 0.8em;
-  margin: 0;
-}
-
-.input-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.input-group-label {
-  margin-top: 8px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.p-description {
-  margin: 0 auto;
-}
-
-.name-description {
-  font-size: 0.8em;
-  margin: 0;
-}
-
-.a-a {
-  color: var(--color-primary);
+  color: var(--color-muted);
 }
 
 .img-register {

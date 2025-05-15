@@ -2,14 +2,18 @@
   position: relative;
   min-height: 100vh;
   overflow: hidden;
+  background-color: var(--color-background);
 }
 
 .hero-container {
   display: grid;
   grid-template-columns: 3fr 2fr;
   min-height: 91vh;
-  background-color: var(--color-background);
   position: relative;
+}
+
+.home-container {
+  background-color: var(--color-background);
 }
 
 .gradient-1 {
@@ -18,7 +22,6 @@
   left: 0;
   width: 100%;
   height: 100vh;
-  background: #ffdec4;
   background: radial-gradient(
       circle at 20% 30%,
       rgba(223, 109, 20, 0.17),
@@ -241,20 +244,4 @@
   margin-top: 1.5em;
   font-size: 2.7rem;
   margin-bottom: 20px;
-}
-
-.embla {
-  overflow: hidden;
-  width: 100%;
-  margin-top: 20px;
-}
-
-.embla__container {
-  display: flex;
-  gap: 16px;
-}
-
-.embla__slide {
-  flex: 0 0 auto;
-  flex-basis: 1/3;
 }

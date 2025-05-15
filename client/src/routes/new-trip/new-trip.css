@@ -79,16 +79,19 @@
   text-align: left;
   border-radius: var(--border-radius-small);
   cursor: pointer;
+  color: var(--color-text);
 }
+
 .days-buttons-container > button > span {
   display: flex;
   justify-content: center;
   align-items: center;
   border: 1px solid var(--color-border);
-  background-color: white;
+  background-color: var(--color-background);
   padding: 0.15em 0.3em;
   border-radius: var(--border-radius-small);
 }
+
 .days-buttons-container > button > span:hover {
   filter: brightness(0.8);
 }
@@ -99,7 +102,6 @@
 
 .days-buttons-container > button:hover {
   background-color: #df6d1488;
-  color: var(--color-text);
 }
 
 .days-container {

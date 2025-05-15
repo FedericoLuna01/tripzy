@@ -37,10 +37,10 @@ const Home = () => {
   ];
 
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden home-container">
       <div className="gradient-1"></div>
       <div className="gradient-1"></div>
-      <section className="hero-container container ">
+      <section className="hero-container container">
         <SlideIn className="left-body-container">
           <h1> Tu proxima aventura te espera</h1>
           <p>
