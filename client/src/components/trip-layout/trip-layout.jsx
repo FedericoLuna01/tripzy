@@ -1,4 +1,10 @@
-import { Link, Outlet, useLocation, useParams } from "react-router";
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router";
 import { PencilSimple, Plus, Trash } from "phosphor-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -16,6 +22,7 @@ const TripLayout = () => {
   const [trip, setTrip] = useState(null);
   const params = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:3000/trips/${params.id}`, {
@@ -61,6 +68,25 @@ const TripLayout = () => {
   const handleDelete = () => {
     toast.success("Viaje eliminado");
     // TODO: hacer la peticion al backend
+    fetch(`http://localhost:3000/trips/${trip.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return toast.error("Error al eliminar el viaje");
+        }
+      })
+      .then(() => {
+        navigate("/trips");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        toast.error("Error al eliminar el viaje");
+      });
     setIsOpen(false);
   };
 

@@ -43,3 +43,78 @@
   text-align: center;
   color: var(--color-text);
 }
+
+.cards-aboutUs {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+}
+
+.card-member h3 {
+  font-size: 40px;
+}
+
+.member-img {
+  border-radius: 50%;
+}
+
+.card-member {
+  background-color: var(--color-background-card);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  width: 348px;
+  height: 310px;
+  text-align: center;
+  border: 1px solid var(--color-border-line-card);
+  transition: background-color 0.3s ease;
+}
+
+.card-member:hover {
+  background-color: #df6d14;
+  cursor: pointer;
+}
+
+.card-member:hover h3 {
+  color: rgb(255, 255, 255);
+}
+
+.card-member:hover p {
+  color: rgb(255, 255, 255);
+}
+
+.profile-photo {
+  width: 135px;
+  height: 135px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  border: 5px solid var(--color-border-card);
+}
+
+.card-member h3 {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--color-text);
+}
+
+.card-member p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.4;
+  color: var(--color-text);
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.icons {
+  fill: var(--color-text);
+}
