@@ -43,14 +43,15 @@ TripDays.belongsTo(Trips, {
   onDelete: "CASCADE",
 });
 
-Activities.belongsTo(TripDays, {
-  foreignKey: "tripDaysId",
-  as: "tripDay",
-  onDelete: "CASCADE",
-});
-
+// Relación TripDays -> Activities
 TripDays.hasMany(Activities, {
   foreignKey: "tripDaysId",
   as: "activities",
+  onDelete: "CASCADE",
+});
+
+Activities.belongsTo(TripDays, {
+  foreignKey: "tripDaysId",
+  as: "tripDays",
   onDelete: "CASCADE",
 });
