@@ -27,7 +27,8 @@
 }
 
 .modal-panel {
-  background-color: var(--color-background);
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 20px;
   min-width: 500px;

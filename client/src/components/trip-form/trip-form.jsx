@@ -253,6 +253,7 @@ const TripForm = ({ initialTrip }) => {
               Cualquier persona podrá unirse al itinerario
             </p>
           </div>
+          {/* TODO: Sacar lo hardcodeado por el context */}
           {IS_ADMIN && (
             <div className="input-group">
               <label htmlFor="blocked">Bloqueado</label>

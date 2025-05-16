@@ -43,8 +43,11 @@ const TripLayout = () => {
 
   if (!trip) {
     return (
-      <div className="container">
-        <h1>Viaje no encontrado</h1>
+      <div className="trip-layout">
+        <div className="container">
+          {/* TODO: hacer un empty state mas fachero */}
+          <h1>Viaje no encontrado</h1>
+        </div>
       </div>
     );
   }
@@ -59,6 +62,7 @@ const TripLayout = () => {
 
   const handleDelete = () => {
     toast.success("Viaje eliminado");
+    // TODO: hacer la peticion al backend
     setIsOpen(false);
   };
 
@@ -70,7 +74,7 @@ const TripLayout = () => {
         isOpen={isOpen}
         handleClose={handleClose}
       />
-      <section className="new-itinerary-bg">
+      <section className="trip-layout">
         <div className="container trip-container">
           <div className="card trip-info">
             <div className="trip-header">
@@ -79,7 +83,7 @@ const TripLayout = () => {
                 {formatDay(new Date(trip?.startDate))}
                 {" - "}
                 {/* {formatDay(
-                  // TODO: Cuando se tengamos los days cambiar a trip
+                  // TODO: Cuando tengamos los days cambiar a trip
                   addDays(new Date(TRIP.startDate), TRIP.days.length - 1)
                 )} */}
               </p>

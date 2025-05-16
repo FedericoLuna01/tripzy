@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import "./profile-edit.css";
-import Input from "../../components/ui/input/input";
 import { ArrowLeft, PencilSimple } from "phosphor-react";
-import { getProfile } from "../../services/getProfile";
-import toast from "react-hot-toast";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
+import toast from "react-hot-toast";
+import "./profile-edit.css";
+import { getProfile } from "../../services/getProfile";
+import Input from "../../components/ui/input/input";
 
 const ProfileEdit = () => {
   const [user, setUser] = useState(null);
@@ -103,7 +103,7 @@ const ProfileEdit = () => {
         </div>
         <form className="card" onSubmit={handleSubmit}>
           <h1>Datos personales</h1>
-          <div>
+          <div className="input-group">
             <label htmlFor="name">Nombre</label>
             <Input
               ref={inputNameRef}
@@ -113,7 +113,7 @@ const ProfileEdit = () => {
               className={`${errors.title ? "error" : ""}`}
               placeholder="John Doe"
             />
-            <p className="description">
+            <p className="input-description">
               Este es el nombre que se mostrará en tu perfil y en los
               itinerarios que crees.
             </p>
@@ -123,7 +123,7 @@ const ProfileEdit = () => {
               </p>
             )}
           </div>
-          <div>
+          <div className="input-group">
             <label htmlFor="imageUrl">Imagen de perfil</label>
             <Input
               ref={inputImageUrlRef}
@@ -133,7 +133,7 @@ const ProfileEdit = () => {
               className={`${errors.imageUrl ? "error" : ""}`}
               placeholder="https://i.pravatar.cc/150?img=3"
             />
-            <p className="description">
+            <p className="input-description">
               Url de la imagen que se usara como tu foto de perfil.
             </p>
             {errors.imageUrl && (

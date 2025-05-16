@@ -162,7 +162,7 @@ const NewActivityForm = ({
   return (
     <form className="new-activity-card" onSubmit={handleAddActivity}>
       <div className="top">
-        <div>
+        <div className="input-group">
           <label htmlFor="time">Hora</label>
           <Input
             type={"time"}
@@ -172,12 +172,12 @@ const NewActivityForm = ({
             className={`${errors.time ? "error title-input" : "title-input"}`}
             ref={inputTimeRef}
           />
-          <p>Horario de la actividad</p>
+          <p className="input-description">Horario de la actividad</p>
           {errors.time && (
             <p className="error-message">Por favor, ingresa una hora</p>
           )}
         </div>
-        <div>
+        <div className="input-group">
           <label htmlFor="activity-title">Titulo</label>
           <Input
             id={"activity-title"}
@@ -188,7 +188,7 @@ const NewActivityForm = ({
             }`}
             ref={inputTitleRef}
           />
-          <p>Titulo de tu actividad</p>
+          <p className="input-description">Titulo de tu actividad</p>
           {errors.activityTitle && (
             <p className="error-message">Por favor, ingrese un título</p>
           )}
@@ -199,14 +199,14 @@ const NewActivityForm = ({
           )}
         </div>
       </div>
-      <div style={{ width: "100%" }}>
+      <div className="input-group full">
         <label htmlFor="activity-description">Descripción</label>
         <Input
           id={"activity-description"}
           onChange={handleActivityDescriptionChange}
           value={activityDescription}
         />
-        <p>Descripción corta de la actividad</p>
+        <p className="input-description">Descripción corta de la actividad</p>
         {errors.activityDescriptionLength && (
           <p className="error-message">
             La descripción no puede tener más de 200 caracteres

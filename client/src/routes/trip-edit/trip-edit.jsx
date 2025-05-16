@@ -17,7 +17,7 @@ const TripEdit = () => {
   }, [id]);
 
   return (
-    <section className="background">
+    <section className="trip-layout">
       <div className="container trip-edit-container">
         <div className="trip-button-container">
           <Link to={`/trip/${id}`}>
