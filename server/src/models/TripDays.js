@@ -13,7 +13,7 @@ export const TripDays = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "trips", // Nombre de la tabla Trips
+        model: "trips",
         key: "id",
       },
     },
@@ -23,7 +23,6 @@ export const TripDays = sequelize.define(
     },
   },
   {
-    tableName: "trip_days", // Nombre de la tabla en la base de datos
     timestamps: false,
   }
 );

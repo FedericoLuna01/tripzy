@@ -8,6 +8,9 @@
   --color-border: #e4e4e7;
   --color-card: #ffffff;
   --color-input: #f5f5f5;
+  --color-border-card: #d6d6d6;
+  --color-background-card: #ffffff;
+  --color-border-line-card: #bebebe;
 
   --font-size-small: 0.875em;
   --font-size-medium: 1.5em;
@@ -26,5 +29,8 @@
     --color-border: #ffffff1a;
     --color-card: #18181b;
     --color-input: #ffffff26;
+    --color-border-card: #e2e0e0;
+    --color-background-card: #4e2e15;
+    --color-border-line-card: #555555;
   }
 }

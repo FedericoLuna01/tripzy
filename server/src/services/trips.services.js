@@ -18,7 +18,14 @@ export const getTrip = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const trip = await Trips.findByPk(id);
+    const trip = await Trips.findByPk(id, {
+      include: [
+        {
+          model: TripDays,
+          as: "days",
+        },
+      ],
+    });
 
     if (!trip) {
       return res.status(404).json({
@@ -55,6 +62,11 @@ export const createTrip = async (req, res) => {
       startDate,
       imageUrl,
       isPublic,
+    });
+
+    await TripDays.create({
+      date: startDate,
+      tripId: trip.id,
     });
 
     await UserTrip.create({
