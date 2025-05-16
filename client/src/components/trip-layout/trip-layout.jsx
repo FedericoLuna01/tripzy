@@ -1,13 +1,19 @@
 import {
   Link,
+  NavLink,
   Outlet,
   useLocation,
   useNavigate,
   useParams,
 } from "react-router";
-import { PencilSimple, Plus, Trash } from "phosphor-react";
+import {
+  AirplaneLanding,
+  PaperPlane,
+  PencilSimple,
+  Plus,
+  Trash,
+} from "phosphor-react";
 import toast from "react-hot-toast";
-import { addDays } from "date-fns";
 import { useEffect, useState } from "react";
 import { DATA, USERS_AVATARS } from "../../data/data";
 import Avatar from "../../components/avatar/avatar";
@@ -51,9 +57,12 @@ const TripLayout = () => {
   if (!trip) {
     return (
       <div className="trip-layout">
-        <div className="container">
-          {/* TODO: hacer un empty state mas fachero */}
-          <h1>Viaje no encontrado</h1>
+        <div className="container center-container">
+          <AirplaneLanding size={84} className="plane-center-img" />
+          <h1 className="mid-text">Ups, destino incierto</h1>
+          <NavLink to="/">
+            <button className="button button-secondary">Deberias volver</button>
+          </NavLink>
         </div>
       </div>
     );
@@ -69,7 +78,6 @@ const TripLayout = () => {
 
   const handleDelete = () => {
     toast.success("Viaje eliminado");
-    // TODO: hacer la peticion al backend
     fetch(`http://localhost:3000/trips/${trip.id}`, {
       method: "DELETE",
       headers: {
