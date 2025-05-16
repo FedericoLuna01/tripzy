@@ -6,23 +6,22 @@ import {
   useParams,
 } from "react-router";
 import { PencilSimple, Plus, Trash } from "phosphor-react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { addDays } from "date-fns";
-import { useEffect, useState } from "react";
-import { DATA, USERS_AVATARS } from "../../data/data";
 import Avatar from "../../components/avatar/avatar";
 import Modal from "../../components/modal/modal";
+import { USERS_AVATARS } from "../../data/data";
 import { formatDay } from "../../utils/utils";
 import "../../routes/new-trip/new-trip.css";
 import "../../routes/trip/trip.css";
 import "./trip-layout.css";
 
 const TripLayout = () => {
-  const params = useParams();
-  const location = useLocation();
-  const TRIP = DATA.find((trip) => trip.id === parseInt(params.id));
   const [isOpen, setIsOpen] = useState(false);
   const [trip, setTrip] = useState(null);
+  const params = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,7 +39,6 @@ const TripLayout = () => {
         return response.json();
       })
       .then((trip) => {
-        console.log(trip);
         setTrip(trip);
       })
       .catch((error) => {
@@ -108,10 +106,9 @@ const TripLayout = () => {
               <p>
                 {formatDay(new Date(trip?.startDate))}
                 {" - "}
-                {/* {formatDay(
-                  // TODO: Cuando tengamos los days cambiar a trip
-                  addDays(new Date(TRIP.startDate), TRIP.days.length - 1)
-                )} */}
+                {formatDay(
+                  addDays(new Date(trip.startDate), trip.days.length - 1)
+                )}
               </p>
               <div className="friends-container">
                 <p>Amigos de viaje:</p>
@@ -163,7 +160,7 @@ const TripLayout = () => {
               Amigos
             </Link>
           </div>
-          <Outlet />
+          <Outlet context={{ trip }} />
         </div>
       </section>
     </>

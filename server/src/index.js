@@ -11,6 +11,7 @@ import "./models/UserTrip.js";
 import "./models/Trips.js";
 import "./models/TripDays.js";
 import "./models/Activities.js";
+import "./models/associations.js";
 
 dotenv.config();
 const app = express();

@@ -10,7 +10,11 @@ const TripEdit = () => {
   const [initialTrip, setInitialTrip] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:3000/trips/${id}`)
+    fetch(`http://localhost:3000/trips/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => setInitialTrip(data))
       .catch((error) => console.log(error));
