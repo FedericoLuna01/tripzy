@@ -112,9 +112,9 @@
   align-items: center;
   justify-content: center;
   margin-top: 1rem;
-  gap: 1rem;
+  gap: 2rem;
 }
 
-.icons {
-  fill: var(--color-text);
+.icon-svg {
+  color: var(--color-text);
 }
