@@ -38,8 +38,8 @@ const members = [
 const svgIcons = {
   github: (
     <svg
-      width="32"
-      height="32"
+      width="20"
+      height="20"
       viewBox="0 0 1024 1024"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -56,8 +56,8 @@ const svgIcons = {
   ),
   linkedin: (
     <svg
-      width="32"
-      height="32"
+      width="20"
+      height="20"
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMidYMid"
       viewBox="0 0 256 256"
@@ -71,8 +71,8 @@ const svgIcons = {
   ),
   x: (
     <svg
-      width="27"
-      height="27"
+      width="15"
+      height="15"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 1200 1227"
