@@ -16,24 +16,27 @@ const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
       return toast.error("No puedes eliminar el último día");
     }
 
-    // fetch(`http://localhost:3000/days/${deleteDay}`, {
-    //   method: "DELETE",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //   });
-
-    const updateDays = days.filter((day) => day.date !== deleteDay);
-    setDays(updateDays);
-
-    if (isEqual(new Date(activeDay), new Date(deleteDay))) {
-      const lastDay = updateDays[updateDays.length - 1].date;
+    if (isEqual(new Date(activeDay.date), new Date(deleteDay.date))) {
+      const lastDay = days[days.length - 2];
       setActiveDay(lastDay);
     }
+
+    fetch(`http://localhost:3000/days/${deleteDay.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then(() => {
+        toast.success("Día eliminado correctamente");
+        setDays((prev) => prev.filter((day) => day.id !== deleteDay.id));
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        toast.error("Error al eliminar el día");
+      });
   };
 
   const handleAddDay = () => {
@@ -53,11 +56,17 @@ const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if (data.message) {
+          return toast.error(data.message);
+        }
+        setActiveDay(data);
+        setDays((prev) => [...prev, data]);
+        toast.success("Día agregado correctamente");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        toast.error("Error al agregar el día");
       });
-
-    setDays((prev) => [...prev, { date: newDay }]);
-    setActiveDay(newDay);
   };
 
   return (
@@ -67,14 +76,21 @@ const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
         {days.map((day, index) => (
           <button
             className={`${
-              isEqual(new Date(activeDay), new Date(day.date)) ? "active" : ""
+              isEqual(new Date(activeDay.date), new Date(day.date))
+                ? "active"
+                : ""
             }`}
             key={index}
-            onClick={() => handleActiveDay(day.date)}
+            onClick={() => handleActiveDay(day)}
           >
             Dia {index + 1}: {formatDay(day.date)}
             {days.length - 1 === index ? (
-              <span onClick={() => handleDeleteDay(day.date)}>
+              <span
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDeleteDay(day);
+                }}
+              >
                 <Minus size={16} />
               </span>
             ) : null}

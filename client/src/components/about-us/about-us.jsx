@@ -20,7 +20,7 @@ const members = [
     socials: {
       github: "https://github.com/AlvaroReynoso",
       linkedin: "https://www.linkedin.com/in/alvaroreynoso/",
-      x: "https://x.com/AIvaroReynoso",
+      x: "https://x.com/reynoso_al",
     },
   },
   {
@@ -122,7 +122,7 @@ const AboutUs = () => {
                 <a
                   key={key}
                   href={url}
-                  target={key !== "x" ? "_blank" : undefined}
+                  target={"_blank"}
                   rel={key !== "x" ? "noopener noreferrer" : undefined}
                   className={`icon-link ${key}`}
                 >

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import "./profile.css";
 import Avatar from "../../components/avatar/avatar";
 import { getProfile } from "../../services/getProfile";
-
+import { Mountains } from "phosphor-react";
 const Profile = () => {
   const [trips, setTrips] = useState([]);
   const [user, setUser] = useState(null);
@@ -39,6 +39,7 @@ const Profile = () => {
     getUser();
   }, []);
 
+  // TODO: Hacer un no encontrado
   if (!user) {
     return (
       <div className="container profile">
@@ -64,19 +65,29 @@ const Profile = () => {
           <h1>Mis viajes</h1>
         </div>
         <div className="separator"></div>
-        <div className="container-info">
-          {trips.length === 0 ? (
-            <p>No hay viajes disponibles</p>
-          ) : (
-            trips.map((trip, index) => (
+
+        {trips.length === 0 ? (
+          <div className="container-info">
+            <div className="container-no-trips">
+              <Mountains className="mountain" size={84} />
+              <h2>Tus vacaciones te esperan</h2>
+              <p>Empeza a planificar el viaje de tus sueños</p>
+              <NavLink to="/new-trip">
+                <button className="button button-primary">Crear viaje</button>
+              </NavLink>
+            </div>
+          </div>
+        ) : (
+          <div className="trips-container">
+            {trips.map((trip, index) => (
               <Link key={index} to={`/trip/${trip.id}`} className="box-info">
                 <img src={trip.imageUrl} alt={`${trip.title} image`} />
                 <h3>{trip.title}</h3>
                 <p>{trip.description}</p>
               </Link>
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

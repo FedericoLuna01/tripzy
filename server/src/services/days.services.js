@@ -14,12 +14,12 @@ export const createDay = async (req, res) => {
       .json({ message: "Todos los campos son obligatorios" });
   }
 
-  const day = TripDays.create({
+  const day = await TripDays.create({
     date,
     tripId,
   });
 
-  res.json(day);
+  res.status(200).json(day);
 };
 
 export const deleteDay = async (req, res) => {
