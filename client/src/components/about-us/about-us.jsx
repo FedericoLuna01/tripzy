@@ -28,22 +28,141 @@ const AboutUs = () => {
           <img
             src="/img-member-1.jpeg"
             alt="Miembro 1"
-            className="member-img"
+            className="profile-photo"
           />
           <h3>Federico Luna</h3>
           <p>Developer</p>
+          <div className="social-icons">
+            <a
+              href="https://github.com/usuario"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                className="icons"
+                src="/icons/github.svg"
+                alt="GitHub"
+                width="24"
+                height="24"
+              />
+            </a>
+            <a
+              href="https://linkedin.com/in/usuario"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                className="icons"
+                src="/icons/linkedin.svg"
+                alt="LinkedIn"
+                width="32"
+                height="32"
+              />
+            </a>
+            <a href="mailto:usuario@email.com">
+              <img
+                className="icons"
+                src="/icons/x.svg"
+                alt="Email"
+                width="24"
+                height="24"
+              />
+            </a>
+          </div>
         </div>
 
         <div className="card-member">
-          <img src="/img-member-2.jpg" alt="Miembro 2" className="member-img" />
+          <img
+            src="/img-member-2.jpg"
+            alt="Miembro 2"
+            className="profile-photo"
+          />
           <h3>Álvaro Reynoso</h3>
           <p>Developer</p>
+          <div className="social-icons">
+            <a
+              href="https://github.com/usuario"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                className="icons"
+                src="/icons/github.svg"
+                alt="GitHub"
+                width="24"
+                height="24"
+              />
+            </a>
+            <a
+              href="https://linkedin.com/in/usuario"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                className="icons"
+                src="/icons/linkedin.svg"
+                alt="LinkedIn"
+                width="32"
+                height="32"
+              />
+            </a>
+            <a href="mailto:usuario@email.com">
+              <img
+                className="icons"
+                src="/icons/x.svg"
+                alt="Email"
+                width="24"
+                height="24"
+              />
+            </a>
+          </div>
         </div>
 
         <div className="card-member">
-          <img src="/img-member-3.jpg" alt="Miembro 3" className="member-img" />
+          <img
+            className="profile-photo"
+            src="/img-member-3.jpg"
+            alt="Miembro 3"
+          />
           <h3>Luciano Tessa</h3>
           <p>Developer</p>
+          <div className="social-icons">
+            <a
+              href="https://github.com/usuario"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                className="icons"
+                src="/icons/github.svg"
+                alt="GitHub"
+                width="24"
+                height="24"
+              />
+            </a>
+            <a
+              href="https://linkedin.com/in/usuario"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                className="icons"
+                src="/icons/linkedin.svg"
+                alt="LinkedIn"
+                width="32"
+                height="32"
+              />
+            </a>
+            <a href="mailto:usuario@email.com">
+              <img
+                className="icons"
+                src="/icons/x.svg"
+                alt="Email"
+                width="24"
+                height="24"
+              />
+            </a>
+          </div>
         </div>
       </div>
     </div>
