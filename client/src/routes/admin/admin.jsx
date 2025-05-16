@@ -134,7 +134,7 @@ const Admin = () => {
                     <td>
                       <Menu>
                         <MenuButton className="options-button">
-                          <DotsThree size={24} color="#000" />
+                          <DotsThree size={24} />
                         </MenuButton>
                         <MenuItems
                           anchor="bottom end"

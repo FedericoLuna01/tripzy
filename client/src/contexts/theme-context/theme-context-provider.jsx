@@ -5,23 +5,21 @@ const themeValue = localStorage.getItem("theme");
 
 export const ThemeContextProvider = ({ children }) => {
   const [theme, setTheme] = useState(themeValue);
+  const body = document.body;
   useEffect(() => {
-    document.querySelector("#root").classList.add(theme);
-  }, [theme]);
+    body.classList.add(theme);
+  }, [theme, body]);
 
   const toggleTheme = () => {
     const switchTheme = () => {
-      const root = document.querySelector("#root");
-      if (theme === "light") {
-        root.classList.add("dark");
-        root.classList.remove("light");
+      if (theme === "dark") {
+        body.classList.remove("dark");
+        localStorage.removeItem("theme");
+        setTheme("light");
+      } else {
+        body.classList.add("dark");
         localStorage.setItem("theme", "dark");
         setTheme("dark");
-      } else {
-        root.classList.remove("dark");
-        root.classList.add("light");
-        localStorage.setItem("theme", "light");
-        setTheme("light");
       }
     };
 

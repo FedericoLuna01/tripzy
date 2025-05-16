@@ -1,22 +1,17 @@
 import { Outlet, useNavigate } from "react-router";
-import { useEffect } from "react";
-import { getProfile } from "../../services/getProfile";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../../contexts/user-context/user-context";
 
 const ProtectedRoutes = () => {
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
 
-  useEffect(() => {
-    const getUser = async () => {
-      const data = await getProfile();
-      if (data) {
-        return;
-      } else {
-        return navigate("/login");
-      }
-    };
-
-    getUser();
-  }, [navigate]);
+  // TODO: Arreglar xq con f5 te manda al login igual
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigate("/login");
+  //   }
+  // }, [user, navigate]);
 
   return <Outlet />;
 };

@@ -8,18 +8,15 @@ import toast from "react-hot-toast";
 const AdminEdit = () => {
   const inputNameRef = useRef(null);
   const inputEmailRef = useRef(null);
-  const inputPasswordRef = useRef(null);
   const inputRoleRef = useRef(null);
   const inputStateRef = useRef(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [role, setRole] = useState("owner");
   const [status, setStatus] = useState("active");
   const [errors, setErrors] = useState({
     invalidName: false,
     invalidEmail: false,
-    invalidPassword: false,
     role: false,
     status: false,
   });
@@ -36,7 +33,6 @@ const AdminEdit = () => {
         body: JSON.stringify({
           name,
           email,
-          password,
           role,
           status,
         }),
@@ -59,7 +55,6 @@ const AdminEdit = () => {
         setUser(data);
         setName(data.name);
         setEmail(data.email);
-        setPassword(data.password);
         setRole(data.role);
         setStatus(data.status);
       })
@@ -79,10 +74,6 @@ const AdminEdit = () => {
     return !regex.test(email);
   };
 
-  const invalidPassword = (password) => {
-    return password.length < 8;
-  };
-
   const handleName = (e) => {
     setName(e.target.value);
     setErrors((prevErrors) => ({
@@ -96,14 +87,6 @@ const AdminEdit = () => {
     setErrors((prevErrors) => ({
       ...prevErrors,
       invalidEmail: false,
-    }));
-  };
-
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      invalidPassword: false,
     }));
   };
 
@@ -128,7 +111,6 @@ const AdminEdit = () => {
     setErrors({
       invalidName: false,
       invalidEmail: false,
-      invalidPassword: false,
       role: false,
       status: false,
     });
@@ -146,12 +128,6 @@ const AdminEdit = () => {
       hasError = true;
     }
 
-    if (invalidPassword(password)) {
-      setErrors((prevErrors) => ({ ...prevErrors, invalidPassword: true }));
-      if (!hasError) inputNameRef.current.focus();
-      hasError = true;
-    }
-
     if (!role) {
       setErrors((prevErrors) => ({ ...prevErrors, role: true }));
       if (!hasError) inputRoleRef.current.focus();
@@ -164,7 +140,8 @@ const AdminEdit = () => {
       hasError = true;
     }
 
-    console.log({ name, email, password, role, status });
+    console.log({ name, email, role, status });
+
     if (hasError) return;
 
     putUser(user.id);
@@ -185,7 +162,7 @@ const AdminEdit = () => {
           {user?.name ? (
             <form action="" onSubmit={handleSubmit}>
               <div className="container-inputs">
-                <div>
+                <div className="input-group">
                   <label htmlFor="name">Nombre</label>
                   <Input
                     placeholder="John Doe"
@@ -195,14 +172,14 @@ const AdminEdit = () => {
                     id="name"
                     className={errors.invalidName ? "error" : ""}
                   />
-                  <p>Nombre del usuario</p>
+                  <p className="input-description">Nombre del usuario</p>
                   {errors.invalidName && (
                     <p className="error-message">
                       El nombre debe tener al menos 4 caracteres
                     </p>
                   )}
                 </div>
-                <div>
+                <div className="input-group">
                   <label htmlFor="email">Email</label>
                   <Input
                     placeholder="johndoe@gmail.com"
@@ -212,30 +189,12 @@ const AdminEdit = () => {
                     id="email"
                     className={errors.invalidEmail ? "error" : ""}
                   />
-                  <p>Email del usuario</p>
+                  <p className="input-description">Email del usuario</p>
                   {errors.invalidEmail && (
                     <p className="error-message">El email debe ser valido</p>
                   )}
                 </div>
-                <div>
-                  <label htmlFor="password">Contraseña</label>
-                  <Input
-                    placeholder="************"
-                    ref={inputPasswordRef}
-                    onChange={handlePassword}
-                    value={password}
-                    id="password"
-                    type="password"
-                    className={errors.invalidPassword ? "error" : ""}
-                  />
-                  <p>Email del usuario</p>
-                  {errors.invalidPassword && (
-                    <p className="error-message">
-                      La contraseña debe tener al menos 8 caracteres
-                    </p>
-                  )}
-                </div>
-                <div className="container-rol-status">
+                <div className="container-rol-status input-group">
                   <label htmlFor="role">Rol</label>
                   <select
                     ref={inputRoleRef}
@@ -249,12 +208,14 @@ const AdminEdit = () => {
                     <option value="admin">Admin</option>
                     <option value="usuario">Usuario</option>
                   </select>
-                  <p>El rol que quieras que tenga el usuario</p>
+                  <p className="input-description">
+                    El rol que quieras que tenga el usuario
+                  </p>
                   {errors.role && (
                     <p className="error-message">Debe elegir un rol</p>
                   )}
                 </div>
-                <div className="container-rol-status">
+                <div className="container-rol-status input-group">
                   <label htmlFor="">Estado</label>
                   <select
                     ref={inputStateRef}
@@ -268,7 +229,7 @@ const AdminEdit = () => {
                     <option value="blocked">Bloqueado</option>
                   </select>
 
-                  <p className="description">Estado del usuario</p>
+                  <p className="input-description">Estado del usuario</p>
                   {errors.state && (
                     <p className="error-message">
                       El nombre debe tener al menos 4 caracteres
@@ -281,6 +242,7 @@ const AdminEdit = () => {
               </button>
             </form>
           ) : (
+            // TODO: hacer un empty state fachero
             <p>No se encontro el usuario </p>
           )}
         </div>

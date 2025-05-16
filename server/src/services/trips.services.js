@@ -18,14 +18,7 @@ export const getTrip = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const trip = await Trips.findByPk(id, {
-      include: [
-        {
-          model: TripDays,
-          as: "days", // Este alias debe coincidir con el definido en las asociaciones
-        },
-      ],
-    });
+    const trip = await Trips.findByPk(id);
 
     if (!trip) {
       return res.status(404).json({

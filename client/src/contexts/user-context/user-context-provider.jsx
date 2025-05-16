@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UserContext } from "./user-context";
 import { jwtDecode } from "jwt-decode";
 
@@ -8,12 +8,20 @@ export const UserContextProvider = ({ children }) => {
   const [token, setToken] = useState(tokenValue);
   const [user, setUser] = useState(null);
 
+  useEffect(() => {
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      setUser(decodedToken);
+    } else {
+      setUser(null);
+    }
+  }, [token]);
+
   const handleUserLogin = (newToken) => {
     localStorage.setItem("token", newToken);
-    const decodedToken = jwtDecode(newToken);
-    setUser(decodedToken);
     setToken(newToken);
   };
+
   const handleUserLogout = () => {
     localStorage.removeItem("token");
     setToken(null);

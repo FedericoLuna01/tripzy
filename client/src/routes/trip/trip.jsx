@@ -36,6 +36,7 @@ const Trip = () => {
           {formatDay(activeDay)}
         </p>
         <div className="activity-container">
+          {/* TODO: Capaz conviene ponerlo en otro componente */}
           {activities
             .sort((a, b) => a.time.localeCompare(b.time))
             .map((activity, index) => (
@@ -43,7 +44,9 @@ const Trip = () => {
                 <span>{activity.time}</span>
                 <div>
                   <h3>{activity.title}</h3>
-                  <p>{activity.description}</p>
+                  <p className="activity-card-description">
+                    {activity.description}
+                  </p>
                 </div>
                 <div className="activity-card-buttons">
                   <button
@@ -52,7 +55,10 @@ const Trip = () => {
                   >
                     <PencilSimple size={20} />
                   </button>
-                  <button className="button button-destructive button-square">
+                  <button
+                    // TODO: Agregar la funcionalidad de eliminar
+                    className="button button-destructive button-square"
+                  >
                     <Trash size={20} />
                   </button>
                 </div>
