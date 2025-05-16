@@ -84,6 +84,10 @@
   color: rgb(255, 255, 255);
 }
 
+.card-member.icons {
+  color: rgb(255, 255, 255);
+}
+
 .profile-photo {
   width: 135px;
   height: 135px;
@@ -112,9 +116,9 @@
   align-items: center;
   justify-content: center;
   margin-top: 1rem;
-  gap: 1rem;
+  gap: 2rem;
 }
 
-.icons {
-  fill: var(--color-text);
+.icon-svg {
+  color: var(--color-text);
 }
