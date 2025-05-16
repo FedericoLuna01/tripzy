@@ -33,13 +33,7 @@ Instalar con npm
 
 ## ToDo's
 
-[ ] Despues de crear un viaje en new-trip redireccionar al viaje
-
-[ ] Redirigir al login luego de registrarse
-
 [ ] Despues de editar perfil guardar el jwt en localStorage
-
-[ ] En trip ..funcionalidades
 
 [ ] En members agregar el back y funcionalidad para invitar
 
