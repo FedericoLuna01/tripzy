@@ -10,7 +10,7 @@ const members = [
     socials: {
       github: "https://github.com/FedericoLuna01",
       linkedin: "https://www.linkedin.com/in/federico-luna-dev/",
-      x: "mailto:https://x.com/FedericoLunaDev",
+      x: "https://x.com/FedericoLunaDev",
     },
   },
   {
@@ -20,7 +20,7 @@ const members = [
     socials: {
       github: "https://github.com/AlvaroReynoso",
       linkedin: "https://www.linkedin.com/in/alvaroreynoso/",
-      x: "mailto:https://x.com/AIvaroReynoso",
+      x: "https://x.com/AIvaroReynoso",
     },
   },
   {
@@ -30,7 +30,7 @@ const members = [
     socials: {
       github: "https://github.com/LucianoTessa",
       linkedin: "https://www.linkedin.com/in/lucianoeliantessa/",
-      x: "mailto:https://x.com/Lucho_Tessa",
+      x: "https://x.com/Lucho_Tessa",
     },
   },
 ];

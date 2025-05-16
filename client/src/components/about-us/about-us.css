@@ -73,7 +73,6 @@
 
 .card-member:hover {
   background-color: #df6d14;
-  cursor: pointer;
 }
 
 .card-member:hover h3 {
