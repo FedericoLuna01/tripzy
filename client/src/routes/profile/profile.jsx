@@ -39,6 +39,7 @@ const Profile = () => {
     getUser();
   }, []);
 
+  // TODO: Hacer un no encontrado
   if (!user) {
     return (
       <div className="container profile">

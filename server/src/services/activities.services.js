@@ -69,3 +69,15 @@ export const deleteActivity = async (req, res) => {
 
   res.json("Borrado Correctamente");
 };
+
+export const getActivitiesByDay = async (req, res) => {
+  const { tripDaysId } = req.params;
+  try {
+    const activities = await Activities.findAll({
+      where: { tripDaysId },
+    });
+    res.json(activities);
+  } catch (error) {
+    res.status(500).json({ message: "Error al obtener actividades por día" });
+  }
+};

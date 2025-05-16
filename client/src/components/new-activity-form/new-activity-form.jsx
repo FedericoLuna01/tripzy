@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
 import { ArrowLeft, PencilSimple, PlusCircle } from "phosphor-react";
+import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import Input from "../ui/input/input";
 import "./new-activity-form.css";
@@ -8,6 +8,7 @@ const NewActivityForm = ({
   setActivities,
   editingActivity,
   setEditingActivity,
+  activeDay,
 }) => {
   const inputTimeRef = useRef(null);
   const inputTitleRef = useRef(null);
@@ -104,13 +105,7 @@ const NewActivityForm = ({
       return;
     }
 
-    console.log("Activity added:", {
-      time,
-      activityTitle,
-      activityDescription,
-    });
-
-    // TODOS: Cambiar el id por el id de la actividad, no funciona]
+    // TODOS: Implementar con el backend
     if (editingActivity) {
       setActivities((prevActivities) =>
         prevActivities.map((activity) =>
@@ -128,15 +123,6 @@ const NewActivityForm = ({
       return;
     }
 
-    setActivities((prevActivities) => [
-      ...prevActivities,
-      {
-        time,
-        title: activityTitle,
-        description: activityDescription,
-      },
-    ]);
-
     fetch(`http://localhost:3000/activities`, {
       method: "POST",
       headers: {
@@ -147,11 +133,26 @@ const NewActivityForm = ({
         title: activityTitle,
         description: activityDescription,
         time,
-        tripDaysId: 1,
+        tripDaysId: activeDay.id,
       }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        if (data.message) {
+          return toast.error(data.message);
+        }
+        setActivities((prevActivities) => [
+          ...prevActivities,
+          {
+            id: data.id,
+            time,
+            title: activityTitle,
+            description: activityDescription,
+          },
+        ]);
+        toast.success("Actividad agregada con éxito");
+        setEditingActivity(null);
+      })
       .catch((error) => console.log(error));
 
     setTime("");
