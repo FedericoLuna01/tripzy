@@ -22,6 +22,30 @@ const AboutUs = () => {
           nuestra aplicación y hacerla más útil para nuestros usuarios.
         </p>
       </div>
+
+      <div className="cards-aboutUs">
+        <div className="card-member">
+          <img
+            src="/img-member-1.jpeg"
+            alt="Miembro 1"
+            className="member-img"
+          />
+          <h3>Federico Luna</h3>
+          <p>Developer</p>
+        </div>
+
+        <div className="card-member">
+          <img src="/img-member-2.jpg" alt="Miembro 2" className="member-img" />
+          <h3>Álvaro Reynoso</h3>
+          <p>Developer</p>
+        </div>
+
+        <div className="card-member">
+          <img src="/img-member-3.jpg" alt="Miembro 3" className="member-img" />
+          <h3>Luciano Tessa</h3>
+          <p>Developer</p>
+        </div>
+      </div>
     </div>
   );
 };
