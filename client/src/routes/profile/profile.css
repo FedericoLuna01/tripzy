@@ -5,6 +5,7 @@
 .container.profile {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .container-avatar {
@@ -41,6 +42,7 @@
   border-radius: 10px;
   background-color: var(--color-white);
   text-decoration: none;
+  height: 10em;
 }
 
 .box-info img {
@@ -93,4 +95,44 @@ a.box-info {
 
 .edit-profile:hover {
   filter: brightness(0.8);
+}
+
+.container-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.container-no-trips {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.container-no-trips > h2 {
+  font-size: 1.8em;
+}
+
+.container-no-trips > p {
+  color: var(--color-muted);
+}
+
+.container-no-trips > a > button {
+  margin-top: 10px;
+}
+
+.mountain {
+  color: var(--color-text);
+}
+
+.trips-container {
+  display: grid;
+  grid-template-columns: repeat(5, 250px);
+  align-items: center;
+  gap: 20px;
+  justify-content: space-between;
+  margin-bottom: 45px;
 }

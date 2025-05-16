@@ -39,8 +39,6 @@ Instalar con npm
 
 [ ] Despues de editar perfil guardar el jwt en localStorage
 
-[ ] Crear estado vacio de viajes en perfil
-
 [ ] En trip ..funcionalidades
 
 [ ] En members agregar el back y funcionalidad para invitar

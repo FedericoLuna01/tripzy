@@ -1,3 +1,4 @@
+import bcrypt from "bcryptjs";
 import { Users } from "../models/Users.js";
 import jwt from "jsonwebtoken";
 
@@ -48,10 +49,15 @@ export const postUser = async (req, res) => {
     });
   }
 
+  // Encriptar la contraseña
+  const saltRounds = 10;
+  const salt = await bcrypt.genSalt(saltRounds);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
   const user = await Users.create({
     name,
     email,
-    password,
+    password: hashedPassword,
     role,
     status,
   });
