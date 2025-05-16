@@ -6,17 +6,11 @@ import {
   useNavigate,
   useParams,
 } from "react-router";
-import {
-  AirplaneLanding,
-  PaperPlane,
-  PencilSimple,
-  Plus,
-  Trash,
-} from "phosphor-react";
+import { AirplaneLanding, PencilSimple, Plus, Trash } from "phosphor-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { addDays } from "date-fns";
-import { DATA, USERS_AVATARS } from "../../data/data";
+import { USERS_AVATARS } from "../../data/data";
 import Avatar from "../../components/avatar/avatar";
 import Modal from "../../components/modal/modal";
 import { formatDay } from "../../utils/utils";
