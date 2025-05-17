@@ -1,5 +1,6 @@
 import { TripDays } from "../models/TripDays.js";
 import { Trips } from "../models/Trips.js";
+import { Users } from "../models/Users.js";
 import { UserTrip } from "../models/UserTrip.js";
 
 export const getAllTrips = async (req, res) => {
@@ -23,6 +24,16 @@ export const getTrip = async (req, res) => {
         {
           model: TripDays,
           as: "days",
+        },
+        {
+          model: UserTrip,
+          as: "tripUsers",
+          include: [
+            {
+              model: Users,
+              as: "user",
+            },
+          ],
         },
       ],
     });

@@ -89,6 +89,7 @@ const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
               <span
                 onClick={(e) => {
                   e.stopPropagation();
+                  // TODO: Agregar modal de confirmación
                   handleDeleteDay(day);
                 }}
               >
