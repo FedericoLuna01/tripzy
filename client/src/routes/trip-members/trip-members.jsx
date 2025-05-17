@@ -33,7 +33,7 @@ const TripMembers = () => {
       <div className="card members-container">
         <h3>Gestioná tus amigos</h3>
         <form action="">
-          <div>
+          <div className="input-group">
             <label htmlFor="email">Email</label>
             <div className="container-input">
               <Input id="email" />
@@ -41,7 +41,9 @@ const TripMembers = () => {
                 Invitar <Plus size={20} />{" "}
               </button>
             </div>
-            <p>Ingresá el email de la persona que quieras invitar</p>
+            <p className="input-description">
+              Ingresá el email de la persona que quieras invitar
+            </p>
           </div>
         </form>
         <div className="card-container">

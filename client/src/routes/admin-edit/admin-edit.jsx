@@ -1,9 +1,9 @@
-import { FloppyDisk } from "phosphor-react";
-import Input from "../../components/ui/input/input";
-import "./admin-edit.css";
+import { ArrowLeft, FloppyDisk } from "phosphor-react";
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import toast from "react-hot-toast";
+import "./admin-edit.css";
+import Input from "../../components/ui/input/input";
 
 const AdminEdit = () => {
   const inputNameRef = useRef(null);
@@ -12,7 +12,7 @@ const AdminEdit = () => {
   const inputStateRef = useRef(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState("owner");
+  const [role, setRole] = useState("user");
   const [status, setStatus] = useState("active");
   const [errors, setErrors] = useState({
     invalidName: false,
@@ -51,7 +51,6 @@ const AdminEdit = () => {
     fetch(`http://localhost:3000/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setUser(data);
         setName(data.name);
         setEmail(data.email);
@@ -140,8 +139,6 @@ const AdminEdit = () => {
       hasError = true;
     }
 
-    console.log({ name, email, role, status });
-
     if (hasError) return;
 
     putUser(user.id);
@@ -151,6 +148,11 @@ const AdminEdit = () => {
     <section className="background">
       <div className="container">
         <div className="heading">
+          <Link to={`/admin`}>
+            <button className="button button-outline">
+              Volver <ArrowLeft size={20} />
+            </button>
+          </Link>
           <h1 className="title">Editar usuario</h1>
           <p>
             Aquí puedes editar la información del usuario. Puedes cambiar su
@@ -206,7 +208,7 @@ const AdminEdit = () => {
                   >
                     <option value="superAdmin">Super Admin</option>
                     <option value="admin">Admin</option>
-                    <option value="usuario">Usuario</option>
+                    <option value="user">Usuario</option>
                   </select>
                   <p className="input-description">
                     El rol que quieras que tenga el usuario

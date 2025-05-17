@@ -54,7 +54,7 @@ const TripLayout = () => {
           <AirplaneLanding size={84} className="plane-center-img" />
           <h1 className="mid-text">Ups, destino incierto</h1>
           <NavLink to="/">
-            <button className="button button-secondary">Deberias volver</button>
+            <button className="button button-secondary">Deberías volver</button>
           </NavLink>
         </div>
       </div>
@@ -130,7 +130,7 @@ const TripLayout = () => {
             </div>
             <div className="actions-container">
               <Link to={`/trip/edit/${trip.id}`}>
-                <button className=" button button-outline ">
+                <button className="button button-outline">
                   Editar <PencilSimple size={20} />
                 </button>
               </Link>

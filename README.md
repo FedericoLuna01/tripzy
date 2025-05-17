@@ -4,7 +4,9 @@ Este proyecto es un planeador de viajes para el trabajo practico numero 1 de la 
 
 ## Tech Stack
 
-**Client:** React
+**Client:** React, headless UI, motion, react-hot-toast
+
+**Server:** Express, JWT, bcrypt
 
 ## Instalación
 
@@ -26,16 +28,18 @@ Instalar con npm
 ### Server
 
 ```bash
-    cd server
-    npm i
-    npm run dev
+  cd server
+  npm i
+  npm run dev
 ```
 
 ## ToDo's
 
-[ ] Despues de editar perfil guardar el jwt en localStorage
-
+[ ] Después de editar perfil guardar el jwt en localStorage
 [ ] En members agregar el back y funcionalidad para invitar
+[ ] Proteger ruta de trip si el usuario no esta invitado
+[ ] Mostrar los viajes que pertenecen al usuario en profile (los admin deberían ver todos)
+[ ] Hacer un custom hook para el modal
 
 ## Autores
 

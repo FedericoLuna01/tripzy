@@ -1,8 +1,9 @@
+import { CalendarPlus, Minus } from "phosphor-react";
 import { addDays, isEqual } from "date-fns";
 import { useParams } from "react-router";
 import { toast } from "react-hot-toast";
-import { CalendarPlus, Minus } from "phosphor-react";
 import { formatDay } from "../../utils/utils";
+import "./trip-days.css";
 
 const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
   const params = useParams();

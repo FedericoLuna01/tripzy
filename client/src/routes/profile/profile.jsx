@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 import { Link, NavLink } from "react-router";
 import "./profile.css";
 import Avatar from "../../components/avatar/avatar";
 import { getProfile } from "../../services/getProfile";
-import { Mountains } from "phosphor-react";
+import { Calendar, Mountains } from "phosphor-react";
 const Profile = () => {
   const [trips, setTrips] = useState([]);
   const [user, setUser] = useState(null);
@@ -71,7 +73,7 @@ const Profile = () => {
             <div className="container-no-trips">
               <Mountains className="mountain" size={84} />
               <h2>Tus vacaciones te esperan</h2>
-              <p>Empeza a planificar el viaje de tus sueños</p>
+              <p>Empezá a planificar el viaje de tus sueños</p>
               <NavLink to="/new-trip">
                 <button className="button button-primary">Crear viaje</button>
               </NavLink>
@@ -80,10 +82,28 @@ const Profile = () => {
         ) : (
           <div className="trips-container">
             {trips.map((trip, index) => (
-              <Link key={index} to={`/trip/${trip.id}`} className="box-info">
+              <Link
+                key={index}
+                to={`/trip/${trip.id}`}
+                className="box-info shadow"
+              >
                 <img src={trip.imageUrl} alt={`${trip.title} image`} />
-                <h3>{trip.title}</h3>
-                <p>{trip.description}</p>
+                <div className="box-info-data">
+                  <h3>{trip.title}</h3>
+                  <p className="box-info-description">{trip.description}</p>
+                  <div className="box-info-date-container">
+                    <Calendar className="box-info-icon" size={22} />
+                    <p className="box-info-date">
+                      {format(
+                        new Date(trip.startDate),
+                        "d 'de' MMMM 'de' yyyy",
+                        {
+                          locale: es,
+                        }
+                      )}
+                    </p>
+                  </div>
+                </div>
               </Link>
             ))}
           </div>
