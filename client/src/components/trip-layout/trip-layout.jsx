@@ -25,6 +25,14 @@ const TripLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+
   useEffect(() => {
     fetch(`http://localhost:3000/trips/${params.id}`, {
       method: "GET",
@@ -40,34 +48,13 @@ const TripLayout = () => {
         return response.json();
       })
       .then((trip) => {
+        console.log("trip", trip);
         setTrip(trip);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   }, [params.id]);
-
-  if (!trip) {
-    return (
-      <div className="trip-layout">
-        <div className="container center-container">
-          <AirplaneLanding size={84} className="plane-center-img" />
-          <h1 className="mid-text">Ups, destino incierto</h1>
-          <NavLink to="/">
-            <button className="button button-secondary">Deberías volver</button>
-          </NavLink>
-        </div>
-      </div>
-    );
-  }
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
-  const handleOpen = () => {
-    setIsOpen(true);
-  };
 
   const handleDelete = () => {
     toast.success("Viaje eliminado");
@@ -93,6 +80,20 @@ const TripLayout = () => {
     setIsOpen(false);
   };
 
+  if (!trip) {
+    return (
+      <div className="trip-layout">
+        <div className="container center-container">
+          <AirplaneLanding size={84} className="plane-center-img" />
+          <h1 className="mid-text">Ups, destino incierto</h1>
+          <NavLink to="/">
+            <button className="button button-secondary">Deberías volver</button>
+          </NavLink>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <Modal
@@ -116,6 +117,7 @@ const TripLayout = () => {
               <div className="friends-container">
                 <p>Amigos de viaje:</p>
                 <div className="avatars-container">
+                  {/* TODO: Mostrar los usuarios posta */}
                   {USERS_AVATARS.map((user) => (
                     <Avatar user={user} key={user.id} />
                   ))}
