@@ -70,50 +70,6 @@
   gap: 0.5em;
 }
 
-.days-buttons-container > button {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 0.5em;
-  background: transparent;
-  border: none;
-  text-align: left;
-  border-radius: var(--border-radius-small);
-  cursor: pointer;
-  color: var(--color-text);
-}
-
-.days-buttons-container > button > span {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid var(--color-border);
-  background-color: var(--color-background);
-  padding: 0.15em 0.3em;
-  border-radius: var(--border-radius-small);
-}
-
-.days-buttons-container > button > span:hover {
-  filter: brightness(0.8);
-}
-
-.days-buttons-container > button.active {
-  background-color: #df6d1488;
-}
-
-.days-buttons-container > button:hover {
-  background-color: #df6d1488;
-}
-
-.days-container {
-  width: 30%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5em;
-  height: fit-content;
-}
-
 .activities-container {
   width: 100%;
 }

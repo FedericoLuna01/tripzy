@@ -1,12 +1,12 @@
 import { formatDate, isBefore, parseISO } from "date-fns";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { AirplaneTakeoff } from "phosphor-react";
 import { toast } from "react-hot-toast";
 import Input from "../../components/ui/input/input";
 import { useNavigate } from "react-router";
+import { UserContext } from "../../contexts/user-context/user-context";
 
 const TripForm = ({ initialTrip }) => {
-  const IS_ADMIN = true;
   const [title, setTitle] = useState("");
   const [tripStart, setTripStart] = useState("");
   const [description, setDescription] = useState("");
@@ -25,9 +25,9 @@ const TripForm = ({ initialTrip }) => {
   const inputTripStartRef = useRef(null);
   const inputDescriptionRef = useRef(null);
   const inputImageUrlRef = useRef(null);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
-    console.log(initialTrip);
     if (initialTrip) {
       setTitle(initialTrip.title || "");
       setTripStart(
@@ -141,7 +141,7 @@ const TripForm = ({ initialTrip }) => {
         description,
         startDate: tripStart,
         imageUrl,
-        userId: 1,
+        userId: user.id,
         isPublic,
         isBlocked,
       }),
@@ -253,8 +253,7 @@ const TripForm = ({ initialTrip }) => {
               Cualquier persona podrá unirse al itinerario
             </p>
           </div>
-          {/* TODO: Sacar lo hardcodeado por el context */}
-          {IS_ADMIN && (
+          {user && user.role !== "user" && (
             <div className="input-group">
               <label htmlFor="blocked">Bloqueado</label>
               <Input
@@ -265,7 +264,7 @@ const TripForm = ({ initialTrip }) => {
                 style={{ width: "fit-content" }}
               />
               <p className="input-description">
-                El viaje no será visible para los usuarios
+                El viaje no podrá ser editado por el usuario
               </p>
             </div>
           )}

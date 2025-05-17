@@ -19,7 +19,7 @@ export const NAV_LINKS = [
 
 const Header = () => {
   const { user } = useContext(UserContext);
-  console.log(user);
+
   return (
     <header className="border-b">
       <div className="container-header container">
@@ -30,20 +30,19 @@ const Header = () => {
               {name}
             </NavLink>
           ))}
-          {/* TODO: Arregla, anda mal  */}
-          {user && user.role === "admin" && (
-            <NavLink to="/admin">Admin</NavLink>
-          )}
           {user ? (
             <>
               <NavLink to="/new-trip">Nuevo viaje</NavLink>
+              {user && user.role !== "user" && (
+                <NavLink to="/admin">Admin</NavLink>
+              )}
               <LoggedAvatar />
             </>
           ) : (
-            <div className="heaer-log-register-container">
+            <div className="header-log-register-container">
               <NavLink className="botonP" to="/login">
                 <button className="button button-secondary">
-                  Iniciar sesion
+                  Iniciar sesión
                 </button>
               </NavLink>
               <NavLink className="botonP" to="/register">

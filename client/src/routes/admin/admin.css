@@ -73,7 +73,12 @@
 
 .role.admin {
   background-color: #e6f0ff;
-  color: #2974cc;
+  color: #2876eb;
+}
+
+.role.superadmin {
+  background-color: #6dee69;
+  color: #1c3f1b;
 }
 
 .role.user {
