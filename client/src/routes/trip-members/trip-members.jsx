@@ -6,26 +6,17 @@ import "./trip-members.css";
 import React, { useState } from "react";
 import Modal from "../../components/modal/modal";
 import toast from "react-hot-toast";
+import useModal from "../../hooks/useModal";
 
 const TripMembers = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [users, setUsers] = useState(USERS_AVATARS);
   const [selectedUser, setSelectedUser] = useState(null);
+  const { handleClose, handleOpen, isOpen } = useModal();
 
   const handleDeleteUser = (id) => {
     setUsers((prev) => prev.filter((user) => user.id !== id));
-    setIsOpen(false);
+    handleOpen();
     toast.success("Usuario eliminado del viaje");
-  };
-
-  const handleClose = () => {
-    setIsOpen(false);
-    setSelectedUser(null);
-  };
-
-  const handleOpen = (user) => {
-    setSelectedUser(user);
-    setIsOpen(true);
   };
 
   return (
@@ -53,7 +44,10 @@ const TripMembers = () => {
                 entity={`el usuario ${selectedUser?.name || ""}`}
                 onSubmit={() => handleDeleteUser(selectedUser?.id)}
                 isOpen={isOpen}
-                handleClose={handleClose}
+                handleClose={() => {
+                  handleClose();
+                  setSelectedUser(null);
+                }}
               />
               <div className="card user-card no-shadow column">
                 <div className="info-user">
@@ -73,7 +67,10 @@ const TripMembers = () => {
                   <button
                     type="button"
                     className="button button-destructive"
-                    onClick={() => handleOpen(user)}
+                    onClick={() => {
+                      setSelectedUser(user);
+                      handleOpen();
+                    }}
                   >
                     Eliminar <Trash size={20} />
                   </button>

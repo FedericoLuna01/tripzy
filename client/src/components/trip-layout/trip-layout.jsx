@@ -17,21 +17,14 @@ import { formatDay } from "../../utils/utils";
 import "../../routes/new-trip/new-trip.css";
 import "../../routes/trip/trip.css";
 import "./trip-layout.css";
+import useModal from "../../hooks/useModal";
 
 const TripLayout = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [trip, setTrip] = useState(null);
   const params = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
-  const handleOpen = () => {
-    setIsOpen(true);
-  };
+  const { handleClose, handleOpen, isOpen } = useModal();
 
   useEffect(() => {
     fetch(`http://localhost:3000/trips/${params.id}`, {
@@ -77,7 +70,7 @@ const TripLayout = () => {
         console.error("Error:", error);
         toast.error("Error al eliminar el viaje");
       });
-    setIsOpen(false);
+    handleClose();
   };
 
   if (!trip) {

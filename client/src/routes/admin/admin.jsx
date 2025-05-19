@@ -12,13 +12,14 @@ import {
   MenuItem,
 } from "../../components/ui/menu/menu";
 import "./admin.css";
+import useModal from "../../hooks/useModal";
 
 const Admin = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [search, setSearch] = useState("");
+  const { handleClose, handleOpen, isOpen } = useModal();
 
   const getUsers = () => {
     fetch("http://localhost:3000/users")
@@ -48,18 +49,8 @@ const Admin = () => {
 
     setUsers((prev) => prev.filter((user) => user.id !== id));
     setFilteredUsers((prev) => prev.filter((user) => user.id !== id));
-    setIsOpen(false);
+    handleClose();
     toast.success("Usuario eliminado");
-  };
-
-  const handleClose = () => {
-    setIsOpen(false);
-    setSelectedUser(null);
-  };
-
-  const handleOpen = (user) => {
-    setSelectedUser(user);
-    setIsOpen(true);
   };
 
   const handleSearch = (e) => {
@@ -75,7 +66,10 @@ const Admin = () => {
     <section className="background">
       <Modal
         isOpen={isOpen}
-        handleClose={handleClose}
+        handleClose={() => {
+          setSelectedUser(null);
+          handleClose();
+        }}
         onSubmit={() => handleDeleteUser(selectedUser.id)}
         entity={`usuario ${selectedUser?.name}`}
       />
@@ -151,7 +145,10 @@ const Admin = () => {
                           <MenuItem>
                             <span
                               className="menu-item-link destructive"
-                              onClick={() => handleOpen(user)}
+                              onClick={() => {
+                                setSelectedUser(user);
+                                handleOpen();
+                              }}
                             >
                               <Trash size={20} /> Eliminar
                             </span>
