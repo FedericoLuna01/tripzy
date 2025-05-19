@@ -4,9 +4,14 @@ import { useParams } from "react-router";
 import { toast } from "react-hot-toast";
 import { formatDay } from "../../utils/utils";
 import "./trip-days.css";
+import { useState } from "react";
+import useModal from "../../hooks/useModal";
+import Modal from "../modal/modal";
 
 const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
+  const [deleteDay, setDeleteDay] = useState(null);
   const params = useParams();
+  const { handleClose, handleOpen, isOpen } = useModal();
 
   const handleActiveDay = (day) => {
     setActiveDay(day);
@@ -38,6 +43,8 @@ const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
         console.error("Error:", error);
         toast.error("Error al eliminar el día");
       });
+
+    handleClose();
   };
 
   const handleAddDay = () => {
@@ -72,6 +79,15 @@ const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
 
   return (
     <div className="card days-container">
+      <Modal
+        isOpen={isOpen}
+        handleClose={() => {
+          setDeleteDay(null);
+          handleClose();
+        }}
+        onSubmit={() => handleDeleteDay(deleteDay)}
+        entity={deleteDay?.date ? `día ${formatDay(deleteDay.date)}` : "día"}
+      />
       <h2>Dias</h2>
       <div className="days-buttons-container">
         {days.map((day, index) => (
@@ -89,8 +105,8 @@ const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
               <span
                 onClick={(e) => {
                   e.stopPropagation();
-                  // TODO: Agregar modal de confirmación
-                  handleDeleteDay(day);
+                  setDeleteDay(day);
+                  handleOpen();
                 }}
               >
                 <Minus size={16} />
