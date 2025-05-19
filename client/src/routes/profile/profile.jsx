@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { Link, NavLink } from "react-router";
 import "./profile.css";
 import Avatar from "../../components/avatar/avatar";
-import { getProfile } from "../../services/getProfile";
 import { Calendar, Mountains } from "phosphor-react";
+import { UserContext } from "../../contexts/user-context/user-context";
 const Profile = () => {
   const [trips, setTrips] = useState([]);
-  const [user, setUser] = useState(null);
+  const { user } = useContext(UserContext);
 
   const getTrips = () => {
     fetch("http://localhost:3000/trips", {
@@ -27,21 +27,10 @@ const Profile = () => {
       });
   };
 
-  const getUser = async () => {
-    const data = await getProfile();
-    if (data) {
-      setUser(data);
-    } else {
-      setUser(null);
-    }
-  };
-
   useEffect(() => {
     getTrips();
-    getUser();
   }, []);
 
-  // TODO: Hacer un no encontrado
   if (!user) {
     return (
       <div className="container profile">
