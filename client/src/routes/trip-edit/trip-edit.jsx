@@ -26,7 +26,7 @@ const TripEdit = () => {
         <div className="trip-button-container">
           <Link to={`/trip/${id}`}>
             <button className="button button-outline">
-              Volver <ArrowLeft size={20} />
+              <ArrowLeft size={20} /> Volver
             </button>
           </Link>
         </div>
