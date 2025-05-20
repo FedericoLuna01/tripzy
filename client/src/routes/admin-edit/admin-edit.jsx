@@ -1,6 +1,6 @@
 import { ArrowLeft, FloppyDisk } from "phosphor-react";
 import { useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import toast from "react-hot-toast";
 import "./admin-edit.css";
 import Input from "../../components/ui/input/input";
@@ -22,6 +22,7 @@ const AdminEdit = () => {
   });
   const [user, setUser] = useState(null);
   const params = useParams();
+  const navigate = useNavigate();
 
   const putUser = async (id) => {
     try {
@@ -42,6 +43,7 @@ const AdminEdit = () => {
         return toast.error(data.message);
       }
       toast.success("Usuario editado correctamente");
+      navigate("/admin");
     } catch (error) {
       console.log(error);
     }
@@ -244,8 +246,7 @@ const AdminEdit = () => {
               </button>
             </form>
           ) : (
-            // TODO: hacer un empty state fachero
-            <p>No se encontro el usuario </p>
+            <p>No se encontró el usuario </p>
           )}
         </div>
       </div>
