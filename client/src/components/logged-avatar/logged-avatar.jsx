@@ -1,12 +1,11 @@
-import { Link } from "react-router";
 import { SignOut, User } from "phosphor-react";
+import toast from "react-hot-toast";
+import { Link } from "react-router";
+import { useContext } from "react";
 import { Menu, MenuButton, MenuItem, MenuItems } from "../ui/menu/menu";
-import { USERS_AVATARS } from "../../data/data";
+import { UserContext } from "../../contexts/user-context/user-context";
 import Avatar from "../avatar/avatar";
 import "./logged-avatar.css";
-import { useContext } from "react";
-import { UserContext } from "../../contexts/user-context/user-context";
-import toast from "react-hot-toast";
 
 const LoggedAvatar = () => {
   const { handleUserLogout, user } = useContext(UserContext);

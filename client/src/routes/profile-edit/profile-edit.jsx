@@ -1,38 +1,23 @@
 import { ArrowLeft, PencilSimple } from "phosphor-react";
-import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router";
+import { useContext, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import "./profile-edit.css";
-import { getProfile } from "../../services/getProfile";
 import Input from "../../components/ui/input/input";
+import { UserContext } from "../../contexts/user-context/user-context";
 
 const ProfileEdit = () => {
-  const [user, setUser] = useState(null);
-  const [name, setName] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const { user } = useContext(UserContext);
+  const [name, setName] = useState(user.name || "");
+  const [imageUrl, setImageUrl] = useState(user.imageUrl || "");
   const [errors, setErrors] = useState({
     title: false,
     imageUrl: false,
   });
+  const navigate = useNavigate();
 
   const inputNameRef = useRef(null);
   const inputImageUrlRef = useRef(null);
-
-  const getUser = async () => {
-    const data = await getProfile();
-    if (data) {
-      setUser(data);
-      setName(data.name);
-      setImageUrl(data.imageUrl);
-    } else {
-      setName("");
-      setImageUrl("");
-    }
-  };
-
-  useEffect(() => {
-    getUser();
-  }, []);
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -68,30 +53,31 @@ const ProfileEdit = () => {
       return;
     }
 
-    const updatedUser = {
-      name,
-      imageUrl,
-    };
     const token = localStorage.getItem("token");
 
-    fetch(`http://localhost:3000/profile/${user.id}`, {
+    fetch(`http://localhost:3000/profile/${user?.id || ""}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(updatedUser),
+      body: JSON.stringify({
+        name,
+        imageUrl,
+      }),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.message) {
           return;
         }
-        setUser(data);
-        setName(data.name);
-        setImageUrl(data.imageUrl);
+        setName(data.user.name || "");
+        setImageUrl(data.user.imageUrl || "");
+        localStorage.setItem("token", data.token);
         toast.success("Perfil actualizado correctamente");
-      });
+        navigate("/profile");
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -108,7 +94,7 @@ const ProfileEdit = () => {
             <Input
               ref={inputNameRef}
               onChange={handleNameChange}
-              value={name}
+              value={name || ""} // Ensure controlled input
               id={"name"}
               className={`${errors.title ? "error" : ""}`}
               placeholder="John Doe"
@@ -128,7 +114,7 @@ const ProfileEdit = () => {
             <Input
               ref={inputImageUrlRef}
               onChange={handleImageUrlChange}
-              value={imageUrl}
+              value={imageUrl || ""} // Ensure controlled input
               id={"imageUrl"}
               className={`${errors.imageUrl ? "error" : ""}`}
               placeholder="https://i.pravatar.cc/150?img=3"

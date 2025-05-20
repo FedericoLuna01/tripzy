@@ -24,9 +24,9 @@ export const createActivity = async (req, res) => {
 
 export const updateActivity = async (req, res) => {
   const { id } = req.params;
-  const { title, description, time, tripDaysId } = req.body;
+  const { title, description, time } = req.body;
 
-  if (!title || !description || !time || !tripDaysId) {
+  if (!title || !description || !time) {
     return res.status(400).json({
       message: "Todos los campos son obligatorios",
     });
@@ -44,7 +44,6 @@ export const updateActivity = async (req, res) => {
       title,
       description,
       time,
-      tripDaysId,
     },
     {
       where: { id },

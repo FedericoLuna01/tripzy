@@ -105,20 +105,37 @@ const NewActivityForm = ({
       return;
     }
 
-    // TODOS: Implementar con el backend
     if (editingActivity) {
-      setActivities((prevActivities) =>
-        prevActivities.map((activity) =>
-          activity.id === editingActivity.id
-            ? {
-                time,
-                title: activityTitle,
-                description: activityDescription,
-              }
-            : activity
-        )
-      );
-      toast.success("Actividad actualizada con éxito");
+      fetch(`http://localhost:3000/activities/${editingActivity.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          title: activityTitle,
+          description: activityDescription,
+          time,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.message) {
+            return toast.error(data.message);
+          }
+          setActivities((prevActivities) =>
+            prevActivities.map((activity) =>
+              activity.id === editingActivity.id
+                ? {
+                    time,
+                    title: activityTitle,
+                    description: activityDescription,
+                  }
+                : activity
+            )
+          );
+          toast.success("Actividad actualizada con éxito");
+        });
       setEditingActivity(null);
       return;
     }
