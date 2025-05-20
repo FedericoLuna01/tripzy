@@ -39,10 +39,10 @@ function App() {
               <Route path="/trip/:id/members" element={<TripMembers />} />
             </Route>
           </Route>
-          <Route element={<AdminProtectedRoutes />}>
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/admin/edit/:id" element={<AdminEdit />} />
-          </Route>
+          {/* <Route element={<AdminProtectedRoutes />}> */}
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/edit/:id" element={<AdminEdit />} />
+          {/* </Route> */}
         </Route>
       </Routes>
     </BrowserRouter>
