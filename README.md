@@ -43,11 +43,6 @@ Instalar con npm
 - [ ] Proteger api por rol
 - [ ] Agregar un boton en TripLayout para poder bloquear el viaje si sos admin
 
-## Preguntas
-
-- Cuando recargamos la pagina aun estando logueado te saca
-- La imagen no se actualiza cuando se edita perfil
-
 ## Autores
 
 - [@federicoluna](https://www.github.com/federicoluna01)

@@ -130,6 +130,7 @@ const NewActivityForm = ({
                     time,
                     title: activityTitle,
                     description: activityDescription,
+                    id: data.id,
                   }
                 : activity
             )

@@ -6,7 +6,12 @@ const tokenValue = localStorage.getItem("token");
 
 export const UserContextProvider = ({ children }) => {
   const [token, setToken] = useState(tokenValue);
-  const [user, setUser] = useState(null);
+
+  const getInitialToken = () => {
+    return token ? jwtDecode(token) : null;
+  };
+
+  const [user, setUser] = useState(getInitialToken);
 
   useEffect(() => {
     if (token) {

@@ -29,20 +29,20 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/about-us" element={<AboutUs />} />
-          {/* <Route element={<ProtectedRoutes />}> */}
-          <Route path="/new-trip" element={<NewTrip />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/profile/edit" element={<ProfileEdit />} />
-          <Route path="/trip/edit/:id" element={<TripEdit />} />
-          <Route element={<TripLayout />}>
-            <Route path="/trip/:id" element={<Trip />} />
-            <Route path="/trip/:id/members" element={<TripMembers />} />
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/new-trip" element={<NewTrip />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/edit" element={<ProfileEdit />} />
+            <Route path="/trip/edit/:id" element={<TripEdit />} />
+            <Route element={<TripLayout />}>
+              <Route path="/trip/:id" element={<Trip />} />
+              <Route path="/trip/:id/members" element={<TripMembers />} />
+            </Route>
           </Route>
-          {/* </Route> */}
-          {/* <Route element={<AdminProtectedRoutes />}> */}
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/edit/:id" element={<AdminEdit />} />
-          {/* </Route> */}
+          <Route element={<AdminProtectedRoutes />}>
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/edit/:id" element={<AdminEdit />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

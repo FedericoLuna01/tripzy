@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import "./register.css";
 import Logo from "../../components/ui/logo/logo";
 import Input from "../../components/ui/input/input";
@@ -22,6 +22,7 @@ const Register = () => {
   const inputEmailRef = useRef(null);
   const inputPasswordRef = useRef(null);
   const inputPasswordRepeatRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -130,6 +131,8 @@ const Register = () => {
           }
 
           toast.success("Registrado correctamente!");
+          localStorage.setItem("token", data.token);
+          navigate("/");
         })
         .catch((error) => console.log(error));
     } catch (error) {
