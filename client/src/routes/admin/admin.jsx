@@ -22,7 +22,12 @@ const Admin = () => {
   const { handleClose, handleOpen, isOpen } = useModal();
 
   const getUsers = () => {
-    fetch("http://localhost:3000/users")
+    fetch("http://localhost:3000/users", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setUsers(data);
@@ -41,6 +46,10 @@ const Admin = () => {
   const handleDeleteUser = async (id) => {
     const user = await fetch(`http://localhost:3000/users/${id}`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     });
 
     if (!user.ok) {

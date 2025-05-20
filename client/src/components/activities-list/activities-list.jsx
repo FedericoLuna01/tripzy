@@ -7,10 +7,15 @@ import useModal from "../../hooks/useModal";
 import Modal from "../modal/modal";
 import toast from "react-hot-toast";
 
-const ActivitiesList = ({ activeDay, days, activities, setActivities }) => {
+const ActivitiesList = ({
+  activeDay,
+  days,
+  activities,
+  setActivities,
+  canEdit,
+}) => {
   const [editingActivity, setEditingActivity] = useState(null);
   const [deleteSelectActivity, setDeleteSelectActivity] = useState(null);
-  const IS_ADMIN = true;
   const { handleOpen, handleClose, isOpen } = useModal();
   const handleDeleteActivity = (deleteActivity) => {
     fetch(`http://localhost:3000/activities/${deleteActivity.id}`, {
@@ -69,27 +74,28 @@ const ActivitiesList = ({ activeDay, days, activities, setActivities }) => {
                     {activity.description}
                   </p>
                 </div>
-                <div className="activity-card-buttons">
-                  <button
-                    className="button button-outline button-square"
-                    onClick={() => setEditingActivity(activity)}
-                  >
-                    <PencilSimple size={20} />
-                  </button>
-                  <button
-                    className="button button-destructive button-square"
-                    onClick={() => {
-                      handleOpen();
-                      setDeleteSelectActivity(activity);
-                    }}
-                  >
-                    <Trash size={20} />
-                  </button>
-                </div>
+                {canEdit ? (
+                  <div className="activity-card-buttons">
+                    <button
+                      className="button button-outline button-square"
+                      onClick={() => setEditingActivity(activity)}
+                    >
+                      <PencilSimple size={20} />
+                    </button>
+                    <button
+                      className="button button-destructive button-square"
+                      onClick={() => {
+                        handleOpen();
+                        setDeleteSelectActivity(activity);
+                      }}
+                    >
+                      <Trash size={20} />
+                    </button>
+                  </div>
+                ) : null}
               </div>
             ))}
-        {/* TODO: Mostrarlo solo si es el dueño o editor del viaje */}
-        {IS_ADMIN && (
+        {canEdit && (
           <NewActivityForm
             setActivities={setActivities}
             editingActivity={editingActivity}

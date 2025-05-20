@@ -50,6 +50,7 @@ const TripMembers = () => {
         setUsers((prevUsers) => [...prevUsers, data]);
         toast.success("Usuario agregado correctamente");
       });
+    setUserEmail("");
   };
 
   const handleUserEmailChange = (e) => {

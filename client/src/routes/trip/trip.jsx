@@ -6,7 +6,7 @@ import TripDays from "../../components/trip-days/trip-days";
 import ActivitiesList from "../../components/activities-list/activities-list";
 
 const Trip = () => {
-  const { trip } = useOutletContext();
+  const { trip, canEdit } = useOutletContext();
   const [activities, setActivities] = useState(null);
   const [activeDay, setActiveDay] = useState(trip.days[0]);
   const [days, setDays] = useState(trip.days);
@@ -41,12 +41,14 @@ const Trip = () => {
         initialDays={trip.days}
         days={days}
         setDays={setDays}
+        canEdit={canEdit}
       />
       <ActivitiesList
         activeDay={activeDay}
         days={days}
         activities={activities}
         setActivities={setActivities}
+        canEdit={canEdit}
       />
     </div>
   );
