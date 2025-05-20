@@ -36,7 +36,7 @@ Instalar con npm
 ## ToDo's
 
 - [ x ] Después de editar perfil guardar el jwt en localStorage
-- [ ] En members agregar el back y funcionalidad para invitar
+- [ x ] En members agregar el back y funcionalidad para invitar
 - [ ] Proteger ruta de trip si el usuario no esta invitado
 - [ ] Mostrar los viajes que pertenecen al usuario en profile (los admin deberían ver todos)
 - [ x ] Hacer un custom hook para el modal (y cambiar donde se usa actualmente)
