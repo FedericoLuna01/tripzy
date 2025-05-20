@@ -4,6 +4,7 @@ import {
   deleteTrip,
   getAllTrips,
   getTrip,
+  getTripByUserId,
   updateTrip,
 } from "../services/trips.services.js";
 import { verifyToken } from "../middleware/verifyToken.js";
@@ -11,8 +12,7 @@ import { verifyToken } from "../middleware/verifyToken.js";
 const router = Router();
 
 router.get("/trips", verifyToken, getAllTrips);
-// TODO: Hacer un get de trips por usuario
-// router.get("/trips/user/:id", verifyToken, getAllTrips);
+router.get("/trips/user/:userId", verifyToken, getTripByUserId);
 router.get("/trips/:id", verifyToken, getTrip);
 router.post("/trips", verifyToken, createTrip);
 router.delete("/trips/:id", verifyToken, deleteTrip);

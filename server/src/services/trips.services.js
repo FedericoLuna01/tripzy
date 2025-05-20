@@ -15,6 +15,35 @@ export const getAllTrips = async (req, res) => {
   }
 };
 
+export const getTripByUserId = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const trips = await Trips.findAll({
+      include: [
+        {
+          model: UserTrip,
+          as: "tripUsers",
+          where: { userId },
+          include: [
+            {
+              model: Users,
+              as: "user",
+            },
+          ],
+        },
+      ],
+    });
+
+    res.json(trips);
+  } catch (error) {
+    console.error("Error al obtener los viajes:", error);
+    res.status(500).json({
+      message: "Error al obtener los viajes",
+    });
+  }
+};
+
 export const getTrip = async (req, res) => {
   const { id } = req.params;
 

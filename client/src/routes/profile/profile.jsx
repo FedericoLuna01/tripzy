@@ -6,45 +6,30 @@ import "./profile.css";
 import Avatar from "../../components/avatar/avatar";
 import { Calendar, Mountains } from "phosphor-react";
 import { UserContext } from "../../contexts/user-context/user-context";
+
 const Profile = () => {
   const [trips, setTrips] = useState([]);
   const { user } = useContext(UserContext);
 
-  const getTrips = () => {
-    fetch("http://localhost:3000/trips", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message) {
-          return;
-        }
-        setTrips(data);
-      });
-  };
-
   useEffect(() => {
+    const getTrips = () => {
+      fetch(`http://localhost:3000/trips/user/${user.id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.message) {
+            return;
+          }
+          setTrips(data);
+        });
+    };
     getTrips();
-  }, []);
-
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        setTrips([]);
-      }
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
+  }, [user]);
 
   if (!user) {
     return (
