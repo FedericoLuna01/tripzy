@@ -64,14 +64,13 @@ export const updateUserTrip = async (req, res) => {
   if (!role) {
     return res.status(400).json({ message: "Role es requerido" });
   }
-
   const existingOwner = await UserTrip.findOne({
     where: {
       role: "owner",
     },
   });
 
-  if (existingOwner) {
+  if (existingOwner && role === "owner") {
     return res
       .status(400)
       .json({ message: "No puede haber mas de un dueño", existingOwner: true });

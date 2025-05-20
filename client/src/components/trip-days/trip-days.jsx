@@ -8,7 +8,7 @@ import { useState } from "react";
 import useModal from "../../hooks/useModal";
 import Modal from "../modal/modal";
 
-const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
+const TripDays = ({ activeDay, setActiveDay, days, setDays, canEdit }) => {
   const [deleteDay, setDeleteDay] = useState(null);
   const params = useParams();
   const { handleClose, handleOpen, isOpen } = useModal();
@@ -101,7 +101,7 @@ const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
             onClick={() => handleActiveDay(day)}
           >
             Dia {index + 1}: {formatDay(day.date)}
-            {days.length - 1 === index ? (
+            {days.length - 1 === index && canEdit ? (
               <span
                 onClick={(e) => {
                   e.stopPropagation();
@@ -115,10 +115,12 @@ const TripDays = ({ activeDay, setActiveDay, days, setDays }) => {
           </button>
         ))}
       </div>
-      <button className="button button-secondary" onClick={handleAddDay}>
-        Agregar dia
-        <CalendarPlus size={20} />
-      </button>
+      {canEdit ? (
+        <button className="button button-secondary" onClick={handleAddDay}>
+          Agregar dia
+          <CalendarPlus size={20} />
+        </button>
+      ) : null}
     </div>
   );
 };
