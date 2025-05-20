@@ -1,3 +1,4 @@
+import { AirplaneLanding, PencilSimple, Plus, Trash } from "phosphor-react";
 import {
   Link,
   NavLink,
@@ -6,18 +7,16 @@ import {
   useNavigate,
   useParams,
 } from "react-router";
-import { AirplaneLanding, PencilSimple, Plus, Trash } from "phosphor-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { addDays } from "date-fns";
-import { USERS_AVATARS } from "../../data/data";
 import Avatar from "../../components/avatar/avatar";
 import Modal from "../../components/modal/modal";
 import { formatDay } from "../../utils/utils";
 import "../../routes/new-trip/new-trip.css";
+import useModal from "../../hooks/useModal";
 import "../../routes/trip/trip.css";
 import "./trip-layout.css";
-import useModal from "../../hooks/useModal";
 
 const TripLayout = () => {
   const [trip, setTrip] = useState(null);
@@ -41,7 +40,6 @@ const TripLayout = () => {
         return response.json();
       })
       .then((trip) => {
-        console.log("trip", trip);
         setTrip(trip);
       })
       .catch((error) => {
@@ -110,9 +108,8 @@ const TripLayout = () => {
               <div className="friends-container">
                 <p>Amigos de viaje:</p>
                 <div className="avatars-container">
-                  {/* TODO: Mostrar los usuarios posta */}
-                  {USERS_AVATARS.map((user) => (
-                    <Avatar user={user} key={user.id} />
+                  {trip.tripUsers.map((user) => (
+                    <Avatar user={user.user} key={user.id} />
                   ))}
                   <Link
                     className="avatar add-user"

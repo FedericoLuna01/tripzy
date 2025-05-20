@@ -1,11 +1,12 @@
 import express from "express";
 import dotenv from "dotenv";
 import { sequelize } from "./db.js";
+import activitiesRoutes from "./routes/activities.routes.js";
+import userTripRoutes from "./routes/userTrip.routes.js";
 import userRoutes from "./routes/users.routes.js";
 import tripsRoutes from "./routes/trips.routes.js";
 import daysRoutes from "./routes/days.routes.js";
 import authRoutes from "./routes/auth.routes.js";
-import activitiesRoutes from "./routes/activities.routes.js";
 import "./models/Users.js";
 import "./models/UserTrip.js";
 import "./models/Trips.js";
@@ -30,6 +31,7 @@ try {
   app.use(daysRoutes);
   app.use(activitiesRoutes);
   app.use(authRoutes);
+  app.use(userTripRoutes);
 
   await sequelize.sync();
 
