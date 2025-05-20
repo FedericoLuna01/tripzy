@@ -32,7 +32,19 @@ export const registerUser = async (req, res) => {
     password: hashedPassword,
   });
 
-  res.json(newUser);
+  const secretKey = process.env.SECRET_KEY;
+  const token = jwt.sign(
+    {
+      email,
+      id: user.id,
+      name: user.name,
+      role: user.role,
+      status: user.status,
+      imageUrl: user.imageUrl,
+    },
+    secretKey
+  );
+  res.json({ newUser, token });
 };
 
 export const loginUser = async (req, res) => {
