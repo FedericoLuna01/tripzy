@@ -51,7 +51,7 @@ Instalar con npm
 - [ ] Cuando agrego una actividad, y sin recargar la página voy a amigas y vuelvo de vuelta a trips, la ultima actividad desaparece, a menos que recargues la página. Problema similar a amigos.
 - [ x ] Cuando nadie se queda con el rol de dueño y actualizás la página, ya nadie puede ser dueño.
 - [ ] Cuando te querés cambiar de foto de perfil hay que actualizar la página para que aparezca.
-- [ ] Cuando eliminás un viaje, te lleva a error 404 y cuando apretás en volver te lleva a ups destino incierto. Creo que debería llevarte a donde están todas las imágenes de los viajes.
+- [ x ] Cuando eliminás un viaje, te lleva a error 404 y cuando apretás en volver te lleva a ups destino incierto. Creo que debería llevarte a donde están todas las imágenes de los viajes.
 - [ ] Me puedo eliminar de mi propio viaje? y me sigue apareciendo el viaje.
 - [ ] Si hiciste muchos pasos dentro de un viaje, como editar, agregar o borrar días, etc. Cuando apretás para volver atrás en la página y que te lleve a la vista general de viajes, no vuelve de una sino que cada apretada te lleva un paso atrás en lo que hiciste.
 - [ x ] Cuando vas al botón de editar viaje, el segundo botón que aparece debería decir aceptar, no editar, ya que ya apretaste otro botón de editar antes.

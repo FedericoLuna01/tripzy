@@ -10,6 +10,7 @@ import {
 import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { addDays } from "date-fns";
+import { UserContext } from "../../contexts/user-context/user-context";
 import Avatar from "../../components/avatar/avatar";
 import Modal from "../../components/modal/modal";
 import { formatDay } from "../../utils/utils";
@@ -17,7 +18,6 @@ import "../../routes/new-trip/new-trip.css";
 import useModal from "../../hooks/useModal";
 import "../../routes/trip/trip.css";
 import "./trip-layout.css";
-import { UserContext } from "../../contexts/user-context/user-context";
 
 const TripLayout = () => {
   const [trip, setTrip] = useState(null);
@@ -74,7 +74,7 @@ const TripLayout = () => {
         }
       })
       .then(() => {
-        navigate("/trips");
+        navigate("/profile");
       })
       .catch((error) => {
         console.error("Error:", error);

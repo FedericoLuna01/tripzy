@@ -1,11 +1,8 @@
-import React from "react";
 import { ArrowLeft, Compass } from "phosphor-react";
+import { Link } from "react-router";
 import "./not-found.css";
 
 const NotFound = () => {
-  const handleBackButton = () => {
-    window.history.back();
-  };
   return (
     <div>
       <div className="container-pageNotFound">
@@ -19,12 +16,11 @@ const NotFound = () => {
           <div className="notFound-subTitle">
             <h2>Pagina no encontrada</h2>
             <p>Parece que estas perdido... deberías volver</p>
-            <button
-              onClick={handleBackButton}
-              className="button button-secondary button-not-found"
-            >
-              Volver <ArrowLeft size={20} />
-            </button>
+            <Link to="/">
+              <button className="button button-secondary button-not-found">
+                Volver <ArrowLeft size={20} />
+              </button>
+            </Link>
           </div>
         </div>
       </div>
