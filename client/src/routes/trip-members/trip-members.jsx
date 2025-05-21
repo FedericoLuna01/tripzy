@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import { useOutletContext } from "react-router";
 import { Plus, Trash } from "phosphor-react";
 import toast from "react-hot-toast";
 import Input from "../../components/ui/input/input";
@@ -8,8 +7,8 @@ import Modal from "../../components/modal/modal";
 import useModal from "../../hooks/useModal";
 import "./trip-members.css";
 
-const TripMembers = () => {
-  const { trip } = useOutletContext();
+const TripMembers = ({ trip, canEdit }) => {
+  // TODO: Usar canEdit para mostrar el botón de agregar usuario
   const [users, setUsers] = useState(trip.tripUsers);
   const [selectedUser, setSelectedUser] = useState(null);
   const [userEmail, setUserEmail] = useState("");

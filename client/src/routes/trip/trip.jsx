@@ -1,12 +1,10 @@
-import { useOutletContext } from "react-router";
 import React, { useEffect, useState } from "react";
 import "../new-trip/new-trip.css";
 import "./trip.css";
 import TripDays from "../../components/trip-days/trip-days";
 import ActivitiesList from "../../components/activities-list/activities-list";
 
-const Trip = () => {
-  const { trip, canEdit } = useOutletContext();
+const Trip = ({ trip, canEdit }) => {
   const [activities, setActivities] = useState(null);
   const [activeDay, setActiveDay] = useState(trip.days[0]);
   const [days, setDays] = useState(trip.days);

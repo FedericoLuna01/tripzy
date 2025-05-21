@@ -1,22 +1,21 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import { Toaster } from "react-hot-toast";
-import TripLayout from "./components/trip-layout/trip-layout";
-import AboutUs from "./components/about-us/about-us";
-import Layout from "./components/layout/layout";
+import AdminProtectedRoutes from "./routes/admin-protected-routes/admin-protected-routes";
 import ProtectedRoutes from "./routes/protected-routes/protected-routes";
-import TripMembers from "./routes/trip-members/trip-members";
+import TripLayout from "./components/trip-layout/trip-layout";
 import ProfileEdit from "./routes/profile-edit/profile-edit";
 import AdminEdit from "./routes/admin-edit/admin-edit";
+import AboutUs from "./components/about-us/about-us";
 import NotFound from "./routes/not-found/not-found";
 import TripEdit from "./routes/trip-edit/trip-edit";
 import Register from "./routes/register/register";
 import NewTrip from "./routes/new-trip/new-trip";
+import Layout from "./components/layout/layout";
 import Profile from "./routes/profile/profile";
 import Login from "./routes/login/login";
 import Admin from "./routes/admin/admin";
 import Home from "./routes/home/home";
 import Trip from "./routes/trip/trip";
-import AdminProtectedRoutes from "./routes/admin-protected-routes/admin-protected-routes";
 
 function App() {
   return (
@@ -36,7 +35,6 @@ function App() {
             <Route path="/trip/edit/:id" element={<TripEdit />} />
             <Route element={<TripLayout />}>
               <Route path="/trip/:id" element={<Trip />} />
-              <Route path="/trip/:id/members" element={<TripMembers />} />
             </Route>
           </Route>
           <Route element={<AdminProtectedRoutes />}>
