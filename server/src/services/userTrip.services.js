@@ -1,3 +1,4 @@
+import { UserRole, UserTripRole } from "../enums/enums.js";
 import { Users } from "../models/Users.js";
 import { UserTrip } from "../models/UserTrip.js";
 
@@ -15,7 +16,7 @@ export const createUserTrip = async (req, res) => {
   const { email, tripId } = req.body;
 
   if (!email || !tripId) {
-    return res.status(400).json({ message: "Email y tripId son requeridos" });
+    return res.status(400).json({ message: "Email es requerido" });
   }
 
   const user = await Users.findOne({
@@ -59,28 +60,76 @@ export const createUserTrip = async (req, res) => {
 
 export const updateUserTrip = async (req, res) => {
   const { id } = req.params;
-  const { role } = req.body;
+  const { role, tripId } = req.body; // Asegúrate de recibir el tripId en el cuerpo de la solicitud
+  const { user } = req;
 
-  if (!role) {
-    return res.status(400).json({ message: "Role es requerido" });
-  }
-  const existingOwner = await UserTrip.findOne({
-    where: {
-      role: "owner",
-    },
-  });
-
-  if (existingOwner && role === "owner") {
-    return res
-      .status(400)
-      .json({ message: "No puede haber mas de un dueño", existingOwner: true });
+  if (!role || !tripId) {
+    return res.status(400).json({ message: "Role y tripId son requeridos" });
   }
 
   try {
+    // Buscar el UserTrip del usuario autenticado para el tripId específico
+    const authenticatedUser = await UserTrip.findOne({
+      where: {
+        userId: user.id,
+        tripId,
+      },
+    });
+
+    if (!authenticatedUser) {
+      return res
+        .status(403)
+        .json({ message: "No tienes un rol asignado en este viaje" });
+    }
+
+    // Validar permisos según el rol
+    if (authenticatedUser.role === UserTripRole.VIEWER) {
+      return res
+        .status(403)
+        .json({ message: "No tienes permisos para realizar esta acción" });
+    }
+
+    const existingOwner = await UserTrip.findOne({
+      where: {
+        role: "owner",
+        tripId,
+      },
+    });
+
     const userTrip = await UserTrip.findByPk(id);
 
     if (!userTrip) {
       return res.status(404).json({ message: "User trip no encontrado" });
+    }
+
+    // Bloquear que un owner pierda su rol
+    if (userTrip.role === UserTripRole.OWNER && role !== UserTripRole.OWNER) {
+      return res.status(400).json({
+        message: "No puedes quitar el rol de owner a este usuario",
+      });
+    }
+
+    // Bloquear que un editor cambie su rol a owner
+    if (
+      authenticatedUser.role === UserTripRole.EDITOR &&
+      role === UserTripRole.OWNER
+    ) {
+      return res.status(400).json({
+        message: "No tenes permiso para cambiar el rol",
+      });
+    }
+
+    if (existingOwner && role === "owner") {
+      await existingOwner.update({
+        role: UserTripRole.EDITOR,
+      });
+
+      await userTrip.update({ role });
+
+      return res.status(200).json({
+        existingOwner,
+        userTrip,
+      });
     }
 
     await userTrip.update({ role });

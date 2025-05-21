@@ -1,12 +1,12 @@
-import { Plus, Trash } from "phosphor-react";
 import React, { useRef, useState } from "react";
+import { useOutletContext } from "react-router";
+import { Plus, Trash } from "phosphor-react";
 import toast from "react-hot-toast";
 import Input from "../../components/ui/input/input";
 import Avatar from "../../components/avatar/avatar";
 import Modal from "../../components/modal/modal";
 import useModal from "../../hooks/useModal";
 import "./trip-members.css";
-import { useOutletContext } from "react-router";
 
 const TripMembers = () => {
   const { trip } = useOutletContext();
@@ -82,8 +82,6 @@ const TripMembers = () => {
   };
 
   const handleRoleChange = (e, userTrip) => {
-    const previousRole = userTrip.role;
-
     fetch(`http://localhost:3000/userTrip/${userTrip.id}`, {
       method: "PUT",
       headers: {
@@ -92,16 +90,33 @@ const TripMembers = () => {
       },
       body: JSON.stringify({
         role: e.target.value,
+        tripId: trip.id,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.message) {
-          if (data.existingOwner) {
-            e.target.value = previousRole;
-          }
           return toast.error(data.message);
         }
+        if (data.existingOwner) {
+          // Actualizar el rol del dueño actual a "editor"
+          e.target.value = "owner";
+          setUsers((prevUsers) =>
+            prevUsers.map((user) =>
+              user.id === data.existingOwner.id
+                ? { ...user, role: "editor" }
+                : user
+            )
+          );
+        }
+
+        // Actualizar el rol del usuario modificado con los datos del servidor
+        setUsers((prevUsers) =>
+          prevUsers.map((user) =>
+            user.id === userTrip.id ? { ...user, role: data.role } : user
+          )
+        );
+
         toast.success("Rol actualizado correctamente");
       });
   };
@@ -157,7 +172,7 @@ const TripMembers = () => {
                   name="userRole"
                   id="userRole"
                   className="select"
-                  defaultValue={user.role}
+                  value={user.role}
                   onChange={(event) => handleRoleChange(event, user)}
                 >
                   <option value="owner">Dueño</option>

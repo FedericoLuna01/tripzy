@@ -270,7 +270,7 @@ const TripForm = ({ initialTrip }) => {
           )}
         </div>
         <button className="button button-primary new-trip-button">
-          {initialTrip ? "Editar" : "Crear"}
+          {initialTrip ? "Confirmar" : "Crear"}
           <AirplaneTakeoff size={20} />
         </button>
       </div>
