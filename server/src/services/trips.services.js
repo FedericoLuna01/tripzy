@@ -5,8 +5,30 @@ import { UserTrip } from "../models/UserTrip.js";
 
 export const getAllTrips = async (req, res) => {
   try {
-    const trips = await Trips.findAll();
-    return res.json(trips);
+    const trips = await Trips.findAll({
+      include: [
+        {
+          model: UserTrip,
+          as: "tripUsers",
+          where: { role: "owner" },
+          include: [
+            {
+              model: Users,
+              as: "user",
+            },
+          ],
+        },
+      ],
+    });
+
+    const formattedTrips = trips.map((trip) => {
+      const owner = trip.tripUsers[0]?.user || null;
+      return {
+        ...trip.toJSON(),
+        owner,
+      };
+    });
+    return res.json(formattedTrips);
   } catch (error) {
     console.log(error);
     return res.status(500).json({

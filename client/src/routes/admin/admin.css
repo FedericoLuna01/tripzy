@@ -4,6 +4,7 @@
   align-items: flex-start;
   flex-direction: column;
   margin: 1em 0;
+  gap: 0.5em;
 }
 
 .container-filter {

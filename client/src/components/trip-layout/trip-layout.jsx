@@ -31,6 +31,18 @@ const TripLayout = () => {
   console.log(trip);
 
   useEffect(() => {
+    if (trip && trip.tripUsers) {
+      const isUserInTrip = trip.tripUsers.some(
+        (tripUser) => tripUser.userId === user.id
+      );
+      if (!isUserInTrip) {
+        toast.error("No tienes acceso a este viaje");
+        navigate("/");
+      }
+    }
+  }, [trip, navigate, user.id]);
+
+  useEffect(() => {
     fetch(`http://localhost:3000/trips/${params.id}`, {
       method: "GET",
       headers: {
@@ -52,7 +64,6 @@ const TripLayout = () => {
               tripUser.userId === user.id && tripUser.role !== "viewer"
           )
         );
-        // TODO: Si no esta en tripUsers que haga un navigate hacia home
       })
       .catch((error) => {
         console.error("Error:", error);
