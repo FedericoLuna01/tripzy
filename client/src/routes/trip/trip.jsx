@@ -1,4 +1,4 @@
-import { useOutletContext } from "react-router";
+import { useNavigate, useOutletContext } from "react-router";
 import React, { useEffect, useState } from "react";
 import "../new-trip/new-trip.css";
 import "./trip.css";

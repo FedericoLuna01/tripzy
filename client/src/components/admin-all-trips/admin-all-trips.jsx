@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router";
 import Input from "../../components/ui/input/input";
-import Avatar from "../../components/avatar/avatar";
 import Modal from "../../components/modal/modal";
 import {
   Menu,
@@ -11,18 +10,19 @@ import {
   MenuItems,
   MenuItem,
 } from "../../components/ui/menu/menu";
-import "./admin.css";
+import "./admin-all-trips.css";
 import useModal from "../../hooks/useModal";
+import Avatar from "../avatar/avatar";
 
-const Admin = () => {
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [users, setUsers] = useState([]);
-  const [filteredUsers, setFilteredUsers] = useState([]);
+const AdminTrips = () => {
+  const [selectedTrip, setSelectedTrip] = useState(null);
+  const [trips, setTrips] = useState([]);
+  const [filteredTrips, setFilteredTrips] = useState([]);
   const [search, setSearch] = useState("");
   const { handleClose, handleOpen, isOpen } = useModal();
 
-  const getUsers = () => {
-    fetch("http://localhost:3000/users", {
+  const getTrips = () => {
+    fetch("http://localhost:3000/trips", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -30,21 +30,22 @@ const Admin = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setUsers(data);
-        setFilteredUsers(data);
+        setTrips(data);
+        setFilteredTrips(data);
+        console.log(data);
       })
       .catch((error) => {
-        console.error("Error fetching users:", error);
-        toast.error("Error al cargar los usuarios");
+        console.error("Error fetching trips:", error);
+        toast.error("Error al cargar los viajes");
       });
   };
 
   useEffect(() => {
-    getUsers();
+    getTrips();
   }, []);
 
-  const handleDeleteUser = async (id) => {
-    const user = await fetch(`http://localhost:3000/users/${id}`, {
+  const handleDeleteTrip = async (id) => {
+    const trip = await fetch(`http://localhost:3000/trips/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -52,23 +53,39 @@ const Admin = () => {
       },
     });
 
-    if (!user.ok) {
-      return toast.error("Error al eliminar el usuario");
+    if (!trip.ok) {
+      return toast.error("Error al eliminar el viaje");
     }
 
-    setUsers((prev) => prev.filter((user) => user.id !== id));
-    setFilteredUsers((prev) => prev.filter((user) => user.id !== id));
+    setTrips((prev) => prev.filter((trip) => trip.id !== id));
+    setFilteredTrips((prev) => prev.filter((trip) => trip.id !== id));
     handleClose();
-    toast.success("Usuario eliminado");
+    toast.success("Viaje eliminado");
   };
 
   const handleSearch = (e) => {
     const value = e.target.value;
     setSearch(value);
-    const usersFiltered = users.filter((user) =>
-      user.name.toLowerCase().includes(value.toLowerCase())
+    const tripsFiltered = trips.filter((trip) =>
+      trip.name.toLowerCase().includes(value.toLowerCase())
     );
-    setFilteredUsers(usersFiltered);
+    setFilteredTrips(tripsFiltered);
+  };
+
+  const handleBlockUser = async (id) => {
+    const response = await fetch(`http://localhost:3000/users/${id}/block`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    if (!response.ok) {
+      return toast.error("Error al bloquear el usuario");
+    }
+
+    toast.success("Usuario bloqueado");
   };
 
   return (
@@ -76,22 +93,22 @@ const Admin = () => {
       <Modal
         isOpen={isOpen}
         handleClose={() => {
-          setSelectedUser(null);
+          setSelectedTrip(null);
           handleClose();
         }}
-        onSubmit={() => handleDeleteUser(selectedUser.id)}
-        entity={`usuario ${selectedUser?.name}`}
+        onSubmit={() => handleDeleteTrip(selectedTrip.id)}
+        entity={`viaje ${selectedTrip?.name}`}
       />
-      <div className="container">
+      <div>
         <div className="container-title">
-          <h1 className="title">Lista de Usuarios</h1>
+          <h1 className="title">Lista de Viajes</h1>
           <p>
-            Aquí puedes ver la lista de usuarios registrados en la aplicación.
+            Aquí puedes ver la lista de viajes disponibles en la aplicación.
           </p>
         </div>
         <div className="input-container">
           <Input
-            placeholder="Buscar nombre..."
+            placeholder="Buscar viaje..."
             onChange={handleSearch}
             value={search}
           />
@@ -100,38 +117,38 @@ const Admin = () => {
           <table className="user-table">
             <thead>
               <tr>
-                <th>Usuario</th>
-                <th>Email</th>
-                <th>Rol</th>
+                <th>Creado por</th>
+                <th>Titulo del viaje</th>
+                <th>Descripción</th>
+                <th>Fecha creacion</th>
                 <th>Estado</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              {filteredUsers.length === 0 ? (
+              {filteredTrips.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="no-users">
-                    No hay usuarios que mostrar
+                  <td colSpan="6" className="no-trips">
+                    No hay viajes que mostrar
                   </td>
                 </tr>
               ) : (
-                filteredUsers.map((user) => (
-                  <tr key={user.id}>
+                filteredTrips.map((trip) => (
+                  <tr key={trip.id}>
                     <td>
                       <div className="user-info">
-                        <Avatar user={user} />
-                        <span className="user-name">{user.name}</span>
+                        <Avatar user={trip.owner} />
+                        <span className="user-name">{trip.owner.email}</span>
                       </div>
                     </td>
-                    <td>{user.email}</td>
+                    <td>{trip.title}</td>
+                    <td>{trip.description}</td>
+                    <td>${trip.startDate}</td>
                     <td>
-                      <span className={`role ${user.role.toLowerCase()}`}>
-                        {user.role}
-                      </span>
-                    </td>
-                    <td>
-                      <span className={`status ${user.status.toLowerCase()}`}>
-                        {user.status}
+                      <span
+                        className={`status ${trip.isBlocked ? "blocked" : ""}`}
+                      >
+                        {trip.isBlocked ? "Bloqueado" : "Activo"}
                       </span>
                     </td>
                     <td>
@@ -146,7 +163,7 @@ const Admin = () => {
                           <MenuItem>
                             <Link
                               className="menu-item-link"
-                              to={`/admin/edit/${user.id}`}
+                              to={`/admin/edit-trip/${trip.id}`}
                             >
                               <PencilSimple size={20} /> Editar
                             </Link>
@@ -155,7 +172,7 @@ const Admin = () => {
                             <span
                               className="menu-item-link destructive"
                               onClick={() => {
-                                setSelectedUser(user);
+                                setSelectedTrip(trip);
                                 handleOpen();
                               }}
                             >
@@ -165,7 +182,8 @@ const Admin = () => {
                           <MenuItem>
                             <Link
                               className="menu-item-link"
-                              to={`/admin/trips/${user.id}`}
+                              to={`/admin/trips/${trip.id}`}
+                              onClick={() => handleBlockUser(trip.owner.id)}
                             >
                               <span className="menu-item-link destructive">
                                 <Lock size={20} />
@@ -187,4 +205,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default AdminTrips;
