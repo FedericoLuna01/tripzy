@@ -1,6 +1,7 @@
 import {
   Tab as TabPrimitive,
   TabList as TabListPrimitive,
+  TabPanel as TabPanelPrimitive,
 } from "@headlessui/react";
 import "./tabs.css";
 
@@ -19,5 +20,13 @@ export function TabList({ children, ...props }) {
     <TabListPrimitive className="tabs-container card" {...props}>
       {children}
     </TabListPrimitive>
+  );
+}
+
+export function TabPanel({ children, ...props }) {
+  return (
+    <TabPanelPrimitive className="tab-panel" {...props}>
+      {children}
+    </TabPanelPrimitive>
   );
 }

@@ -2,15 +2,10 @@ import { DotsThree, Lock, LockOpen, PencilSimple, Trash } from "phosphor-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router";
-import Input from "../../components/ui/input/input";
-import Modal from "../../components/modal/modal";
-import {
-  Menu,
-  MenuButton,
-  MenuItems,
-  MenuItem,
-} from "../../components/ui/menu/menu";
-import "./admin-all-trips.css";
+import Input from "../ui/input/input";
+import Modal from "../modal/modal";
+import { Menu, MenuButton, MenuItems, MenuItem } from "../ui/menu/menu";
+import "./admin-trips.css";
 import useModal from "../../hooks/useModal";
 import Avatar from "../avatar/avatar";
 

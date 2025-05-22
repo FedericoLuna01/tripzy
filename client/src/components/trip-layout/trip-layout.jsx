@@ -11,8 +11,8 @@ import "../../routes/new-trip/new-trip.css";
 import useModal from "../../hooks/useModal";
 import "../../routes/trip/trip.css";
 import "./trip-layout.css";
-import { TabGroup, TabPanel, TabPanels } from "@headlessui/react";
-import { Tab, TabList } from "../ui/tabs/tabs";
+import { TabGroup, TabPanels } from "@headlessui/react";
+import { Tab, TabList, TabPanel } from "../ui/tabs/tabs";
 import Trip from "../../routes/trip/trip";
 import TripMembers from "../../routes/trip-members/trip-members";
 

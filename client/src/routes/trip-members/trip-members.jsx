@@ -8,7 +8,6 @@ import useModal from "../../hooks/useModal";
 import "./trip-members.css";
 
 const TripMembers = ({ trip, canEdit }) => {
-  // TODO: Usar canEdit para mostrar el botón de agregar usuario
   const [users, setUsers] = useState(trip.tripUsers);
   const [selectedUser, setSelectedUser] = useState(null);
   const [userEmail, setUserEmail] = useState("");
@@ -132,29 +131,31 @@ const TripMembers = ({ trip, canEdit }) => {
             setSelectedUser(null);
           }}
         />
-        <h3>Gestioná tus amigos</h3>
-        <form onSubmit={handleInviteUser}>
-          <div className="input-group">
-            <label htmlFor="userEmail">Email</label>
-            <div className="container-input">
-              <Input
-                id="userEmail"
-                onChange={handleUserEmailChange}
-                value={userEmail}
-                ref={userEmailInputRef}
-              />
-              <button className="button button-secondary">
-                Agregar <Plus size={20} />{" "}
-              </button>
+        <h3>{canEdit ? "Gestioná tus amigos" : "Tus amigos"}</h3>
+        {canEdit && (
+          <form onSubmit={handleInviteUser}>
+            <div className="input-group">
+              <label htmlFor="userEmail">Email</label>
+              <div className="container-input">
+                <Input
+                  id="userEmail"
+                  onChange={handleUserEmailChange}
+                  value={userEmail}
+                  ref={userEmailInputRef}
+                />
+                <button className="button button-secondary">
+                  Agregar <Plus size={20} />{" "}
+                </button>
+              </div>
+              <p className="input-description">
+                Ingresá el email de la persona que quieras agregar a tu viaje
+              </p>
+              {errors.userEmail && (
+                <p className="error-message">El email ingresado no es válido</p>
+              )}
             </div>
-            <p className="input-description">
-              Ingresá el email de la persona que quieras agregar a tu viaje
-            </p>
-            {errors.userEmail && (
-              <p className="error-message">El email ingresado no es válido</p>
-            )}
-          </div>
-        </form>
+          </form>
+        )}
         <div className="card-container">
           {users.map((user) => (
             <div className="card user-card no-shadow column" key={user.id}>
@@ -165,30 +166,34 @@ const TripMembers = ({ trip, canEdit }) => {
                   <p className="email">{user.user.email}</p>
                 </div>
               </div>
-              <form>
-                <label htmlFor="userRole">Rol</label>
-                <select
-                  name="userRole"
-                  id="userRole"
-                  className="select"
-                  value={user.role}
-                  onChange={(event) => handleRoleChange(event, user)}
-                >
-                  <option value="owner">Dueño</option>
-                  <option value="editor">Editor</option>
-                  <option value="viewer">Espectador</option>
-                </select>
-                <button
-                  type="button"
-                  className="button button-destructive"
-                  onClick={() => {
-                    setSelectedUser(user);
-                    handleOpen();
-                  }}
-                >
-                  Eliminar <Trash size={20} />
-                </button>
-              </form>
+              {canEdit ? (
+                <form>
+                  <label htmlFor="userRole">Rol</label>
+                  <select
+                    name="userRole"
+                    id="userRole"
+                    className="select"
+                    value={user.role}
+                    onChange={(event) => handleRoleChange(event, user)}
+                  >
+                    <option value="owner">Dueño</option>
+                    <option value="editor">Editor</option>
+                    <option value="viewer">Espectador</option>
+                  </select>
+                  <button
+                    type="button"
+                    className="button button-destructive"
+                    onClick={() => {
+                      setSelectedUser(user);
+                      handleOpen();
+                    }}
+                  >
+                    Eliminar <Trash size={20} />
+                  </button>
+                </form>
+              ) : (
+                <p className="user-trip-role">Rol: {user.role}</p>
+              )}
             </div>
           ))}
         </div>
