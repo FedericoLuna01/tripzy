@@ -1,12 +1,5 @@
 import { AirplaneLanding, PencilSimple, Plus, Trash } from "phosphor-react";
-import {
-  Link,
-  NavLink,
-  Outlet,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router";
+import { Link, NavLink, Outlet, useNavigate, useParams } from "react-router";
 import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { addDays } from "date-fns";
@@ -18,17 +11,18 @@ import "../../routes/new-trip/new-trip.css";
 import useModal from "../../hooks/useModal";
 import "../../routes/trip/trip.css";
 import "./trip-layout.css";
+import { TabGroup, TabPanel, TabPanels } from "@headlessui/react";
+import { Tab, TabList } from "../ui/tabs/tabs";
+import Trip from "../../routes/trip/trip";
+import TripMembers from "../../routes/trip-members/trip-members";
 
 const TripLayout = () => {
   const [trip, setTrip] = useState(null);
   const [canEdit, setCanEdit] = useState(false);
   const { user } = useContext(UserContext);
   const params = useParams();
-  const location = useLocation();
   const navigate = useNavigate();
   const { handleClose, handleOpen, isOpen } = useModal();
-
-  console.log(trip);
 
   useEffect(() => {
     if (trip && trip.tripUsers) {
@@ -160,27 +154,20 @@ const TripLayout = () => {
               </div>
             ) : null}
           </div>
-          <div className="card tabs-container">
-            <Link
-              className={`tab ${
-                location.pathname === `/trip/${trip.id}` ? "selected" : ""
-              }`}
-              to={`/trip/${trip.id}`}
-            >
-              Trip
-            </Link>
-            <Link
-              className={`tab ${
-                location.pathname === `/trip/${trip.id}/members`
-                  ? "selected"
-                  : ""
-              }`}
-              to={`/trip/${trip.id}/members`}
-            >
-              Amigos
-            </Link>
-          </div>
-          <Outlet context={{ trip, canEdit }} />
+          <TabGroup>
+            <TabList>
+              <Tab>Trip</Tab>
+              <Tab>Amigos</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <Trip trip={trip} canEdit={canEdit} />
+              </TabPanel>
+              <TabPanel>
+                <TripMembers trip={trip} canEdit={canEdit} />
+              </TabPanel>
+            </TabPanels>
+          </TabGroup>
         </div>
       </section>
     </>
