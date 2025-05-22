@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import { Toaster } from "react-hot-toast";
 import AdminProtectedRoutes from "./routes/admin-protected-routes/admin-protected-routes";
 import ProtectedRoutes from "./routes/protected-routes/protected-routes";
+import AdminLayout from "./components/admin-layout/admin-layout";
 import TripLayout from "./components/trip-layout/trip-layout";
 import ProfileEdit from "./routes/profile-edit/profile-edit";
 import AdminEdit from "./routes/admin-edit/admin-edit";
@@ -16,8 +17,6 @@ import Login from "./routes/login/login";
 import Admin from "./routes/admin/admin";
 import Home from "./routes/home/home";
 import Trip from "./routes/trip/trip";
-import AdminLayout from "./components/admin-layout/admin-layout";
-import AdminTrips from "./components/admin-all-trips/admin-all-trips";
 
 function App() {
   return (
@@ -42,7 +41,6 @@ function App() {
           <Route element={<AdminProtectedRoutes />}>
             <Route element={<AdminLayout />}>
               <Route path="/admin/" element={<Admin />} />
-              <Route path="/admin/trips" element={<AdminTrips />} />
               <Route path="/admin/edit/:id" element={<AdminEdit />} />
             </Route>
           </Route>

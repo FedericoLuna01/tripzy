@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router";
 import Input from "../../components/ui/input/input";
+import Avatar from "../../components/avatar/avatar";
 import Modal from "../../components/modal/modal";
 import {
   Menu,
@@ -10,19 +11,18 @@ import {
   MenuItems,
   MenuItem,
 } from "../../components/ui/menu/menu";
-import "./admin-all-trips.css";
+import "./admin-users.css";
 import useModal from "../../hooks/useModal";
-import Avatar from "../avatar/avatar";
 
-const AdminTrips = () => {
-  const [selectedTrip, setSelectedTrip] = useState(null);
-  const [trips, setTrips] = useState([]);
-  const [filteredTrips, setFilteredTrips] = useState([]);
+const AdminUsers = () => {
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [search, setSearch] = useState("");
   const { handleClose, handleOpen, isOpen } = useModal();
 
-  const getTrips = () => {
-    fetch("http://localhost:3000/trips", {
+  const getUsers = () => {
+    fetch("http://localhost:3000/users", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -30,22 +30,21 @@ const AdminTrips = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setTrips(data);
-        setFilteredTrips(data);
-        console.log(data);
+        setUsers(data);
+        setFilteredUsers(data);
       })
       .catch((error) => {
-        console.error("Error fetching trips:", error);
-        toast.error("Error al cargar los viajes");
+        console.error("Error fetching users:", error);
+        toast.error("Error al cargar los usuarios");
       });
   };
 
   useEffect(() => {
-    getTrips();
+    getUsers();
   }, []);
 
-  const handleDeleteTrip = async (id) => {
-    const trip = await fetch(`http://localhost:3000/trips/${id}`, {
+  const handleDeleteUser = async (id) => {
+    const user = await fetch(`http://localhost:3000/users/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -53,39 +52,23 @@ const AdminTrips = () => {
       },
     });
 
-    if (!trip.ok) {
-      return toast.error("Error al eliminar el viaje");
+    if (!user.ok) {
+      return toast.error("Error al eliminar el usuario");
     }
 
-    setTrips((prev) => prev.filter((trip) => trip.id !== id));
-    setFilteredTrips((prev) => prev.filter((trip) => trip.id !== id));
+    setUsers((prev) => prev.filter((user) => user.id !== id));
+    setFilteredUsers((prev) => prev.filter((user) => user.id !== id));
     handleClose();
-    toast.success("Viaje eliminado");
+    toast.success("Usuario eliminado");
   };
 
   const handleSearch = (e) => {
     const value = e.target.value;
     setSearch(value);
-    const tripsFiltered = trips.filter((trip) =>
-      trip.name.toLowerCase().includes(value.toLowerCase())
+    const usersFiltered = users.filter((user) =>
+      user.name.toLowerCase().includes(value.toLowerCase())
     );
-    setFilteredTrips(tripsFiltered);
-  };
-
-  const handleBlockUser = async (id) => {
-    const response = await fetch(`http://localhost:3000/users/${id}/block`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-
-    if (!response.ok) {
-      return toast.error("Error al bloquear el usuario");
-    }
-
-    toast.success("Usuario bloqueado");
+    setFilteredUsers(usersFiltered);
   };
 
   return (
@@ -93,22 +76,22 @@ const AdminTrips = () => {
       <Modal
         isOpen={isOpen}
         handleClose={() => {
-          setSelectedTrip(null);
+          setSelectedUser(null);
           handleClose();
         }}
-        onSubmit={() => handleDeleteTrip(selectedTrip.id)}
-        entity={`viaje ${selectedTrip?.name}`}
+        onSubmit={() => handleDeleteUser(selectedUser.id)}
+        entity={`usuario ${selectedUser?.name}`}
       />
       <div>
         <div className="container-title">
-          <h1 className="title">Lista de Viajes</h1>
+          <h1 className="title">Lista de Usuarios</h1>
           <p>
-            Aquí puedes ver la lista de viajes disponibles en la aplicación.
+            Aquí puedes ver la lista de usuarios registrados en la aplicación.
           </p>
         </div>
         <div className="input-container">
           <Input
-            placeholder="Buscar viaje..."
+            placeholder="Buscar nombre..."
             onChange={handleSearch}
             value={search}
           />
@@ -117,38 +100,38 @@ const AdminTrips = () => {
           <table className="user-table">
             <thead>
               <tr>
-                <th>Creado por</th>
-                <th>Titulo del viaje</th>
-                <th>Descripción</th>
-                <th>Fecha creacion</th>
+                <th>Usuario</th>
+                <th>Email</th>
+                <th>Rol</th>
                 <th>Estado</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              {filteredTrips.length === 0 ? (
+              {filteredUsers.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="no-trips">
-                    No hay viajes que mostrar
+                  <td colSpan="5" className="no-users">
+                    No hay usuarios que mostrar
                   </td>
                 </tr>
               ) : (
-                filteredTrips.map((trip) => (
-                  <tr key={trip.id}>
+                filteredUsers.map((user) => (
+                  <tr key={user.id}>
                     <td>
                       <div className="user-info">
-                        <Avatar user={trip.owner} />
-                        <span className="user-name">{trip.owner.email}</span>
+                        <Avatar user={user} />
+                        <span className="user-name">{user.name}</span>
                       </div>
                     </td>
-                    <td>{trip.title}</td>
-                    <td>{trip.description}</td>
-                    <td>${trip.startDate}</td>
+                    <td>{user.email}</td>
                     <td>
-                      <span
-                        className={`status ${trip.isBlocked ? "blocked" : ""}`}
-                      >
-                        {trip.isBlocked ? "Bloqueado" : "Activo"}
+                      <span className={`role ${user.role.toLowerCase()}`}>
+                        {user.role}
+                      </span>
+                    </td>
+                    <td>
+                      <span className={`status ${user.status.toLowerCase()}`}>
+                        {user.status}
                       </span>
                     </td>
                     <td>
@@ -163,7 +146,7 @@ const AdminTrips = () => {
                           <MenuItem>
                             <Link
                               className="menu-item-link"
-                              to={`/admin/edit-trip/${trip.id}`}
+                              to={`/admin/edit/${user.id}`}
                             >
                               <PencilSimple size={20} /> Editar
                             </Link>
@@ -172,7 +155,7 @@ const AdminTrips = () => {
                             <span
                               className="menu-item-link destructive"
                               onClick={() => {
-                                setSelectedTrip(trip);
+                                setSelectedUser(user);
                                 handleOpen();
                               }}
                             >
@@ -182,8 +165,7 @@ const AdminTrips = () => {
                           <MenuItem>
                             <Link
                               className="menu-item-link"
-                              to={`/admin/trips/${trip.id}`}
-                              onClick={() => handleBlockUser(trip.owner.id)}
+                              to={`/admin/trips/${user.id}`}
                             >
                               <span className="menu-item-link destructive">
                                 <Lock size={20} />
@@ -205,4 +187,4 @@ const AdminTrips = () => {
   );
 };
 
-export default AdminTrips;
+export default AdminUsers;
