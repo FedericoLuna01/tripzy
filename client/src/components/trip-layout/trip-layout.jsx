@@ -115,6 +115,7 @@ const TripLayout = () => {
           <div className="card trip-info">
             <div className="trip-header">
               <h1 className="title">{trip.title}</h1>
+              <p>{trip.description}</p>
               <p>
                 {formatDay(new Date(trip?.startDate))}
                 {" - "}

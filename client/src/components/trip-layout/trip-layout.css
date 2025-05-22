@@ -44,3 +44,11 @@
   text-align: center;
   margin-bottom: 5px;
 }
+
+.trip-header > p {
+  color: var(--color-muted);
+  font-size: 0.8em;
+  margin-top: 0.3em;
+  font-weight: 400;
+  text-align: flex-start;
+}
