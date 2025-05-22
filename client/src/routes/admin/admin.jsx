@@ -1,4 +1,4 @@
-import { DotsThree, PencilSimple, Trash } from "phosphor-react";
+import { DotsThree, Lock, PencilSimple, Trash } from "phosphor-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router";
@@ -161,6 +161,17 @@ const Admin = () => {
                             >
                               <Trash size={20} /> Eliminar
                             </span>
+                          </MenuItem>
+                          <MenuItem>
+                            <Link
+                              className="menu-item-link"
+                              to={`/admin/trips/${user.id}`}
+                            >
+                              <span className="menu-item-link destructive">
+                                <Lock size={20} />
+                                Bloquear
+                              </span>
+                            </Link>
                           </MenuItem>
                         </MenuItems>
                       </Menu>

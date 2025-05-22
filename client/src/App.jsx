@@ -16,6 +16,8 @@ import Login from "./routes/login/login";
 import Admin from "./routes/admin/admin";
 import Home from "./routes/home/home";
 import Trip from "./routes/trip/trip";
+import AdminLayout from "./components/admin-layout/admin-layout";
+import AdminTrips from "./components/admin-all-trips/admin-all-trips";
 
 function App() {
   return (
@@ -38,8 +40,11 @@ function App() {
             </Route>
           </Route>
           <Route element={<AdminProtectedRoutes />}>
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/admin/edit/:id" element={<AdminEdit />} />
+            <Route element={<AdminLayout />}>
+              <Route path="/admin/" element={<Admin />} />
+              <Route path="/admin/trips" element={<AdminTrips />} />
+              <Route path="/admin/edit/:id" element={<AdminEdit />} />
+            </Route>
           </Route>
         </Route>
       </Routes>

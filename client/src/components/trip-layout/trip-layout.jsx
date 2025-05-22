@@ -25,6 +25,18 @@ const TripLayout = () => {
   const { handleClose, handleOpen, isOpen } = useModal();
 
   useEffect(() => {
+    if (trip && trip.tripUsers) {
+      const isUserInTrip = trip.tripUsers.some(
+        (tripUser) => tripUser.userId === user.id
+      );
+      if (!isUserInTrip) {
+        toast.error("No tienes acceso a este viaje");
+        navigate("/");
+      }
+    }
+  }, [trip, navigate, user.id]);
+
+  useEffect(() => {
     fetch(`http://localhost:3000/trips/${params.id}`, {
       method: "GET",
       headers: {

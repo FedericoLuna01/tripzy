@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import React, { useEffect, useState } from "react";
 import "../new-trip/new-trip.css";
 import "./trip.css";
