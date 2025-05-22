@@ -1,4 +1,4 @@
-import { DotsThree, Lock, PencilSimple, Trash } from "phosphor-react";
+import { DotsThree, Eye, Lock, PencilSimple, Trash } from "phosphor-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router";
@@ -155,6 +155,14 @@ const AdminTrips = () => {
                           anchor="bottom end"
                           className="menu-items-admin"
                         >
+                          <MenuItem>
+                            <Link
+                              className="menu-item-link"
+                              to={`/trip/${trip.id}`}
+                            >
+                              <Eye size={20} /> Ver viaje
+                            </Link>
+                          </MenuItem>
                           <MenuItem>
                             <Link
                               className="menu-item-link"
