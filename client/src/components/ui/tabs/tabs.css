@@ -39,3 +39,7 @@
 .tab:focus-visible {
   outline: none;
 }
+
+.tab-panel:focus-visible {
+  outline: none;
+}
