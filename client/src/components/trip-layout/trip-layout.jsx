@@ -26,15 +26,20 @@ const TripLayout = () => {
 
   useEffect(() => {
     if (trip && trip.tripUsers) {
+      if (user.role === "admin") {
+        return;
+      }
+
       const isUserInTrip = trip.tripUsers.some(
         (tripUser) => tripUser.userId === user.id
       );
+
       if (!isUserInTrip) {
         toast.error("No tienes acceso a este viaje");
         navigate("/");
       }
     }
-  }, [trip, navigate, user.id]);
+  }, [trip, navigate, user.id, user.role]);
 
   useEffect(() => {
     fetch(`http://localhost:3000/trips/${params.id}`, {

@@ -9,6 +9,10 @@ const ProtectedRoutes = () => {
     return <Navigate to="/login" replace />;
   }
 
+  if (user.role === "admin") {
+    return <Outlet />;
+  }
+
   return <Outlet />;
 };
 

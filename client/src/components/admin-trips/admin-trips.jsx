@@ -1,7 +1,14 @@
-import { DotsThree, Lock, LockOpen, PencilSimple, Trash } from "phosphor-react";
+import {
+  DotsThree,
+  Eye,
+  Lock,
+  LockOpen,
+  PencilSimple,
+  Trash,
+} from "phosphor-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Input from "../ui/input/input";
 import Modal from "../modal/modal";
 import { Menu, MenuButton, MenuItems, MenuItem } from "../ui/menu/menu";
@@ -15,6 +22,11 @@ const AdminTrips = () => {
   const [filteredTrips, setFilteredTrips] = useState([]);
   const [search, setSearch] = useState("");
   const { handleClose, handleOpen, isOpen } = useModal();
+  const navigate = useNavigate();
+
+  const handleViewTrip = (tripId) => {
+    navigate(`/trip/${tripId}`); // Redirige al viaje correspondiente
+  };
 
   const getTrips = () => {
     fetch("http://localhost:3000/trips", {
@@ -165,6 +177,17 @@ const AdminTrips = () => {
                           anchor="bottom end"
                           className="menu-items-admin"
                         >
+                          <MenuItem>
+                            <span
+                              className="menu-item-link"
+                              onClick={() => handleViewTrip(trip.id)}
+                            >
+                              <span className="menu-item-link">
+                                <Eye size={20} />
+                                Ver viaje
+                              </span>
+                            </span>
+                          </MenuItem>
                           <MenuItem>
                             <Link
                               className="menu-item-link"
