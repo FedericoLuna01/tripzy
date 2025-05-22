@@ -31,8 +31,6 @@
 
 .user-card {
   display: flex;
-  flex-direction: row;
-  align-items: center;
   gap: 1em;
   padding: 0.6em 1.2em;
 }

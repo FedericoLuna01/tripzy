@@ -11,8 +11,8 @@ import "../../routes/new-trip/new-trip.css";
 import useModal from "../../hooks/useModal";
 import "../../routes/trip/trip.css";
 import "./trip-layout.css";
-import { TabGroup, TabPanel, TabPanels } from "@headlessui/react";
-import { Tab, TabList } from "../ui/tabs/tabs";
+import { TabGroup, TabPanels } from "@headlessui/react";
+import { Tab, TabList, TabPanel } from "../ui/tabs/tabs";
 import Trip from "../../routes/trip/trip";
 import TripMembers from "../../routes/trip-members/trip-members";
 
@@ -26,15 +26,20 @@ const TripLayout = () => {
 
   useEffect(() => {
     if (trip && trip.tripUsers) {
+      if (user.role === "admin") {
+        return;
+      }
+
       const isUserInTrip = trip.tripUsers.some(
         (tripUser) => tripUser.userId === user.id
       );
+
       if (!isUserInTrip) {
         toast.error("No tienes acceso a este viaje");
         navigate("/");
       }
     }
-  }, [trip, navigate, user.id]);
+  }, [trip, navigate, user.id, user.role]);
 
   useEffect(() => {
     fetch(`http://localhost:3000/trips/${params.id}`, {

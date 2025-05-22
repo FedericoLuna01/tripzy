@@ -37,9 +37,9 @@ Instalar con npm
 
 - [ x ] Después de editar perfil guardar el jwt en localStorage
 - [ x ] En members agregar el back y funcionalidad para invitar
-- [ ] Proteger ruta de trip si el usuario no esta invitado
+- [ x ] Proteger ruta de trip si el usuario no esta invitado
 - [ x ] Mostrar los viajes que pertenecen al usuario en profile (los admin deberían ver todos)
-- [ ] Hacer una vista de admin para mostrar todos los viajes
+- [ x ] Hacer una vista de admin para mostrar todos los viajes
 - [ x ] Hacer un custom hook para el modal (y cambiar donde se usa actualmente)
 - [ ] Proteger api por rol
 - [ ] Agregar un boton en TripLayout para poder bloquear el viaje si sos admin
