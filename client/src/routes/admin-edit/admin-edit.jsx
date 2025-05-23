@@ -51,7 +51,13 @@ const AdminEdit = () => {
   };
 
   const getUser = (id) => {
-    fetch(`http://localhost:3000/users/${id}`)
+    fetch(`http://localhost:3000/users/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setUser(data);

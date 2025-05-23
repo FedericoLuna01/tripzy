@@ -1,6 +1,7 @@
 import {
   AirplaneLanding,
   AirplaneTilt,
+  Lock,
   PencilSimple,
   Plus,
   Trash,
@@ -146,7 +147,13 @@ const TripLayout = () => {
   }
 
   return (
-    <>
+    <section className="trip-layout">
+      {trip.isBlocked && (
+        <div className="trip-blocked-layout">
+          <Lock className="icon" size={60} />
+          <p>Viaje bloqueado</p>
+        </div>
+      )}
       <Modal onSubmit={handleDelete} isOpen={isOpen} handleClose={handleClose}>
         <ModalTitle>¿Estás seguro de que quieres eliminar el viaje?</ModalTitle>
         <ModalDescription>
@@ -169,76 +176,76 @@ const TripLayout = () => {
           invitado.
         </ModalDescription>
       </Modal>
-      <section className="trip-layout">
-        <div className="container trip-container">
-          <div className="card trip-info">
-            <div className="trip-header">
-              <h1 className="title">{trip.title}</h1>
-              <p>
-                {formatDay(new Date(trip?.startDate))}
-                {" - "}
-                {formatDay(
-                  addDays(new Date(trip.startDate), trip.days.length - 1)
-                )}
-              </p>
-              <div className="friends-container">
-                <p>Amigos de viaje:</p>
-                <div className="avatars-container">
-                  {trip.tripUsers.map((user) => (
-                    <Avatar user={user.user} key={user.id} />
-                  ))}
-                  <span
-                    className="avatar add-user"
-                    onClick={() => setSelectedTab(1)}
-                  >
-                    <Plus size={22} />
-                  </span>
-                </div>
+      <div className="container trip-container">
+        <div className="card trip-info">
+          <div className="trip-header">
+            <h1 className="title">{trip.title}</h1>
+            <p>
+              {formatDay(new Date(trip?.startDate))}
+              {" - "}
+              {formatDay(
+                addDays(new Date(trip.startDate), trip.days.length - 1)
+              )}
+            </p>
+            <div className="friends-container">
+              <p>Amigos de viaje:</p>
+              <div className="avatars-container">
+                {trip.tripUsers.map((user) => (
+                  <Avatar user={user.user} key={user.id} />
+                ))}
+                <span
+                  className="avatar add-user"
+                  onClick={() => setSelectedTab(1)}
+                >
+                  <Plus size={22} />
+                </span>
               </div>
             </div>
-            <div className="actions-container">
-              {canEdit && (
-                <>
-                  <Link to={`/trip/edit/${trip.id}`}>
-                    <button className="button button-outline">
-                      Editar <PencilSimple size={20} />
-                    </button>
-                  </Link>
-                  <button
-                    onClick={handleOpen}
-                    className="button button-destructive"
-                  >
-                    Eliminar
-                    <Trash size={20} />
-                  </button>
-                </>
-              )}
-              <button
-                className="button button-destructive"
-                onClick={handleOpenAbandonTrip}
-              >
-                <AirplaneTilt size={20} />
-                Abandonar viaje
-              </button>
-            </div>
           </div>
-          <TabGroup selectedIndex={selectedTab} onChange={setSelectedTab}>
-            <TabList>
-              <Tab>Trip</Tab>
-              <Tab>Amigos</Tab>
-            </TabList>
-            <TabPanels>
-              <TabPanel>
-                <Trip trip={trip} canEdit={canEdit} />
-              </TabPanel>
-              <TabPanel>
-                <TripMembers trip={trip} canEdit={canEdit} />
-              </TabPanel>
-            </TabPanels>
-          </TabGroup>
+          <div className="actions-container">
+            {canEdit && (
+              <>
+                <Link to={`/trip/edit/${trip.id}`}>
+                  <button className="button button-outline">
+                    Editar <PencilSimple size={20} />
+                  </button>
+                </Link>
+                <button
+                  onClick={handleOpen}
+                  className="button button-destructive"
+                >
+                  Eliminar
+                  <Trash size={20} />
+                </button>
+              </>
+            )}
+            {user.role === "user" && (
+              <button
+                onClick={handleOpenAbandonTrip}
+                className="button button-destructive"
+              >
+                Abandonar
+                <AirplaneTilt size={20} />
+              </button>
+            )}
+          </div>
         </div>
-      </section>
-    </>
+        <TabGroup selectedIndex={selectedTab} onChange={setSelectedTab}>
+          <TabList>
+            <Tab>Trip</Tab>
+            <Tab>Amigos</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <Trip setTrip={setTrip} trip={trip} canEdit={canEdit} />
+            </TabPanel>
+            <TabPanel>
+              <TripMembers setTrip={setTrip} trip={trip} canEdit={canEdit} />
+            </TabPanel>
+          </TabPanels>
+        </TabGroup>
+      </div>
+    </section>
   );
 };
 
