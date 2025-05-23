@@ -42,7 +42,7 @@ Instalar con npm
 - [ x ] Hacer una vista de admin para mostrar todos los viajes
 - [ x ] Hacer un custom hook para el modal (y cambiar donde se usa actualmente)
 - [ x ] Proteger api por rol
-- [ ] Agregar un boton en TripLayout para poder bloquear el viaje si sos admin
+- [ x ] Agregar un boton en TripLayout para poder bloquear el viaje si sos admin
 - [ ] Agregar un modal cuando se agregue a un nuevo usuario al trip
 - [ ] La asignación de N° de día es consecutivo, no se puede elegir otro número de día. Ejemplo, estás en día 4 de junio, agregás un día y se pone día 5 junio. No se puede elegir día 6 de junio. Quizá el día 5 no haces nada(?).
 

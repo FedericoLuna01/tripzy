@@ -70,7 +70,7 @@ const AdminTrips = () => {
     const value = e.target.value;
     setSearch(value);
     const tripsFiltered = trips.filter((trip) =>
-      trip.name.toLowerCase().includes(value.toLowerCase())
+      trip.title.toLowerCase().includes(value.toLowerCase())
     );
     setFilteredTrips(tripsFiltered);
   };
