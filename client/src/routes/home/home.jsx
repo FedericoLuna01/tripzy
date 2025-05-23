@@ -11,6 +11,7 @@ import "./home.css";
 import SlideIn from "../../components/ui/slide-in/slide-in";
 import Carousel from "../../components/carousel/carousel";
 import React from "react";
+import FormHome from "../../components/form-home/form-home";
 
 const Home = () => {
   const GRID_CARD_ITEMS = [
@@ -160,6 +161,13 @@ const Home = () => {
               Empezar <AirplaneTakeoff size={20} />
             </button>
           </Link>
+        </SlideIn>
+      </section>
+      {/* Sección 4 */}
+      <section>
+        <h1 className="title-form"> Formulario de contacto</h1>
+        <SlideIn>
+          <FormHome />
         </SlideIn>
       </section>
     </div>
