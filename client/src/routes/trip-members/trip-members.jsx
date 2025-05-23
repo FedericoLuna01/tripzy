@@ -216,7 +216,17 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
                   </button>
                 </form>
               ) : (
-                <p className="user-trip-role">Rol: {user.role}</p>
+                <div className="user-trip-role">
+                  {user.role === "owner" ? (
+                    <span className="rol-dueno">Dueño</span>
+                  ) : user.role === "editor" ? (
+                    <span>Editor</span>
+                  ) : user.role === "viewer" ? (
+                    <span>Espectador</span>
+                  ) : (
+                    <span>{user.role}</span>
+                  )}
+                </div>
               )}
             </div>
           ))}
