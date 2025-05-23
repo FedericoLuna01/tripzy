@@ -7,7 +7,7 @@ import Input from "../../components/ui/input/input";
 import { UserContext } from "../../contexts/user-context/user-context";
 
 const ProfileEdit = () => {
-  const { user } = useContext(UserContext);
+  const { user, handleUserLogin } = useContext(UserContext);
   const [name, setName] = useState(user.name || "");
   const [imageUrl, setImageUrl] = useState(user.imageUrl || "");
   const [errors, setErrors] = useState({
@@ -74,6 +74,7 @@ const ProfileEdit = () => {
         setName(data.user.name || "");
         setImageUrl(data.user.imageUrl || "");
         localStorage.setItem("token", data.token);
+        handleUserLogin(data.token);
         toast.success("Perfil actualizado correctamente");
         navigate("/profile");
       })
