@@ -6,7 +6,7 @@ import { formatDay } from "../../utils/utils";
 import "./trip-days.css";
 import { useState } from "react";
 import useModal from "../../hooks/useModal";
-import Modal from "../modal/modal";
+import { Modal, ModalDescription, ModalTitle } from "../modal/modal";
 
 const TripDays = ({ activeDay, setActiveDay, days, setDays, canEdit }) => {
   const [deleteDay, setDeleteDay] = useState(null);
@@ -86,8 +86,19 @@ const TripDays = ({ activeDay, setActiveDay, days, setDays, canEdit }) => {
           handleClose();
         }}
         onSubmit={() => handleDeleteDay(deleteDay)}
-        entity={deleteDay?.date ? `día ${formatDay(deleteDay.date)}` : "día"}
-      />
+      >
+        <ModalTitle>
+          Eliminar día{" "}
+          {deleteDay?.date ? formatDay(deleteDay.date) : "(fecha inválida)"}
+        </ModalTitle>
+        <ModalDescription>
+          ¿Estás seguro de que quieres eliminar el día{" "}
+          <strong>
+            {deleteDay?.date ? formatDay(deleteDay.date) : "(fecha inválida)"}
+          </strong>
+          ? Esta acción no se puede deshacer.
+        </ModalDescription>
+      </Modal>
       <h2>Dias</h2>
       <div className="days-buttons-container">
         {days.map((day, index) => (
@@ -101,7 +112,7 @@ const TripDays = ({ activeDay, setActiveDay, days, setDays, canEdit }) => {
             onClick={() => handleActiveDay(day)}
           >
             Dia {index + 1}: {formatDay(day.date)}
-            {days.length - 1 === index && canEdit ? (
+            {days.length > 1 && days.length - 1 === index && canEdit ? (
               <span
                 onClick={(e) => {
                   e.stopPropagation();

@@ -4,7 +4,11 @@ import toast from "react-hot-toast";
 import { Link } from "react-router";
 import Input from "../../components/ui/input/input";
 import Avatar from "../../components/avatar/avatar";
-import Modal from "../../components/modal/modal";
+import {
+  Modal,
+  ModalDescription,
+  ModalTitle,
+} from "../../components/modal/modal";
 import {
   Menu,
   MenuButton,
@@ -80,8 +84,13 @@ const AdminUsers = () => {
           handleClose();
         }}
         onSubmit={() => handleDeleteUser(selectedUser.id)}
-        entity={`usuario ${selectedUser?.name}`}
-      />
+      >
+        <ModalTitle>Eliminar usuario {selectedUser?.name}</ModalTitle>
+        <ModalDescription>
+          ¿Estás seguro de que deseas eliminar al usuario {selectedUser?.name}?
+          Esta acción no se puede deshacer.
+        </ModalDescription>
+      </Modal>
       <div>
         <div className="container-title">
           <h1 className="title">Lista de Usuarios</h1>

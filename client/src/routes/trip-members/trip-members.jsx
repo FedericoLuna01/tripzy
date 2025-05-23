@@ -1,13 +1,19 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Plus, Trash } from "phosphor-react";
 import toast from "react-hot-toast";
 import Input from "../../components/ui/input/input";
 import Avatar from "../../components/avatar/avatar";
-import Modal from "../../components/modal/modal";
+import {
+  Modal,
+  ModalTitle,
+  ModalDescription,
+} from "../../components/modal/modal";
 import useModal from "../../hooks/useModal";
 import "./trip-members.css";
+import { UserContext } from "../../contexts/user-context/user-context";
 
 const TripMembers = ({ trip, canEdit }) => {
+  const { user: userContext } = useContext(UserContext);
   const [users, setUsers] = useState(trip.tripUsers);
   const [selectedUser, setSelectedUser] = useState(null);
   const [userEmail, setUserEmail] = useState("");
@@ -130,7 +136,15 @@ const TripMembers = ({ trip, canEdit }) => {
             handleClose();
             setSelectedUser(null);
           }}
-        />
+        >
+          <ModalTitle>
+            Eliminar a {selectedUser?.user.name} de tu viaje
+          </ModalTitle>
+          <ModalDescription>
+            Esta persona ya no podrá ver ni editar tu viaje. ¿Estás seguro de
+            que deseas eliminarla?
+          </ModalDescription>
+        </Modal>
         <h3>{canEdit ? "Gestioná tus amigos" : "Tus amigos"}</h3>
         {canEdit && (
           <form onSubmit={handleInviteUser}>
@@ -166,7 +180,7 @@ const TripMembers = ({ trip, canEdit }) => {
                   <p className="email">{user.user.email}</p>
                 </div>
               </div>
-              {canEdit ? (
+              {canEdit && userContext.id !== user.userId ? (
                 <form>
                   <label htmlFor="userRole">Rol</label>
                   <select

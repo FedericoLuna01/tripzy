@@ -31,7 +31,8 @@
   border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 20px;
-  min-width: 500px;
+  min-width: 400px;
+  max-width: 600px;
   z-index: 1001;
   transition: transform 150ms ease-out;
   transform: scale(1);
