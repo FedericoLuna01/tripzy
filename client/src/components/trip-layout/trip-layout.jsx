@@ -1,28 +1,44 @@
-import { AirplaneLanding, PencilSimple, Plus, Trash } from "phosphor-react";
-import { Link, NavLink, Outlet, useNavigate, useParams } from "react-router";
+import {
+  AirplaneLanding,
+  AirplaneTilt,
+  PencilSimple,
+  Plus,
+  Trash,
+} from "phosphor-react";
+import { Link, NavLink, useNavigate, useParams } from "react-router";
 import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { addDays } from "date-fns";
 import { UserContext } from "../../contexts/user-context/user-context";
+import TripMembers from "../../routes/trip-members/trip-members";
+import { Tab, TabList, TabPanel } from "../ui/tabs/tabs";
+import { TabGroup, TabPanels } from "@headlessui/react";
 import Avatar from "../../components/avatar/avatar";
-import Modal from "../../components/modal/modal";
+import {
+  ModalTitle,
+  Modal,
+  ModalDescription,
+} from "../../components/modal/modal";
 import { formatDay } from "../../utils/utils";
 import "../../routes/new-trip/new-trip.css";
 import useModal from "../../hooks/useModal";
+import Trip from "../../routes/trip/trip";
 import "../../routes/trip/trip.css";
 import "./trip-layout.css";
-import { TabGroup, TabPanels } from "@headlessui/react";
-import { Tab, TabList, TabPanel } from "../ui/tabs/tabs";
-import Trip from "../../routes/trip/trip";
-import TripMembers from "../../routes/trip-members/trip-members";
 
 const TripLayout = () => {
   const [trip, setTrip] = useState(null);
   const [canEdit, setCanEdit] = useState(false);
+  const [selectedTab, setSelectedTab] = useState(0);
   const { user } = useContext(UserContext);
   const params = useParams();
   const navigate = useNavigate();
   const { handleClose, handleOpen, isOpen } = useModal();
+  const {
+    handleClose: handleCloseAbandonTrip,
+    handleOpen: handleOpenAbandonTrip,
+    isOpen: isOpenAbandonTrip,
+  } = useModal();
 
   useEffect(() => {
     if (trip && trip.tripUsers) {
@@ -88,6 +104,30 @@ const TripLayout = () => {
     handleClose();
   };
 
+  const handleAbandonTrip = () => {
+    fetch(`http://localhost:3000/trips/${trip.id}/users/${user.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return toast.error("Error al abandonar el viaje");
+        }
+        return response.json();
+      })
+      .then(() => {
+        toast.success("Viaje abandonado correctamente");
+        navigate("/profile");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        toast.error("Error al abandonar el viaje");
+      });
+  };
+
   if (!trip) {
     return (
       <div className="trip-layout">
@@ -104,12 +144,28 @@ const TripLayout = () => {
 
   return (
     <>
+      <Modal onSubmit={handleDelete} isOpen={isOpen} handleClose={handleClose}>
+        <ModalTitle>¿Estás seguro de que quieres eliminar el viaje?</ModalTitle>
+        <ModalDescription>
+          Esta acción no se puede deshacer. Si el viaje tiene días o actividades
+          asignados, se eliminarán de forma permanente.
+        </ModalDescription>
+      </Modal>
       <Modal
         entity={`${trip.title}`}
-        onSubmit={handleDelete}
-        isOpen={isOpen}
-        handleClose={handleClose}
-      />
+        onSubmit={handleAbandonTrip}
+        isOpen={isOpenAbandonTrip}
+        handleClose={handleCloseAbandonTrip}
+        buttonTitle="Abandonar"
+      >
+        <ModalTitle>
+          ¿Estás seguro de que quieres abandonar el viaje {trip.title}?
+        </ModalTitle>
+        <ModalDescription>
+          No podrás acceder a la información de este viaje hasta volver a ser
+          invitado.
+        </ModalDescription>
+      </Modal>
       <section className="trip-layout">
         <div className="container trip-container">
           <div className="card trip-info">
@@ -128,33 +184,42 @@ const TripLayout = () => {
                   {trip.tripUsers.map((user) => (
                     <Avatar user={user.user} key={user.id} />
                   ))}
-                  <Link
+                  <span
                     className="avatar add-user"
-                    to={`/trip/${trip.id}/members`}
+                    onClick={() => setSelectedTab(1)}
                   >
                     <Plus size={22} />
-                  </Link>
+                  </span>
                 </div>
               </div>
             </div>
-            {canEdit ? (
-              <div className="actions-container">
-                <Link to={`/trip/edit/${trip.id}`}>
-                  <button className="button button-outline">
-                    Editar <PencilSimple size={20} />
+            <div className="actions-container">
+              {canEdit && (
+                <>
+                  <Link to={`/trip/edit/${trip.id}`}>
+                    <button className="button button-outline">
+                      Editar <PencilSimple size={20} />
+                    </button>
+                  </Link>
+                  <button
+                    onClick={handleOpen}
+                    className="button button-destructive"
+                  >
+                    Eliminar
+                    <Trash size={20} />
                   </button>
-                </Link>
-                <button
-                  onClick={handleOpen}
-                  className="button button-destructive"
-                >
-                  Eliminar
-                  <Trash size={20} />
-                </button>
-              </div>
-            ) : null}
+                </>
+              )}
+              <button
+                className="button button-destructive"
+                onClick={handleOpenAbandonTrip}
+              >
+                <AirplaneTilt size={20} />
+                Abandonar viaje
+              </button>
+            </div>
           </div>
-          <TabGroup>
+          <TabGroup selectedIndex={selectedTab} onChange={setSelectedTab}>
             <TabList>
               <Tab>Trip</Tab>
               <Tab>Amigos</Tab>

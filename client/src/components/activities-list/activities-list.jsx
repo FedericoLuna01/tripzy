@@ -1,22 +1,24 @@
 import React, { useState } from "react";
-import { formatDay } from "../../utils/utils";
+import toast from "react-hot-toast";
 import { isEqual } from "date-fns";
 import NewActivityForm from "../../components/new-activity-form/new-activity-form";
-import { PencilSimple, Trash } from "phosphor-react";
+import { Backpack, PencilSimple, Trash } from "phosphor-react";
+import { formatDay } from "../../utils/utils";
 import useModal from "../../hooks/useModal";
-import Modal from "../modal/modal";
-import toast from "react-hot-toast";
+import { Modal, ModalDescription, ModalTitle } from "../modal/modal";
+import "./activities-list.css";
 
 const ActivitiesList = ({
   activeDay,
   days,
-  activities,
+  activities = [],
   setActivities,
   canEdit,
 }) => {
   const [editingActivity, setEditingActivity] = useState(null);
   const [deleteSelectActivity, setDeleteSelectActivity] = useState(null);
   const { handleOpen, handleClose, isOpen } = useModal();
+
   const handleDeleteActivity = (deleteActivity) => {
     fetch(`http://localhost:3000/activities/${deleteActivity.id}`, {
       method: "DELETE",
@@ -51,8 +53,14 @@ const ActivitiesList = ({
           handleClose();
         }}
         onSubmit={() => handleDeleteActivity(deleteSelectActivity)}
-        entity={`actividad ${deleteSelectActivity?.title}`}
-      />
+      >
+        <ModalTitle>Eliminar actividad</ModalTitle>
+        <ModalDescription>
+          ¿Estás seguro de que quieres eliminar la actividad{" "}
+          <strong>{deleteSelectActivity?.title}</strong>? Esta acción no se
+          puede deshacer.
+        </ModalDescription>
+      </Modal>
       <h2>Actividades</h2>
       {activeDay && (
         <p className="day">
@@ -62,7 +70,12 @@ const ActivitiesList = ({
         </p>
       )}
       <div className="activity-container">
-        {activities &&
+        {(activities || []).length === 0 ? (
+          <div className="empty-activities">
+            <Backpack className="icon" size={48} />
+            <p>No hay actividades para este día</p>
+          </div>
+        ) : (
           activities
             .sort((a, b) => a.time.localeCompare(b.time))
             .map((activity, index) => (
@@ -74,7 +87,7 @@ const ActivitiesList = ({
                     {activity.description}
                   </p>
                 </div>
-                {canEdit ? (
+                {canEdit && (
                   <div className="activity-card-buttons">
                     <button
                       className="button button-outline button-square"
@@ -92,9 +105,11 @@ const ActivitiesList = ({
                       <Trash size={20} />
                     </button>
                   </div>
-                ) : null}
+                )}
               </div>
-            ))}
+            ))
+        )}
+
         {canEdit && (
           <NewActivityForm
             setActivities={setActivities}

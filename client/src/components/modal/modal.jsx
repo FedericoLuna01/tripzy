@@ -7,7 +7,13 @@ import {
 } from "@headlessui/react";
 import "./modal.css";
 
-const Modal = ({ entity, onSubmit, isOpen, handleClose }) => {
+export const Modal = ({
+  onSubmit,
+  isOpen,
+  handleClose,
+  buttonTitle = "Eliminar",
+  children,
+}) => {
   return (
     <Dialog open={isOpen} onClose={handleClose} className="modal" transition>
       <DialogBackdrop className="modal-backdrop" />
@@ -15,17 +21,13 @@ const Modal = ({ entity, onSubmit, isOpen, handleClose }) => {
       <div className="modal-container">
         {/* The actual dialog panel  */}
         <DialogPanel transition className="modal-panel">
-          <DialogTitle className="modal-title">Eliminar {entity}</DialogTitle>
-          <Description>
-            Esto lo va a eliminar permanentemente y no se puede deshacer.
-          </Description>
-          <p>Estas seguro de que deseas eliminar {entity}?</p>
+          {children}
           <div className="button-container">
             <button className="button button-secondary" onClick={handleClose}>
               Cancel
             </button>
             <button className="button button-destructive" onClick={onSubmit}>
-              Eliminar
+              {buttonTitle}
             </button>
           </div>
         </DialogPanel>
@@ -34,4 +36,10 @@ const Modal = ({ entity, onSubmit, isOpen, handleClose }) => {
   );
 };
 
-export default Modal;
+export const ModalTitle = ({ children }) => {
+  return <DialogTitle className="modal-title">{children}</DialogTitle>;
+};
+
+export const ModalDescription = ({ children }) => {
+  return <Description className="modal-description">{children}</Description>;
+};

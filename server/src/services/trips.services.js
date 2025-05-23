@@ -195,3 +195,28 @@ export const updateTrip = async (req, res) => {
 
   res.json(trip);
 };
+
+export const deleteUserFromTrip = async (req, res) => {
+  const { userId, tripId } = req.params;
+
+  try {
+    const userTrip = await UserTrip.findOne({
+      where: { userId, tripId },
+    });
+
+    if (!userTrip) {
+      return res.status(404).json({
+        message: "No se encontró la relación entre el usuario y el viaje",
+      });
+    }
+
+    await userTrip.destroy();
+
+    res.json({ message: "Usuario eliminado del viaje" });
+  } catch (error) {
+    console.error("Error al eliminar el usuario del viaje:", error);
+    res.status(500).json({
+      message: "Error al eliminar el usuario del viaje",
+    });
+  }
+};

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router";
 import Input from "../ui/input/input";
-import Modal from "../modal/modal";
+import { Modal, ModalDescription, ModalTitle } from "../modal/modal";
 import { Menu, MenuButton, MenuItems, MenuItem } from "../ui/menu/menu";
 import "./admin-trips.css";
 import useModal from "../../hooks/useModal";
@@ -92,8 +92,13 @@ const AdminTrips = () => {
           handleClose();
         }}
         onSubmit={() => handleDeleteTrip(selectedTrip.id)}
-        entity={`viaje ${selectedTrip?.name}`}
-      />
+      >
+        <ModalTitle>Eliminar viaje {selectedTrip?.title}</ModalTitle>
+        <ModalDescription>
+          ¿Estás seguro de que deseas eliminar este viaje? Esta acción no se
+          puede deshacer.
+        </ModalDescription>
+      </Modal>
       <div>
         <div className="container-title">
           <h1 className="title">Lista de Viajes</h1>

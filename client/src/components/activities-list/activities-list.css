@@ -1,0 +1,76 @@
+.activities-container {
+  width: 100%;
+}
+
+.activity-card-buttons {
+  display: flex;
+  margin-left: auto;
+  gap: 0.5em;
+}
+
+.activity-card-description {
+  color: var(--color-muted);
+}
+.activity-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-top: 1em;
+}
+
+.activity-card {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  gap: 1em;
+}
+
+.activity-card > span {
+  font-size: 1.2em;
+  color: var(--color-muted);
+  font-weight: 700;
+}
+
+.new-activity-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1em;
+  gap: 1em;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--border-radius-small);
+}
+
+.new-activity-card > .top {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  gap: 1em;
+}
+
+.new-activity-card > .top :nth-child(1) {
+  min-width: 11em;
+  display: flex;
+  flex-direction: column;
+}
+
+.new-activity-card > .top :nth-child(2) {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.empty-activities {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  padding: 2em;
+}
+
+.empty-activities > p {
+  font-weight: 600;
+}
