@@ -16,7 +16,7 @@ export const Messages = sequelize.define(
     },
     senderId: {
       type: DataTypes.INTEGER,
-      allowNull: true, // Puede ser null si es un usuario no registrado
+      allowNull: true,
       references: {
         model: Users,
         key: "id",
