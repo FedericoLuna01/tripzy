@@ -165,8 +165,8 @@ const Home = () => {
       </section>
       {/* Sección 4 */}
       <section>
-        <h1 className="title-form"> Formulario de contacto</h1>
         <SlideIn>
+          <h1 className="title-form"> Formulario de contacto</h1>
           <FormHome />
         </SlideIn>
       </section>

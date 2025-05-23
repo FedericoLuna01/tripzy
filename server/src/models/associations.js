@@ -3,7 +3,7 @@ import { Trips } from "./Trips.js";
 import { Users } from "./Users.js";
 import { TripDays } from "./TripDays.js";
 import { Activities } from "./Activities.js";
-import { Messages } from "./Messages.js";
+import { Messages } from "./messages.js";
 
 // Relación User -> UserTrip
 Users.hasMany(UserTrip, {

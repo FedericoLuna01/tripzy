@@ -1,4 +1,4 @@
-import { Messages } from "../models/Messages.js";
+import { Messages } from "../models/messages.js";
 import { Users } from "../models/Users.js";
 
 export const getAllMessages = async (req, res) => {
@@ -17,7 +17,7 @@ export const getAllMessages = async (req, res) => {
 
     res.json(messages);
   } catch (error) {
-    console.error("Error fetching messages:", error);
+    console.log(error);
     res.status(500).json({ message: "Error al obtener los mensajes" });
   }
 };
@@ -62,8 +62,7 @@ export const postMessage = async (req, res) => {
       isRegisteredUser: existingUser,
     });
   } catch (error) {
-    console.error("Error creating message:", error);
-    res.status(500).json({ message: "Error al crear el mensaje" });
+    res.status(500).json({ error: "Error al crear el mensaje" });
   }
 };
 
