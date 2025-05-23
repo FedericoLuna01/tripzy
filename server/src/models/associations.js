@@ -3,6 +3,7 @@ import { Trips } from "./Trips.js";
 import { Users } from "./Users.js";
 import { TripDays } from "./TripDays.js";
 import { Activities } from "./Activities.js";
+import { Messages } from "./Messages.js";
 
 // Relación User -> UserTrip
 Users.hasMany(UserTrip, {
@@ -55,3 +56,6 @@ Activities.belongsTo(TripDays, {
   as: "tripDays",
   onDelete: "CASCADE",
 });
+
+Messages.belongsTo(Users, { foreignKey: "senderId", as: "sender" });
+Users.hasMany(Messages, { foreignKey: "senderId", as: "messages" });
