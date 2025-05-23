@@ -34,7 +34,7 @@ Instalar con npm
 ```
 
 ## ToDo's
-
+-  [ ] En home crear un formulario de dudas o contacto y que se comunique con la pestaña admin
 - [ x ] Después de editar perfil guardar el jwt en localStorage
 - [ x ] En members agregar el back y funcionalidad para invitar
 - [ x ] Proteger ruta de trip si el usuario no esta invitado
