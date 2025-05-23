@@ -75,7 +75,7 @@ const Register = () => {
     return password === passwordRepeat;
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     setErrors({
       validName: false,
@@ -113,7 +113,7 @@ const Register = () => {
     if (hasError) return;
 
     try {
-      await fetch("http://localhost:3000/register", {
+      fetch("http://localhost:3000/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -182,9 +182,7 @@ const Register = () => {
               Ingrese un email que no este en uso
             </p>
             {errors.validEmail && (
-              <p className="error-message">
-                Por favor, ingrese un email valido
-              </p>
+              <p className="error-message">Ingrese un email valido</p>
             )}
           </div>
           <div className="input-group">
