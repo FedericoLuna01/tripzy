@@ -36,11 +36,11 @@
     "volvés"
   ],
   "github.copilot.enable": {
-    "*": false,
+    "*": true,
     "plaintext": false,
     "markdown": false,
     "scminput": false,
-    "typescript": false,
-    "yaml": false
+    "yaml": false,
+    "typescript": false
   }
 }
