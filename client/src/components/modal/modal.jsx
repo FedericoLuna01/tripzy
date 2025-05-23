@@ -17,9 +17,7 @@ export const Modal = ({
   return (
     <Dialog open={isOpen} onClose={handleClose} className="modal" transition>
       <DialogBackdrop className="modal-backdrop" />
-      {/* Full-screen container to center the panel */}
       <div className="modal-container">
-        {/* The actual dialog panel  */}
         <DialogPanel transition className="modal-panel">
           {children}
           <div className="button-container">

@@ -1,11 +1,10 @@
-import { useNavigate } from "react-router";
 import React, { useEffect, useState } from "react";
+import ActivitiesList from "../../components/activities-list/activities-list";
+import TripDays from "../../components/trip-days/trip-days";
 import "../new-trip/new-trip.css";
 import "./trip.css";
-import TripDays from "../../components/trip-days/trip-days";
-import ActivitiesList from "../../components/activities-list/activities-list";
 
-const Trip = ({ trip, canEdit }) => {
+const Trip = ({ trip, canEdit, setTrip }) => {
   const [activities, setActivities] = useState(null);
   const [activeDay, setActiveDay] = useState(trip.days[0]);
   const [days, setDays] = useState(trip.days);
@@ -41,6 +40,7 @@ const Trip = ({ trip, canEdit }) => {
         days={days}
         setDays={setDays}
         canEdit={canEdit}
+        setTrip={setTrip}
       />
       <ActivitiesList
         activeDay={activeDay}

@@ -12,7 +12,7 @@ import useModal from "../../hooks/useModal";
 import "./trip-members.css";
 import { UserContext } from "../../contexts/user-context/user-context";
 
-const TripMembers = ({ trip, canEdit }) => {
+const TripMembers = ({ trip, canEdit, setTrip }) => {
   const { user: userContext } = useContext(UserContext);
   const [users, setUsers] = useState(trip.tripUsers);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -52,6 +52,10 @@ const TripMembers = ({ trip, canEdit }) => {
           return toast.error(data.message);
         }
         setUsers((prevUsers) => [...prevUsers, data]);
+        setTrip((prevTrip) => ({
+          ...prevTrip,
+          tripUsers: [...prevTrip.tripUsers, data],
+        }));
         toast.success("Usuario agregado correctamente");
       });
     setUserEmail("");
@@ -79,6 +83,12 @@ const TripMembers = ({ trip, canEdit }) => {
           return toast.error(data.message);
         }
         setUsers((prev) => prev.filter((user) => user.id !== selectedUser.id));
+        setTrip((prev) => ({
+          ...prev,
+          tripUsers: prev.tripUsers.filter(
+            (user) => user.id !== selectedUser.id
+          ),
+        }));
         toast.success("Usuario eliminado del viaje");
       });
 

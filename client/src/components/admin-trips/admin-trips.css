@@ -1,3 +1,8 @@
 .no-trips {
   text-align: center;
 }
+
+.status.active-trip {
+  background-color: #ccffd0;
+  color: #116d2f;
+}

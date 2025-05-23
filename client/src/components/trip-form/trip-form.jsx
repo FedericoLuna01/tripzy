@@ -10,7 +10,6 @@ const TripForm = ({ initialTrip }) => {
   const [title, setTitle] = useState("");
   const [tripStart, setTripStart] = useState("");
   const [description, setDescription] = useState("");
-  const [isPublic, setIsPublic] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [isBlocked, setIsBlocked] = useState(false);
   const navigate = useNavigate();
@@ -19,7 +18,6 @@ const TripForm = ({ initialTrip }) => {
     tripStart: false,
     description: false,
     imageUrl: false,
-    isPublic: false,
   });
   const inputTitleRef = useRef(null);
   const inputTripStartRef = useRef(null);
@@ -37,7 +35,6 @@ const TripForm = ({ initialTrip }) => {
       );
       setDescription(initialTrip.description || "");
       setImageUrl(initialTrip.imageUrl || "");
-      setIsPublic(initialTrip.isPublic || false);
       setIsBlocked(initialTrip.isBlocked || false);
     }
   }, [initialTrip]);
@@ -72,10 +69,6 @@ const TripForm = ({ initialTrip }) => {
       ...prevErrors,
       imageUrl: false,
     }));
-  };
-
-  const handleIsPublic = (event) => {
-    setIsPublic(event.target.checked);
   };
 
   const handleIsBlocked = (event) => {
@@ -142,7 +135,6 @@ const TripForm = ({ initialTrip }) => {
         startDate: tripStart,
         imageUrl,
         userId: user.id,
-        isPublic,
         isBlocked,
       }),
     })
@@ -239,19 +231,6 @@ const TripForm = ({ initialTrip }) => {
                 La url de la imagen no puede estar vacía
               </p>
             )}
-          </div>
-          <div className="checkbox-container">
-            <label htmlFor="public">Publico</label>
-            <Input
-              onChange={handleIsPublic}
-              checked={isPublic}
-              id="public"
-              type="checkbox"
-              style={{ width: "fit-content" }}
-            />
-            <p className="input-description">
-              Cualquier persona podrá unirse al itinerario
-            </p>
           </div>
           {user && user.role !== "user" && (
             <div className="input-group">
