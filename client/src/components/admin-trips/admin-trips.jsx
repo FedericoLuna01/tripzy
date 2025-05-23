@@ -1,13 +1,21 @@
-import { DotsThree, Eye, Lock, PencilSimple, Trash } from "phosphor-react";
+import {
+  DotsThree,
+  Eye,
+  Lock,
+  LockOpen,
+  PencilSimple,
+  Trash,
+} from "phosphor-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router";
-import Input from "../ui/input/input";
-import { Modal, ModalDescription, ModalTitle } from "../modal/modal";
 import { Menu, MenuButton, MenuItems, MenuItem } from "../ui/menu/menu";
-import "./admin-trips.css";
+import { Modal, ModalDescription, ModalTitle } from "../modal/modal";
+import { formatFullDate } from "../../utils/utils";
 import useModal from "../../hooks/useModal";
 import Avatar from "../avatar/avatar";
+import Input from "../ui/input/input";
+import "./admin-trips.css";
 
 const AdminTrips = () => {
   const [selectedTrip, setSelectedTrip] = useState(null);
@@ -67,20 +75,54 @@ const AdminTrips = () => {
     setFilteredTrips(tripsFiltered);
   };
 
-  const handleBlockUser = async (id) => {
-    const response = await fetch(`http://localhost:3000/users/${id}/block`, {
+  const handleBlockTrip = (trip) => {
+    fetch(`http://localhost:3000/trips/${trip.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-    });
+      body: JSON.stringify({
+        isBlocked: !trip.isBlocked,
+        title: trip.title,
+        description: trip.description,
+        startDate: trip.startDate,
+        imageUrl: trip.imageUrl,
+        isPublic: trip.isPublic,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message) {
+          return toast.error(data.message);
+        }
 
-    if (!response.ok) {
-      return toast.error("Error al bloquear el usuario");
-    }
-
-    toast.success("Usuario bloqueado");
+        setTrips((prev) =>
+          prev.map((t) => {
+            if (t.id === trip.id) {
+              return { ...t, isBlocked: !trip.isBlocked };
+            }
+            return t;
+          })
+        );
+        setFilteredTrips((prev) =>
+          prev.map((t) => {
+            if (t.id === trip.id) {
+              return { ...t, isBlocked: !trip.isBlocked };
+            }
+            return t;
+          })
+        );
+        toast.success(
+          trip.isBlocked
+            ? "Viaje desbloqueado correctamente"
+            : "Viaje bloqueado correctamente"
+        );
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        toast.error("Error al bloquear el viaje");
+      });
   };
 
   return (
@@ -120,7 +162,8 @@ const AdminTrips = () => {
                 <th>Creado por</th>
                 <th>Titulo del viaje</th>
                 <th>Descripción</th>
-                <th>Fecha creacion</th>
+                <th>Fecha de inicio</th>
+                <th>Fecha de creación</th>
                 <th>Estado</th>
                 <th></th>
               </tr>
@@ -143,10 +186,13 @@ const AdminTrips = () => {
                     </td>
                     <td>{trip.title}</td>
                     <td>{trip.description}</td>
-                    <td>${trip.startDate}</td>
+                    <td>{formatFullDate(trip.startDate)}</td>
+                    <td>{formatFullDate(trip.createdAt)}</td>
                     <td>
                       <span
-                        className={`status ${trip.isBlocked ? "blocked" : ""}`}
+                        className={`status ${
+                          trip.isBlocked ? "blocked" : "active-trip"
+                        }`}
                       >
                         {trip.isBlocked ? "Bloqueado" : "Activo"}
                       </span>
@@ -171,10 +217,29 @@ const AdminTrips = () => {
                           <MenuItem>
                             <Link
                               className="menu-item-link"
-                              to={`/admin/edit-trip/${trip.id}`}
+                              to={`/trip/edit/${trip.id}`}
                             >
                               <PencilSimple size={20} /> Editar
                             </Link>
+                          </MenuItem>
+                          <MenuItem>
+                            <span
+                              className="menu-item-link"
+                              onClick={() => handleBlockTrip(trip)}
+                            >
+                              <span
+                                className={`menu-item-link ${
+                                  trip.isBlocked ? "" : "destructive"
+                                }`}
+                              >
+                                {trip.isBlocked ? (
+                                  <LockOpen size={20} />
+                                ) : (
+                                  <Lock size={20} />
+                                )}
+                                {trip.isBlocked ? "Desbloquear" : "Bloquear"}
+                              </span>
+                            </span>
                           </MenuItem>
                           <MenuItem>
                             <span
@@ -186,18 +251,6 @@ const AdminTrips = () => {
                             >
                               <Trash size={20} /> Eliminar
                             </span>
-                          </MenuItem>
-                          <MenuItem>
-                            <Link
-                              className="menu-item-link"
-                              to={`/admin/trips/${trip.id}`}
-                              onClick={() => handleBlockUser(trip.owner.id)}
-                            >
-                              <span className="menu-item-link destructive">
-                                <Lock size={20} />
-                                Bloquear
-                              </span>
-                            </Link>
                           </MenuItem>
                         </MenuItems>
                       </Menu>

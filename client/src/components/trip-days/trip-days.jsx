@@ -8,7 +8,14 @@ import { useState } from "react";
 import useModal from "../../hooks/useModal";
 import { Modal, ModalDescription, ModalTitle } from "../modal/modal";
 
-const TripDays = ({ activeDay, setActiveDay, days, setDays, canEdit }) => {
+const TripDays = ({
+  activeDay,
+  setActiveDay,
+  days,
+  setDays,
+  canEdit,
+  setTrip,
+}) => {
   const [deleteDay, setDeleteDay] = useState(null);
   const params = useParams();
   const { handleClose, handleOpen, isOpen } = useModal();
@@ -38,6 +45,10 @@ const TripDays = ({ activeDay, setActiveDay, days, setDays, canEdit }) => {
       .then(() => {
         toast.success("Día eliminado correctamente");
         setDays((prev) => prev.filter((day) => day.id !== deleteDay.id));
+        setTrip((prev) => ({
+          ...prev,
+          days: prev.days.filter((day) => day.id !== deleteDay.id),
+        }));
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -69,6 +80,11 @@ const TripDays = ({ activeDay, setActiveDay, days, setDays, canEdit }) => {
         }
         setActiveDay(data);
         setDays((prev) => [...prev, data]);
+
+        setTrip((prev) => ({
+          ...prev,
+          days: [...prev.days, data],
+        }));
         toast.success("Día agregado correctamente");
       })
       .catch((error) => {

@@ -1,11 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import { format } from "date-fns";
-import { es } from "date-fns/locale";
 import { Link, NavLink } from "react-router";
 import "./profile.css";
 import Avatar from "../../components/avatar/avatar";
 import { Calendar, Mountains } from "phosphor-react";
 import { UserContext } from "../../contexts/user-context/user-context";
+import { formatFullDate } from "../../utils/utils";
 
 const Profile = () => {
   const [trips, setTrips] = useState([]);
@@ -83,13 +82,7 @@ const Profile = () => {
                   <div className="box-info-date-container">
                     <Calendar className="box-info-icon" size={22} />
                     <p className="box-info-date">
-                      {format(
-                        new Date(trip.startDate),
-                        "d 'de' MMMM 'de' yyyy",
-                        {
-                          locale: es,
-                        }
-                      )}
+                      {formatFullDate(trip.startDate)}
                     </p>
                   </div>
                 </div>

@@ -106,8 +106,7 @@ export const getTrip = async (req, res) => {
 
 export const createTrip = async (req, res) => {
   try {
-    const { title, description, startDate, imageUrl, userId, isPublic } =
-      req.body;
+    const { title, description, startDate, imageUrl, userId } = req.body;
 
     if (!userId) {
       return res.status(400).json({ message: "User ID is required" });
@@ -123,7 +122,6 @@ export const createTrip = async (req, res) => {
       description,
       startDate,
       imageUrl,
-      isPublic,
     });
 
     await TripDays.create({
@@ -172,8 +170,8 @@ export const deleteTrip = async (req, res) => {
 
 export const updateTrip = async (req, res) => {
   const { id } = req.params;
-  const { title, description, startDate, imageUrl, isBlocked, isPublic } =
-    req.body;
+  const { title, description, startDate, imageUrl, isBlocked } = req.body;
+
   if (!title || !description || !startDate || !imageUrl) {
     return res.status(400).json({
       message: "Se necesitan todos los campos",
@@ -186,12 +184,13 @@ export const updateTrip = async (req, res) => {
     });
   }
 
-  await Trips.update(
-    { title, description, startDate, imageUrl, isBlocked, isPublic },
-    {
-      where: { id },
-    }
-  );
+  await trip.update({
+    title,
+    description,
+    startDate,
+    imageUrl,
+    isBlocked,
+  });
 
   res.json(trip);
 };
