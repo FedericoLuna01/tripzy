@@ -55,7 +55,7 @@ Instalar con npm
 - [ x ] Me puedo eliminar de mi propio viaje? y me sigue apareciendo el viaje.
 - [ x ] Si hiciste muchos pasos dentro de un viaje, como editar, agregar o borrar días, etc. Cuando apretás para volver atrás en la página y que te lleve a la vista general de viajes, no vuelve de una sino que cada apretada te lleva un paso atrás en lo que hiciste.
 - [ x ] Cuando vas al botón de editar viaje, el segundo botón que aparece debería decir aceptar, no editar, ya que ya apretaste otro botón de editar antes.
-- [ ] Cuando pasás el dueño, te volvés editor, pero el botón de eliminar viaje sigue apareciendo. hay que borrar el botón de eliminar viaje para cuando pasás el dueño a otro miembro.
+- [ x ] Cuando pasás el dueño, te volvés editor, pero el botón de eliminar viaje sigue apareciendo. hay que borrar el botón de eliminar viaje para cuando pasás el dueño a otro miembro.
 
 ## Autores
 
