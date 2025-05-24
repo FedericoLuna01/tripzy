@@ -215,9 +215,9 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
                   {user.role === "owner" ? (
                     <span className="rol-dueno">Dueño</span>
                   ) : user.role === "editor" ? (
-                    <span>Editor</span>
+                    <span className="rol-editor">Editor</span>
                   ) : user.role === "viewer" ? (
-                    <span>Espectador</span>
+                    <span className="rol-viewer">Espectador</span>
                   ) : (
                     <span>{user.role}</span>
                   )}
