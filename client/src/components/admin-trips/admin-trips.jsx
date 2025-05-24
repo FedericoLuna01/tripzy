@@ -171,7 +171,7 @@ const AdminTrips = () => {
             <tbody>
               {filteredTrips.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="no-trips">
+                  <td colSpan="7" className="no-trips">
                     No hay viajes que mostrar
                   </td>
                 </tr>
