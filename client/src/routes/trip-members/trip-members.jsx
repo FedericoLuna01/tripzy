@@ -112,26 +112,21 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
         if (data.message) {
           return toast.error(data.message);
         }
-        if (data.existingOwner) {
-          // Actualizar el rol del dueño actual a "editor"
-          e.target.value = "owner";
-          setUsers((prevUsers) =>
-            prevUsers.map((user) =>
-              user.id === data.existingOwner.id
-                ? { ...user, role: "editor" }
-                : user
-            )
-          );
-        }
 
-        // Actualizar el rol del usuario modificado con los datos del servidor
-        setUsers((prevUsers) =>
-          prevUsers.map((user) =>
-            user.id === userTrip.id ? { ...user, role: data.role } : user
-          )
-        );
-
-        toast.success("Rol actualizado correctamente");
+        // Después de cambiar el rol, vuelve a pedir el viaje actualizado
+        fetch(`http://localhost:3000/trips/${trip.id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((updatedTrip) => {
+            setTrip(updatedTrip);
+            setUsers(updatedTrip.tripUsers);
+            toast.success("Rol actualizado correctamente");
+          });
       });
   };
 
