@@ -1,4 +1,6 @@
+import { UserTripRole } from "../enums/enums.js";
 import { TripDays } from "../models/TripDays.js";
+import { checkTripPermissions } from "../utils/checkTripPermissions.js";
 
 export const getDays = async (req, res) => {
   const days = await TripDays.findAll();
@@ -12,6 +14,18 @@ export const createDay = async (req, res) => {
     return res
       .status(400)
       .json({ message: "Todos los campos son obligatorios" });
+  }
+
+  const hasPermissions = await checkTripPermissions(
+    req.user,
+    [UserTripRole.EDITOR, UserTripRole.OWNER],
+    tripId
+  );
+
+  if (!hasPermissions) {
+    return res
+      .status(403)
+      .json({ message: "No tiene permisos para crear un dia" });
   }
 
   const day = await TripDays.create({
@@ -31,15 +45,30 @@ export const deleteDay = async (req, res) => {
       .json({ message: "Todos los campos son obligatorios" });
   }
 
-  const day = await TripDays.destroy({
-    where: {
-      id,
-    },
-  });
+  try {
+    const day = await TripDays.findByPk(id);
 
-  if (!day) {
-    return res.status(404).json({ message: "Day not found" });
+    if (!day) {
+      return res.status(404).json({ message: "Dia no encontrado" });
+    }
+
+    const hasPermissions = await checkTripPermissions(
+      req.user,
+      [UserTripRole.EDITOR, UserTripRole.OWNER],
+      day.tripId
+    );
+
+    if (!hasPermissions) {
+      return res
+        .status(403)
+        .json({ message: "No tiene permisos para eliminar este dia" });
+    }
+
+    await day.destroy();
+
+    res.status(200).json({ message: "Dia eliminado" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error al eliminar el dia" });
   }
-
-  res.status(200).json({ message: "Dia eliminado" });
 };
