@@ -17,24 +17,27 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
   const [users, setUsers] = useState(trip.tripUsers);
   const [selectedUser, setSelectedUser] = useState(null);
   const [userEmail, setUserEmail] = useState("");
+  const [nextAddedUser, setNextAddedUser] = useState(null);
   const [errors, setErrors] = useState({
     userEmail: false,
   });
   const userEmailInputRef = useRef(null);
   const { handleClose, handleOpen, isOpen } = useModal();
+  const {
+    handleClose: handleCloseNextAddedUser,
+    handleOpen: handleOpenNextAddedUser,
+    isOpen: isOpenNextAddedUser,
+  } = useModal();
 
-  const handleInviteUser = (event) => {
-    event.preventDefault();
+  const handleUserEmailChange = (e) => {
+    setUserEmail(e.target.value);
     setErrors((prevErrors) => ({
       ...prevErrors,
-      userEmail:
-        !userEmail.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) || userEmail.length < 2,
+      userEmail: false,
     }));
-    if (errors.userEmail) {
-      userEmailInputRef.current.focus();
-      return;
-    }
+  };
 
+  const handleAddUser = () => {
     fetch("http://localhost:3000/userTrip", {
       method: "POST",
       headers: {
@@ -58,15 +61,41 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
         }));
         toast.success("Usuario agregado correctamente");
       });
-    setUserEmail("");
+    handleCloseNextAddedUser();
   };
 
-  const handleUserEmailChange = (e) => {
-    setUserEmail(e.target.value);
+  const handleInviteUser = (event) => {
+    event.preventDefault();
     setErrors((prevErrors) => ({
       ...prevErrors,
-      userEmail: false,
+      userEmail:
+        !userEmail.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) || userEmail.length < 2,
     }));
+    if (errors.userEmail) {
+      userEmailInputRef.current.focus();
+      return;
+    }
+
+    if (users.some((user) => user.user.email === userEmail)) {
+      toast.error("El usuario ya está invitado a este viaje");
+      return;
+    }
+
+    fetch(`http://localhost:3000/users/email/${userEmail}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message) {
+          return toast.error(data.message);
+        }
+        setNextAddedUser(data);
+        handleOpenNextAddedUser();
+      });
   };
 
   const handleDeleteUser = (selectedUser) => {
@@ -134,7 +163,6 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
     <>
       <div className="card members-container">
         <Modal
-          entity={`el usuario ${selectedUser?.name || ""}`}
           onSubmit={() => handleDeleteUser(selectedUser)}
           isOpen={isOpen}
           handleClose={() => {
@@ -148,6 +176,22 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
           <ModalDescription>
             Esta persona ya no podrá ver ni editar tu viaje. ¿Estás seguro de
             que deseas eliminarla?
+          </ModalDescription>
+        </Modal>
+        <Modal
+          onSubmit={() => handleAddUser(nextAddedUser)}
+          isOpen={isOpenNextAddedUser}
+          handleClose={() => {
+            handleCloseNextAddedUser();
+            setNextAddedUser(null);
+          }}
+          destructive={false}
+          buttonTitle="Invitar"
+        >
+          <ModalTitle>Agregar a {nextAddedUser?.name} a tu viaje</ModalTitle>
+          <ModalDescription>
+            Esta persona podrá ver tu viaje. ¿Estás seguro de que deseas
+            invitarla?
           </ModalDescription>
         </Modal>
         <h3>{canEdit ? "Gestioná tus amigos" : "Tus amigos"}</h3>
@@ -213,7 +257,7 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
               ) : (
                 <div className="user-trip-role">
                   {user.role === "owner" ? (
-                    <span className="rol-dueno">Dueño</span>
+                    <span className="rol-owner">Dueño</span>
                   ) : user.role === "editor" ? (
                     <span className="rol-editor">Editor</span>
                   ) : user.role === "viewer" ? (

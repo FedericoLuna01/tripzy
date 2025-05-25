@@ -108,3 +108,28 @@ export const deleteUser = async (req, res) => {
 
   res.json({ message: "Usuario eliminado correctamente" });
 };
+
+export const getUserByEmail = async (req, res) => {
+  const { userEmail } = req.params;
+
+  try {
+    const user = await Users.findOne({
+      where: { email: userEmail },
+    });
+
+    delete user.dataValues.password;
+
+    if (!user) {
+      return res.status(404).json({
+        message: "No se encuentra el usuario",
+      });
+    }
+
+    return res.status(200).json(user);
+  } catch (error) {
+    console.error("Error al obtener el usuario por email:", error);
+    return res.status(500).json({
+      message: "Error interno del servidor",
+    });
+  }
+};
