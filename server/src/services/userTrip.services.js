@@ -1,6 +1,7 @@
 import { UserRole, UserTripRole } from "../enums/enums.js";
 import { Users } from "../models/Users.js";
 import { UserTrip } from "../models/UserTrip.js";
+import { checkTripPermissions } from "../utils/checkTripPermissions.js";
 
 export const getAllUserTrip = async (req, res) => {
   try {
@@ -19,32 +20,43 @@ export const createUserTrip = async (req, res) => {
     return res.status(400).json({ message: "Email es requerido" });
   }
 
-  const user = await Users.findOne({
-    where: { email },
-  });
-
-  if (!user) {
-    return res.status(404).json({ message: "Usuario no encontrado" });
-  }
-
-  const existingUserTrip = await UserTrip.findOne({
-    where: {
-      userId: user.id,
-      tripId,
-    },
-  });
-
-  if (existingUserTrip) {
-    return res.status(400).json({ message: "Usuario ya invitado" });
-  }
-
   try {
+    const user = await Users.findOne({
+      where: { email },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+
+    const existingUserTrip = await UserTrip.findOne({
+      where: {
+        userId: user.id,
+        tripId,
+      },
+    });
+
+    if (existingUserTrip) {
+      return res.status(400).json({ message: "Usuario ya invitado" });
+    }
+
+    const hasPermissions = await checkTripPermissions(
+      req.user,
+      [UserTripRole.EDITOR, UserTripRole.OWNER],
+      tripId
+    );
+
+    if (!hasPermissions) {
+      return res
+        .status(403)
+        .json({ message: "No tienes permisos para invitar a un usuario" });
+    }
+
     const userTrip = await UserTrip.create({
       userId: user.id,
       tripId,
     });
 
-    // Incluir el usuario en la respuesta con el formato solicitado
     res.status(201).json({
       id: userTrip.id,
       role: userTrip.role,
@@ -60,18 +72,16 @@ export const createUserTrip = async (req, res) => {
 
 export const updateUserTrip = async (req, res) => {
   const { id } = req.params;
-  const { role, tripId } = req.body; // Asegúrate de recibir el tripId en el cuerpo de la solicitud
-  const { user } = req;
+  const { role, tripId } = req.body;
 
   if (!role || !tripId) {
     return res.status(400).json({ message: "Role y tripId son requeridos" });
   }
 
   try {
-    // Buscar el UserTrip del usuario autenticado para el tripId específico
     const authenticatedUser = await UserTrip.findOne({
       where: {
-        userId: user.id,
+        userId: req.user.id,
         tripId,
       },
     });
@@ -149,6 +159,18 @@ export const deleteUserTrip = async (req, res) => {
 
     if (!userTrip) {
       return res.status(404).json({ message: "User trip no encontrado" });
+    }
+
+    const hasPermissions = await checkTripPermissions(
+      req.user,
+      [UserTripRole.EDITOR, UserTripRole.OWNER],
+      userTrip.tripId
+    );
+
+    if (!hasPermissions) {
+      return res
+        .status(403)
+        .json({ message: "No tiene permisos para crear un dia" });
     }
 
     await userTrip.destroy();

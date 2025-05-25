@@ -1,4 +1,7 @@
+import { checkTripPermissions } from "../utils/checkTripPermissions.js";
 import { Activities } from "../models/Activities.js";
+import { TripDays } from "../models/TripDays.js";
+import { UserTripRole } from "../enums/enums.js";
 
 export const getActivities = async (req, res) => {
   const activities = await Activities.findAll();
@@ -7,19 +10,47 @@ export const getActivities = async (req, res) => {
 
 export const createActivity = async (req, res) => {
   const { title, description, time, tripDaysId } = req.body;
+
   if (!title || !description || !time || !tripDaysId) {
     return res.status(400).json({
       message: "Todos los campos son obligatorios",
     });
   }
 
-  const activity = Activities.create({
-    title,
-    description,
-    time,
-    tripDaysId,
-  });
-  res.json(activity);
+  try {
+    const day = await TripDays.findByPk(tripDaysId);
+    if (!day) {
+      return res.status(404).json({
+        message: "Día no encontrado",
+      });
+    }
+
+    const hasPermissions = await checkTripPermissions(
+      req.user,
+      [UserTripRole.EDITOR, UserTripRole.OWNER],
+      day.tripId
+    );
+
+    if (!hasPermissions) {
+      return res.status(403).json({
+        message: "No tiene permisos para crear una actividad",
+      });
+    }
+
+    const activity = Activities.create({
+      title,
+      description,
+      time,
+      tripDaysId,
+    });
+
+    return res.status(201).json(activity);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Error al crear la actividad",
+    });
+  }
 };
 
 export const updateActivity = async (req, res) => {
@@ -33,22 +64,37 @@ export const updateActivity = async (req, res) => {
   }
 
   const activityExist = await Activities.findByPk(id);
+
   if (!activityExist) {
     return res.status(404).json({
       message: "No se encontró la actividad",
     });
   }
 
-  const activity = await Activities.update(
-    {
-      title,
-      description,
-      time,
-    },
-    {
-      where: { id },
-    }
+  const day = await TripDays.findByPk(activityExist.tripDaysId);
+  if (!day) {
+    return res.status(404).json({
+      message: "Día no encontrado",
+    });
+  }
+
+  const hasPermissions = await checkTripPermissions(
+    req.user,
+    [UserTripRole.EDITOR, UserTripRole.OWNER],
+    day.tripId
   );
+
+  if (!hasPermissions) {
+    return res.status(403).json({
+      message: "No tiene permisos para actualizar esta actividad",
+    });
+  }
+
+  await activityExist.update({
+    title,
+    description,
+    time,
+  });
 
   res.json(activity);
 };
@@ -61,6 +107,26 @@ export const deleteActivity = async (req, res) => {
   if (!activity) {
     return res.status(404).json({
       message: "Actividad no encontrada",
+    });
+  }
+
+  const day = await TripDays.findByPk(activity.tripDaysId);
+
+  if (!day) {
+    return res.status(404).json({
+      message: "Día no encontrado",
+    });
+  }
+
+  const hasPermissions = await checkTripPermissions(
+    req.user,
+    [UserTripRole.EDITOR, UserTripRole.OWNER],
+    day.tripId
+  );
+
+  if (!hasPermissions) {
+    return res.status(403).json({
+      message: "No tiene permisos para eliminar esta actividad",
     });
   }
 
