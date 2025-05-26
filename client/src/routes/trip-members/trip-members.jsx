@@ -142,10 +142,7 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
           return toast.error(data.message);
         }
 
-<<<<<<< HEAD
-=======
         // Después de cambiar el rol, vuelve a pedir el viaje actualizado
->>>>>>> main
         fetch(`http://localhost:3000/trips/${trip.id}`, {
           method: "GET",
           headers: {
@@ -164,6 +161,38 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
 
   return (
     <>
+      <Modal
+        onSubmit={() => handleDeleteUser(selectedUser)}
+        isOpen={isOpen}
+        handleClose={() => {
+          handleClose();
+          setSelectedUser(null);
+        }}
+      >
+        <ModalTitle>
+          Eliminar a {selectedUser?.user.name} de tu viaje
+        </ModalTitle>
+        <ModalDescription>
+          Esta persona ya no podrá ver ni editar tu viaje. ¿Estás seguro de que
+          deseas eliminarla?
+        </ModalDescription>
+      </Modal>
+      <Modal
+        onSubmit={() => handleAddUser(nextAddedUser)}
+        isOpen={isOpenNextAddedUser}
+        handleClose={() => {
+          handleCloseNextAddedUser();
+          setNextAddedUser(null);
+        }}
+        destructive={false}
+        buttonTitle="Invitar"
+      >
+        <ModalTitle>Agregar a {nextAddedUser?.name} a tu viaje</ModalTitle>
+        <ModalDescription>
+          Esta persona podrá ver tu viaje. ¿Estás seguro de que deseas
+          invitarla?
+        </ModalDescription>
+      </Modal>
       {canEdit && (
         <div className="card">
           <h3>Gestioná tus amigos</h3>
@@ -191,127 +220,53 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
           </form>
         </div>
       )}
-
-      <div className="card members-container">
-        <Modal
-          onSubmit={() => handleDeleteUser(selectedUser)}
-          isOpen={isOpen}
-          handleClose={() => {
-            handleClose();
-            setSelectedUser(null);
-          }}
-        >
-          <ModalTitle>
-            Eliminar a {selectedUser?.user.name} de tu viaje
-          </ModalTitle>
-          <ModalDescription>
-            Esta persona ya no podrá ver ni editar tu viaje. ¿Estás seguro de
-            que deseas eliminarla?
-          </ModalDescription>
-        </Modal>
-        <Modal
-          onSubmit={() => handleAddUser(nextAddedUser)}
-          isOpen={isOpenNextAddedUser}
-          handleClose={() => {
-            handleCloseNextAddedUser();
-            setNextAddedUser(null);
-          }}
-          destructive={false}
-          buttonTitle="Invitar"
-        >
-          <ModalTitle>Agregar a {nextAddedUser?.name} a tu viaje</ModalTitle>
-          <ModalDescription>
-            Esta persona podrá ver tu viaje. ¿Estás seguro de que deseas
-            invitarla?
-          </ModalDescription>
-        </Modal>
-<<<<<<< HEAD
-
-=======
-        <h3>{canEdit ? "Gestioná tus amigos" : "Tus amigos"}</h3>
-        {canEdit && (
-          <form onSubmit={handleInviteUser}>
-            <div className="input-group">
-              <label htmlFor="userEmail">Email</label>
-              <div className="container-input">
-                <Input
-                  id="userEmail"
-                  onChange={handleUserEmailChange}
-                  value={userEmail}
-                  ref={userEmailInputRef}
-                />
-                <button className="button button-secondary">
-                  Agregar <Plus size={20} />{" "}
-                </button>
+      <div className="card card-container members-container">
+        <h3>Compañeros de viaje</h3>
+        {users.map((user) => (
+          <div className="card user-card no-shadow column" key={user.id}>
+            <div className="info-user">
+              <Avatar user={user.user} />
+              <div>
+                <p className="name">{user.user.name}</p>
+                <p className="email">{user.user.email}</p>
               </div>
-              <p className="input-description">
-                Ingresá el email de la persona que quieras agregar a tu viaje
-              </p>
-              {errors.userEmail && (
-                <p className="error-message">El email ingresado no es válido</p>
-              )}
             </div>
-          </form>
-        )}
->>>>>>> main
-        <div className="card-container">
-          {users.map((user) => (
-            <div className="card user-card no-shadow column" key={user.id}>
-              <div className="info-user">
-                <Avatar user={user.user} />
-                <div>
-                  <p className="name">{user.user.name}</p>
-                  <p className="email">{user.user.email}</p>
-                </div>
-              </div>
-              {canEdit && userContext.id !== user.userId ? (
-                <form className="actions-row">
-                  <span className={`rol-badge rol-${user.role}`}>
-                    {user.role === "owner"
-                      ? "Dueño"
-                      : user.role === "editor"
-                      ? "Editor"
-                      : user.role === "viewer"
-                      ? "Espectador"
-                      : user.role}
-                  </span>
-                  <select
-                    name="userRole"
-                    id="userRole"
-                    className="select-role"
-                    value={user.role}
-                    onChange={(event) => handleRoleChange(event, user)}
-                  >
-                    <option value="owner">Dueño</option>
-                    <option value="editor">Editor</option>
-                    <option value="viewer">Espectador</option>
-                  </select>
-                  <button
-                    type="button"
-                    className="button button-destructive"
-                    onClick={() => {
-                      setSelectedUser(user);
-                      handleOpen();
-                    }}
-                  >
-                    Eliminar <Trash size={20} />
-                  </button>
-                </form>
-              ) : (
-                <div className="user-trip-role">
-<<<<<<< HEAD
-                  <div className="actions-row">
-                    {user.role === "owner" ? (
-                      <span className="rol-owner">Dueño</span>
-                    ) : user.role === "editor" ? (
-                      <span className="rol-editor">Editor</span>
-                    ) : user.role === "viewer" ? (
-                      <span className="rol-viewer">Espectador</span>
-                    ) : (
-                      <span>{user.role}</span>
-                    )}
-                  </div>
-=======
+            {canEdit && userContext.id !== user.userId ? (
+              <form className="actions-row">
+                <span className={`rol-badge rol-${user.role}`}>
+                  {user.role === "owner"
+                    ? "Dueño"
+                    : user.role === "editor"
+                    ? "Editor"
+                    : user.role === "viewer"
+                    ? "Espectador"
+                    : user.role}
+                </span>
+                <select
+                  name="userRole"
+                  id="userRole"
+                  className="select-role"
+                  value={user.role}
+                  onChange={(event) => handleRoleChange(event, user)}
+                >
+                  <option value="owner">Dueño</option>
+                  <option value="editor">Editor</option>
+                  <option value="viewer">Espectador</option>
+                </select>
+                <button
+                  type="button"
+                  className="button button-destructive"
+                  onClick={() => {
+                    setSelectedUser(user);
+                    handleOpen();
+                  }}
+                >
+                  Eliminar <Trash size={20} />
+                </button>
+              </form>
+            ) : (
+              <div className="user-trip-role">
+                <div className="actions-row">
                   {user.role === "owner" ? (
                     <span className="rol-owner">Dueño</span>
                   ) : user.role === "editor" ? (
@@ -321,12 +276,11 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
                   ) : (
                     <span>{user.role}</span>
                   )}
->>>>>>> main
                 </div>
-              )}
-            </div>
-          ))}
-        </div>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </>
   );
