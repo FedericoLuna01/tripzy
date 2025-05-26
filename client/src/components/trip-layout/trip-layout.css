@@ -62,3 +62,35 @@
   font-size: 1.2em;
   font-weight: 700;
 }
+
+.actions-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 1em;
+  width: 100%;
+
+  flex-direction: row;
+  min-width: 0;
+  max-width: none;
+}
+
+.user-card {
+  width: 100% !important;
+  margin-left: 0;
+  padding: 30px 60px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.card.user-card.column {
+  width: 100%;
+}
+
+.user-trip-role {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
