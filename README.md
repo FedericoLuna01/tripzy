@@ -1,6 +1,6 @@
 # Tripzy
 
-Este proyecto es un planeador de viajes para el trabajo practico numero 1 de la materia Programación III
+Este proyecto es un planeador de viajes para el trabajo prctico número uno de la materia Programación III
 
 ## Tech Stack
 
