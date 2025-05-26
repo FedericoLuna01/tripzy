@@ -142,7 +142,10 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
           return toast.error(data.message);
         }
 
+<<<<<<< HEAD
+=======
         // Después de cambiar el rol, vuelve a pedir el viaje actualizado
+>>>>>>> main
         fetch(`http://localhost:3000/trips/${trip.id}`, {
           method: "GET",
           headers: {
@@ -161,6 +164,34 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
 
   return (
     <>
+      {canEdit && (
+        <div className="card">
+          <h3>Gestioná tus amigos</h3>
+          <form onSubmit={handleInviteUser}>
+            <div className="input-group">
+              <label htmlFor="userEmail">Email</label>
+              <div className="container-input">
+                <Input
+                  id="userEmail"
+                  onChange={handleUserEmailChange}
+                  value={userEmail}
+                  ref={userEmailInputRef}
+                />
+                <button className="button button-secondary">
+                  Agregar <Plus size={20} />
+                </button>
+              </div>
+              <p className="input-description">
+                Ingresá el email de la persona que quieras agregar a tu viaje
+              </p>
+              {errors.userEmail && (
+                <p className="error-message">El email ingresado no es válido</p>
+              )}
+            </div>
+          </form>
+        </div>
+      )}
+
       <div className="card members-container">
         <Modal
           onSubmit={() => handleDeleteUser(selectedUser)}
@@ -194,6 +225,9 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
             invitarla?
           </ModalDescription>
         </Modal>
+<<<<<<< HEAD
+
+=======
         <h3>{canEdit ? "Gestioná tus amigos" : "Tus amigos"}</h3>
         {canEdit && (
           <form onSubmit={handleInviteUser}>
@@ -219,6 +253,7 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
             </div>
           </form>
         )}
+>>>>>>> main
         <div className="card-container">
           {users.map((user) => (
             <div className="card user-card no-shadow column" key={user.id}>
@@ -230,12 +265,20 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
                 </div>
               </div>
               {canEdit && userContext.id !== user.userId ? (
-                <form>
-                  <label htmlFor="userRole">Rol</label>
+                <form className="actions-row">
+                  <span className={`rol-badge rol-${user.role}`}>
+                    {user.role === "owner"
+                      ? "Dueño"
+                      : user.role === "editor"
+                      ? "Editor"
+                      : user.role === "viewer"
+                      ? "Espectador"
+                      : user.role}
+                  </span>
                   <select
                     name="userRole"
                     id="userRole"
-                    className="select"
+                    className="select-role"
                     value={user.role}
                     onChange={(event) => handleRoleChange(event, user)}
                   >
@@ -256,6 +299,19 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
                 </form>
               ) : (
                 <div className="user-trip-role">
+<<<<<<< HEAD
+                  <div className="actions-row">
+                    {user.role === "owner" ? (
+                      <span className="rol-owner">Dueño</span>
+                    ) : user.role === "editor" ? (
+                      <span className="rol-editor">Editor</span>
+                    ) : user.role === "viewer" ? (
+                      <span className="rol-viewer">Espectador</span>
+                    ) : (
+                      <span>{user.role}</span>
+                    )}
+                  </div>
+=======
                   {user.role === "owner" ? (
                     <span className="rol-owner">Dueño</span>
                   ) : user.role === "editor" ? (
@@ -265,6 +321,7 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
                   ) : (
                     <span>{user.role}</span>
                   )}
+>>>>>>> main
                 </div>
               )}
             </div>

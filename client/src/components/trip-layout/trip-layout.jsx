@@ -205,7 +205,7 @@ const TripLayout = () => {
               </div>
             </div>
           </div>
-          <div className="actions-container">
+          <div className="actions-container actions-row">
             {canEdit && (
               <>
                 <Link to={`/trip/edit/${trip.id}`}>
