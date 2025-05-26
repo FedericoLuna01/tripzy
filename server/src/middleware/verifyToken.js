@@ -13,6 +13,10 @@ export const verifyToken = async (req, res, next) => {
 
     const user = await Users.findByPk(payload.id);
 
+    if (!user) {
+      return res.status(401).json({ message: "No posee autorización" });
+    }
+
     req.user = user;
 
     next();

@@ -13,6 +13,7 @@ export const Modal = ({
   handleClose,
   buttonTitle = "Eliminar",
   children,
+  destructive = true,
 }) => {
   return (
     <Dialog open={isOpen} onClose={handleClose} className="modal" transition>
@@ -22,9 +23,14 @@ export const Modal = ({
           {children}
           <div className="button-container">
             <button className="button button-secondary" onClick={handleClose}>
-              Cancel
+              Cancelar
             </button>
-            <button className="button button-destructive" onClick={onSubmit}>
+            <button
+              className={`button ${
+                destructive ? "button-destructive" : "button-primary"
+              }`}
+              onClick={onSubmit}
+            >
               {buttonTitle}
             </button>
           </div>

@@ -1,3 +1,4 @@
+import { UserTripRole } from "../enums/enums.js";
 import { TripDays } from "../models/TripDays.js";
 import { Trips } from "../models/Trips.js";
 import { Users } from "../models/Users.js";
@@ -39,6 +40,12 @@ export const getAllTrips = async (req, res) => {
 
 export const getTripByUserId = async (req, res) => {
   const { userId } = req.params;
+
+  if (userId !== req.user.id) {
+    return res.status(403).json({
+      message: "No tienes permisos para ver los viajes de otro usuario",
+    });
+  }
 
   try {
     const trips = await Trips.findAll({
@@ -143,20 +150,33 @@ export const createTrip = async (req, res) => {
 };
 
 export const deleteTrip = async (req, res) => {
-  try {
-    const { id } = req.params;
+  const { id } = req.params;
 
+  try {
     const trip = await Trips.findByPk(id);
+
     if (!trip) {
       return res.status(404).json({
         message: "Viaje no encontrado",
       });
     }
+
+    const hasPermissions = await checkTripPermissions(
+      req.user,
+      [UserTripRole.OWNER],
+      id
+    );
+
+    if (!hasPermissions) {
+      return res
+        .status(403)
+        .json({ message: "No tiene permisos para crear un dia" });
+    }
+
     await UserTrip.destroy({
       where: { tripId: id },
     });
 
-    // Eliminar el viaje
     await trip.destroy();
 
     res.json({ message: "Eliminado correctamente" });
@@ -177,22 +197,41 @@ export const updateTrip = async (req, res) => {
       message: "Se necesitan todos los campos",
     });
   }
-  const trip = await Trips.findByPk(id);
-  if (!trip) {
-    return res.status(404).json({
-      message: "No se encontró el viaje",
+  try {
+    const trip = await Trips.findByPk(id);
+    if (!trip) {
+      return res.status(404).json({
+        message: "No se encontró el viaje",
+      });
+    }
+
+    const hasPermissions = await checkTripPermissions(
+      req.user,
+      [UserTripRole.EDITOR, UserTripRole.OWNER],
+      id
+    );
+
+    if (!hasPermissions) {
+      return res
+        .status(403)
+        .json({ message: "No tiene permisos para crear un dia" });
+    }
+
+    await trip.update({
+      title,
+      description,
+      startDate,
+      imageUrl,
+      isBlocked,
+    });
+
+    res.json(trip);
+  } catch (error) {
+    console.error("Error al actualizar el viaje:", error);
+    res.status(500).json({
+      message: "Error al actualizar el viaje",
     });
   }
-
-  await trip.update({
-    title,
-    description,
-    startDate,
-    imageUrl,
-    isBlocked,
-  });
-
-  res.json(trip);
 };
 
 export const deleteUserFromTrip = async (req, res) => {
