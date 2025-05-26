@@ -226,7 +226,7 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
           <div className="card user-card no-shadow column" key={user.id}>
             <div className="info-user">
               <Avatar user={user.user} />
-              <div>
+              <div className="name-email-user">
                 <p className="name">{user.user.name}</p>
                 <p className="email">{user.user.email}</p>
               </div>
@@ -281,6 +281,20 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
             )}
           </div>
         ))}
+      </div>
+      <div className="card card-container info-role-container">
+        <h3>Permisos de usuario</h3>
+        <p>
+          <span className="bold">Dueño:</span> Control total del viaje.
+        </p>
+        <p>
+          <span className="bold">Editor:</span> Puede modificar itinerarios,
+          agregar usuario y editar sus roles.
+        </p>
+        <p>
+          <span className="bold">Espectador:</span> Solamente puede ver
+          información del viaje.
+        </p>
       </div>
     </>
   );

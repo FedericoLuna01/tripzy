@@ -13,8 +13,29 @@
   gap: 1em;
 }
 
-.info-user .p {
-  gap: 4em;
+.info-user .avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.name-email-user {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.name-email-user .email {
+  color: var(--color-text);
+  font-size: 1em;
 }
 
 .column {
@@ -31,6 +52,10 @@
   margin-bottom: 0.5em;
   font-size: 1.2em;
   font-weight: bold;
+}
+
+.info-role-container {
+  margin-top: 0.5em;
 }
 
 .user-trip-role {
@@ -89,8 +114,8 @@
   border-radius: 4px;
   font-size: 12px;
   font-weight: 600;
-  background: #f0f0f0;
-  color: #7a7a7a;
+  background: #fff894;
+  color: #bdab10;
   border-radius: 12px;
 }
 
@@ -122,4 +147,19 @@
   gap: 0.5em;
   flex-direction: column;
   margin-top: 0.5em;
+}
+
+.info-role-container {
+  gap: 0.5em;
+}
+
+.h3 {
+  color: var(--color-text);
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.bold {
+  color: var(--color-primary);
+  font-weight: bold;
 }
