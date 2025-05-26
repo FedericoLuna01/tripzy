@@ -206,7 +206,7 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
                   value={userEmail}
                   ref={userEmailInputRef}
                 />
-                <button className="button button-secondary">
+                <button className="button button-secondary add-button">
                   Agregar <Plus size={20} />
                 </button>
               </div>

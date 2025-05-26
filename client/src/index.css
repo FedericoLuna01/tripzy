@@ -41,10 +41,6 @@ p.muted {
   color: var(--color-muted);
 }
 
-.icon {
-  color: var(--color-text);
-}
-
 .button {
   display: flex;
   justify-content: center;
