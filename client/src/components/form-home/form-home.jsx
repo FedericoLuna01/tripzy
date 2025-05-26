@@ -129,11 +129,11 @@ const FormHome = () => {
               }`}
             />
             <p className="input-description">
-              Este nombre lo vera un admininstrador
+              Este nombre lo verá un admininstrador
             </p>
             {errors.validName && (
               <p className="error-message">
-                El nombre debe tener al menos 4 caracteres
+                El nombre debe tener al menos 4 carácteres
               </p>
             )}
           </div>
@@ -152,10 +152,10 @@ const FormHome = () => {
               }`}
             />
             <p className="input-description">
-              Este email lo vera un admininstrador
+              Este email lo verá un admininstrador
             </p>
             {errors.validEmail && (
-              <p className="error-message">Ingrese un email valido</p>
+              <p className="error-message">Ingrese un email válido</p>
             )}
           </div>
         </div>
@@ -168,17 +168,17 @@ const FormHome = () => {
             className="textarea"
             name="mensaje"
             id="mensaje"
-            placeholder="Ej: Esta pagina se ve increible!"
+            placeholder="Ej: Esta página se ve increíble!"
             onChange={handleMessageChange}
             value={message}
             ref={textAreaRef}
           ></textarea>
           <p className="input-description">
-            Este mensaje lo vera un admininstrador
+            Este mensaje lo verá un admininstrador
           </p>
           {errors.validMessage && (
             <p className="error-message">
-              Ingrese un mensaje de mas de 8 caracteres
+              Ingrese un mensaje de más de 8 caracteres
             </p>
           )}
         </div>
