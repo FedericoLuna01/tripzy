@@ -17,24 +17,27 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
   const [users, setUsers] = useState(trip.tripUsers);
   const [selectedUser, setSelectedUser] = useState(null);
   const [userEmail, setUserEmail] = useState("");
+  const [nextAddedUser, setNextAddedUser] = useState(null);
   const [errors, setErrors] = useState({
     userEmail: false,
   });
   const userEmailInputRef = useRef(null);
   const { handleClose, handleOpen, isOpen } = useModal();
+  const {
+    handleClose: handleCloseNextAddedUser,
+    handleOpen: handleOpenNextAddedUser,
+    isOpen: isOpenNextAddedUser,
+  } = useModal();
 
-  const handleInviteUser = (event) => {
-    event.preventDefault();
+  const handleUserEmailChange = (e) => {
+    setUserEmail(e.target.value);
     setErrors((prevErrors) => ({
       ...prevErrors,
-      userEmail:
-        !userEmail.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) || userEmail.length < 2,
+      userEmail: false,
     }));
-    if (errors.userEmail) {
-      userEmailInputRef.current.focus();
-      return;
-    }
+  };
 
+  const handleAddUser = () => {
     fetch("http://localhost:3000/userTrip", {
       method: "POST",
       headers: {
@@ -58,15 +61,41 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
         }));
         toast.success("Usuario agregado correctamente");
       });
-    setUserEmail("");
+    handleCloseNextAddedUser();
   };
 
-  const handleUserEmailChange = (e) => {
-    setUserEmail(e.target.value);
+  const handleInviteUser = (event) => {
+    event.preventDefault();
     setErrors((prevErrors) => ({
       ...prevErrors,
-      userEmail: false,
+      userEmail:
+        !userEmail.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) || userEmail.length < 2,
     }));
+    if (errors.userEmail) {
+      userEmailInputRef.current.focus();
+      return;
+    }
+
+    if (users.some((user) => user.user.email === userEmail)) {
+      toast.error("El usuario ya está invitado a este viaje");
+      return;
+    }
+
+    fetch(`http://localhost:3000/users/email/${userEmail}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message) {
+          return toast.error(data.message);
+        }
+        setNextAddedUser(data);
+        handleOpenNextAddedUser();
+      });
   };
 
   const handleDeleteUser = (selectedUser) => {
@@ -112,34 +141,55 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
         if (data.message) {
           return toast.error(data.message);
         }
-        if (data.existingOwner) {
-          // Actualizar el rol del dueño actual a "editor"
-          e.target.value = "owner";
-          setUsers((prevUsers) =>
-            prevUsers.map((user) =>
-              user.id === data.existingOwner.id
-                ? { ...user, role: "editor" }
-                : user
-            )
-          );
-        }
 
-        // Actualizar el rol del usuario modificado con los datos del servidor
-        setUsers((prevUsers) =>
-          prevUsers.map((user) =>
-            user.id === userTrip.id ? { ...user, role: data.role } : user
-          )
-        );
-
-        toast.success("Rol actualizado correctamente");
+        fetch(`http://localhost:3000/trips/${trip.id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((updatedTrip) => {
+            setTrip(updatedTrip);
+            setUsers(updatedTrip.tripUsers);
+            toast.success("Rol actualizado correctamente");
+          });
       });
   };
 
   return (
     <>
+      {canEdit && (
+        <div className="card">
+          <h3>Gestioná tus amigos</h3>
+          <form onSubmit={handleInviteUser}>
+            <div className="input-group">
+              <label htmlFor="userEmail">Email</label>
+              <div className="container-input">
+                <Input
+                  id="userEmail"
+                  onChange={handleUserEmailChange}
+                  value={userEmail}
+                  ref={userEmailInputRef}
+                />
+                <button className="button button-secondary">
+                  Agregar <Plus size={20} />
+                </button>
+              </div>
+              <p className="input-description">
+                Ingresá el email de la persona que quieras agregar a tu viaje
+              </p>
+              {errors.userEmail && (
+                <p className="error-message">El email ingresado no es válido</p>
+              )}
+            </div>
+          </form>
+        </div>
+      )}
+
       <div className="card members-container">
         <Modal
-          entity={`el usuario ${selectedUser?.name || ""}`}
           onSubmit={() => handleDeleteUser(selectedUser)}
           isOpen={isOpen}
           handleClose={() => {
@@ -155,31 +205,23 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
             que deseas eliminarla?
           </ModalDescription>
         </Modal>
-        <h3>{canEdit ? "Gestioná tus amigos" : "Tus amigos"}</h3>
-        {canEdit && (
-          <form onSubmit={handleInviteUser}>
-            <div className="input-group">
-              <label htmlFor="userEmail">Email</label>
-              <div className="container-input">
-                <Input
-                  id="userEmail"
-                  onChange={handleUserEmailChange}
-                  value={userEmail}
-                  ref={userEmailInputRef}
-                />
-                <button className="button button-secondary">
-                  Agregar <Plus size={20} />{" "}
-                </button>
-              </div>
-              <p className="input-description">
-                Ingresá el email de la persona que quieras agregar a tu viaje
-              </p>
-              {errors.userEmail && (
-                <p className="error-message">El email ingresado no es válido</p>
-              )}
-            </div>
-          </form>
-        )}
+        <Modal
+          onSubmit={() => handleAddUser(nextAddedUser)}
+          isOpen={isOpenNextAddedUser}
+          handleClose={() => {
+            handleCloseNextAddedUser();
+            setNextAddedUser(null);
+          }}
+          destructive={false}
+          buttonTitle="Invitar"
+        >
+          <ModalTitle>Agregar a {nextAddedUser?.name} a tu viaje</ModalTitle>
+          <ModalDescription>
+            Esta persona podrá ver tu viaje. ¿Estás seguro de que deseas
+            invitarla?
+          </ModalDescription>
+        </Modal>
+
         <div className="card-container">
           {users.map((user) => (
             <div className="card user-card no-shadow column" key={user.id}>
@@ -191,12 +233,20 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
                 </div>
               </div>
               {canEdit && userContext.id !== user.userId ? (
-                <form>
-                  <label htmlFor="userRole">Rol</label>
+                <form className="actions-row">
+                  <span className={`rol-badge rol-${user.role}`}>
+                    {user.role === "owner"
+                      ? "Dueño"
+                      : user.role === "editor"
+                      ? "Editor"
+                      : user.role === "viewer"
+                      ? "Espectador"
+                      : user.role}
+                  </span>
                   <select
                     name="userRole"
                     id="userRole"
-                    className="select"
+                    className="select-role"
                     value={user.role}
                     onChange={(event) => handleRoleChange(event, user)}
                   >
@@ -216,7 +266,19 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
                   </button>
                 </form>
               ) : (
-                <p className="user-trip-role">Rol: {user.role}</p>
+                <div className="user-trip-role">
+                  <div className="actions-row">
+                    {user.role === "owner" ? (
+                      <span className="rol-owner">Dueño</span>
+                    ) : user.role === "editor" ? (
+                      <span className="rol-editor">Editor</span>
+                    ) : user.role === "viewer" ? (
+                      <span className="rol-viewer">Espectador</span>
+                    ) : (
+                      <span>{user.role}</span>
+                    )}
+                  </div>
+                </div>
               )}
             </div>
           ))}

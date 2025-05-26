@@ -75,7 +75,7 @@ const TripLayout = () => {
         setCanEdit(
           trip.tripUsers.some(
             (tripUser) =>
-              tripUser.userId === user.id && tripUser.role !== "viewer"
+              tripUser.user?.id === user.id && tripUser.role !== "viewer"
           )
         );
       })
@@ -83,6 +83,9 @@ const TripLayout = () => {
         console.error("Error:", error);
       });
   }, [params.id, user?.id]);
+
+  const tripUser = trip?.tripUsers?.find((tu) => tu.user?.id === user.id);
+  const myRole = tripUser ? tripUser.role : null;
 
   const handleDelete = () => {
     toast.success("Viaje eliminado");
@@ -202,7 +205,7 @@ const TripLayout = () => {
               </div>
             </div>
           </div>
-          <div className="actions-container">
+          <div className="actions-container actions-row">
             {canEdit && (
               <>
                 <Link to={`/trip/edit/${trip.id}`}>
@@ -210,16 +213,18 @@ const TripLayout = () => {
                     Editar <PencilSimple size={20} />
                   </button>
                 </Link>
-                <button
-                  onClick={handleOpen}
-                  className="button button-destructive"
-                >
-                  Eliminar
-                  <Trash size={20} />
-                </button>
+                {myRole === "owner" && (
+                  <button
+                    onClick={handleOpen}
+                    className="button button-destructive"
+                  >
+                    Eliminar
+                    <Trash size={20} />
+                  </button>
+                )}
               </>
             )}
-            {user.role === "user" && (
+            {myRole && myRole !== "owner" && (
               <button
                 onClick={handleOpenAbandonTrip}
                 className="button button-destructive"
