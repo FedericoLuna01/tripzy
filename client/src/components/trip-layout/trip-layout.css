@@ -46,7 +46,7 @@
   margin-bottom: 5px;
 }
 
-.trip-blocked-layout {
+.blocked-layout {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -56,9 +56,10 @@
   align-items: center;
   gap: 1em;
   backdrop-filter: blur(5px);
+  z-index: 99;
 }
 
-.trip-blocked-layout > p {
+.blocked-layout > p {
   font-size: 1.2em;
   font-weight: 700;
 }
