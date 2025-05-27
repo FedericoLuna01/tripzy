@@ -1,6 +1,7 @@
 import {
   AirplaneLanding,
   AirplaneTilt,
+  Calendar,
   Lock,
   PencilSimple,
   Plus,
@@ -88,7 +89,6 @@ const TripLayout = () => {
   const myRole = tripUser ? tripUser.role : null;
 
   const handleDelete = () => {
-    toast.success("Viaje eliminado");
     fetch(`http://localhost:3000/trips/${trip.id}`, {
       method: "DELETE",
       headers: {
@@ -153,7 +153,7 @@ const TripLayout = () => {
     <section className="trip-layout">
       {trip.isBlocked && (
         <div className="trip-blocked-layout">
-          <Lock className="icon" size={60} />
+          <Lock className="icon-svg" size={60} />
           <p>Viaje bloqueado</p>
         </div>
       )}
@@ -183,13 +183,16 @@ const TripLayout = () => {
         <div className="card trip-info">
           <div className="trip-header">
             <h1 className="title">{trip.title}</h1>
-            <p>
-              {formatDay(new Date(trip?.startDate))}
-              {" - "}
-              {formatDay(
-                addDays(new Date(trip.startDate), trip.days.length - 1)
-              )}
-            </p>
+            <div className="trip-header-date">
+              <Calendar className="icon-svg" size={20} />
+              <p>
+                {formatDay(new Date(trip?.startDate))}
+                {" - "}
+                {formatDay(
+                  addDays(new Date(trip.startDate), trip.days.length - 1)
+                )}
+              </p>
+            </div>
             <div className="friends-container">
               <p>Amigos de viaje:</p>
               <div className="avatars-container">
@@ -206,14 +209,14 @@ const TripLayout = () => {
             </div>
           </div>
           <div className="actions-container actions-row">
-            {canEdit && (
+            {(canEdit || user.role.includes("admin")) && (
               <>
                 <Link to={`/trip/edit/${trip.id}`}>
                   <button className="button button-outline">
                     Editar <PencilSimple size={20} />
                   </button>
                 </Link>
-                {myRole === "owner" && (
+                {(myRole === "owner" || user.role.includes("admin")) && (
                   <button
                     onClick={handleOpen}
                     className="button button-destructive"

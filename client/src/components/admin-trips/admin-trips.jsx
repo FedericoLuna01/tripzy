@@ -35,7 +35,6 @@ const AdminTrips = () => {
       .then((data) => {
         setTrips(data);
         setFilteredTrips(data);
-        console.log(data);
       })
       .catch((error) => {
         console.error("Error fetching trips:", error);

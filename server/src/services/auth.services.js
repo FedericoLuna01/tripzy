@@ -36,15 +36,15 @@ export const registerUser = async (req, res) => {
   const token = jwt.sign(
     {
       email,
-      id: user.id,
-      name: user.name,
-      role: user.role,
-      status: user.status,
-      imageUrl: user.imageUrl,
+      id: newUser.id,
+      name: newUser.name,
+      role: newUser.role,
+      status: newUser.status,
+      imageUrl: newUser.imageUrl,
     },
     secretKey
   );
-  res.json({ newUser, token });
+  res.status(200).json({ newUser, token });
 };
 
 export const loginUser = async (req, res) => {
@@ -63,7 +63,7 @@ export const loginUser = async (req, res) => {
 
   if (!user) {
     return res.status(401).json({
-      message: "El usuario no existe",
+      message: "Usuario o contraseña incorrectos",
     });
   }
 
@@ -71,7 +71,7 @@ export const loginUser = async (req, res) => {
 
   if (!equalPassword) {
     return res.status(401).json({
-      message: "La contraseña es incorrecta",
+      message: "Usuario o contraseña incorrectos",
     });
   }
 

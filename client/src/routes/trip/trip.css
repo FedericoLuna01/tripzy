@@ -10,12 +10,14 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 1em;
 }
 
 .trip-header {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
+  width: 80%;
 }
 
 .actions-container {

@@ -155,10 +155,18 @@ export const deleteUserTrip = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const userTrip = await UserTrip.findByPk(id);
+    const userTrip = await UserTrip.findByPk(id, {
+      include: [{ model: Users, as: "user" }],
+    });
 
     if (!userTrip) {
       return res.status(404).json({ message: "User trip no encontrado" });
+    }
+
+    if (userTrip.user.role === UserTripRole.OWNER) {
+      return res.status(400).json({
+        message: "No puedes eliminar al dueño del viaje",
+      });
     }
 
     const hasPermissions = await checkTripPermissions(

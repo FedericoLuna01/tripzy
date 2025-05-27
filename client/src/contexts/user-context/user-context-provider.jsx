@@ -16,6 +16,7 @@ export const UserContextProvider = ({ children }) => {
   useEffect(() => {
     if (token) {
       const decodedToken = jwtDecode(token);
+      // TODO: Hacer algo si se elimina el usuario
       setUser(decodedToken);
     } else {
       setUser(null);

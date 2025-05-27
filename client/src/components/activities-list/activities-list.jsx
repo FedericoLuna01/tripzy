@@ -72,7 +72,7 @@ const ActivitiesList = ({
       <div className="activity-container">
         {(activities || []).length === 0 ? (
           <div className="empty-activities">
-            <Backpack className="icon" size={48} />
+            <Backpack className="icon-svg" size={48} />
             <p>No hay actividades para este día</p>
           </div>
         ) : (

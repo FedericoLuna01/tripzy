@@ -58,11 +58,16 @@
   display: flex;
   flex-direction: column;
   padding: 1em;
+  height: 100%;
 }
 
-.box-info img {
+.box-info-data > h3 {
+  line-height: 98%;
+}
+
+.box-info > img {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 4/3;
   border-radius: var(--border-radius-small) var(--border-radius-small) 0 0;
   object-fit: cover;
   transition: all 0.3s ease;
@@ -80,6 +85,12 @@ a.box-info {
 .box-info-description {
   font-size: 0.9em;
   color: var(--color-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .separator {
@@ -100,9 +111,10 @@ a.box-info {
 
 .box-info-date-container {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   color: var(--color-primary);
-  margin-top: 0.5em;
+  margin-top: 0.8em;
+  flex: 1;
   gap: 0.3em;
 }
 
@@ -153,8 +165,7 @@ a.box-info {
 .trips-container {
   display: grid;
   grid-template-columns: repeat(5, 250px);
-  align-items: center;
-  gap: 20px;
   justify-content: space-between;
   margin-bottom: 45px;
+  gap: 1em;
 }

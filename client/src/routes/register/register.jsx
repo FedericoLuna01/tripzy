@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router";
 import "./register.css";
 import Logo from "../../components/ui/logo/logo";
 import Input from "../../components/ui/input/input";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/user-context/user-context";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -23,6 +25,7 @@ const Register = () => {
   const inputPasswordRef = useRef(null);
   const inputPasswordRepeatRef = useRef(null);
   const navigate = useNavigate();
+  const { handleUserLogin } = useContext(UserContext);
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -112,32 +115,31 @@ const Register = () => {
 
     if (hasError) return;
 
-    try {
-      fetch("http://localhost:3000/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.message) {
-            return toast.error(data.message);
-          }
+    fetch("http://localhost:3000/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message) {
+          return toast.error(data.message);
+        }
 
-          toast.success("Registrado correctamente!");
-          localStorage.setItem("token", data.token);
-          navigate("/");
-        })
-        .catch((error) => console.log(error));
-    } catch (error) {
-      console.log(error);
-    }
+        toast.success("Registrado correctamente!");
+        handleUserLogin(data.token);
+        navigate("/");
+      })
+      .catch((error) => {
+        toast.error("Algo salio mal");
+        console.log(error);
+      });
   };
 
   return (

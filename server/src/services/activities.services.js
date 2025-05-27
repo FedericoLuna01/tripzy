@@ -63,40 +63,47 @@ export const updateActivity = async (req, res) => {
     });
   }
 
-  const activityExist = await Activities.findByPk(id);
+  try {
+    const activityExist = await Activities.findByPk(id);
 
-  if (!activityExist) {
-    return res.status(404).json({
-      message: "No se encontró la actividad",
+    if (!activityExist) {
+      return res.status(404).json({
+        message: "No se encontró la actividad",
+      });
+    }
+
+    const day = await TripDays.findByPk(activityExist.tripDaysId);
+    if (!day) {
+      return res.status(404).json({
+        message: "Día no encontrado",
+      });
+    }
+
+    const hasPermissions = await checkTripPermissions(
+      req.user,
+      [UserTripRole.EDITOR, UserTripRole.OWNER],
+      day.tripId
+    );
+
+    if (!hasPermissions) {
+      return res.status(403).json({
+        message: "No tiene permisos para actualizar esta actividad",
+      });
+    }
+
+    await activityExist.update({
+      title,
+      description,
+      time,
+    });
+
+    res.status(200).json(activityExist);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Error al actualizar la actividad",
     });
   }
-
-  const day = await TripDays.findByPk(activityExist.tripDaysId);
-  if (!day) {
-    return res.status(404).json({
-      message: "Día no encontrado",
-    });
-  }
-
-  const hasPermissions = await checkTripPermissions(
-    req.user,
-    [UserTripRole.EDITOR, UserTripRole.OWNER],
-    day.tripId
-  );
-
-  if (!hasPermissions) {
-    return res.status(403).json({
-      message: "No tiene permisos para actualizar esta actividad",
-    });
-  }
-
-  await activityExist.update({
-    title,
-    description,
-    time,
-  });
-
-  res.json(activity);
 };
 
 export const deleteActivity = async (req, res) => {

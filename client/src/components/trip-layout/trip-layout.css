@@ -66,19 +66,15 @@
 .actions-row {
   display: flex;
   justify-content: flex-end;
-  align-items: flex-end;
+  align-items: center;
   gap: 1em;
-  width: 100%;
-
   flex-direction: row;
-  min-width: 0;
-  max-width: none;
 }
 
 .user-card {
-  width: 100% !important;
+  width: 100%;
   margin-left: 0;
-  padding: 30px 60px;
+  padding: 1.5em 2em;
   display: flex;
   justify-content: center;
   flex-direction: row;
@@ -88,9 +84,9 @@
   width: 100%;
 }
 
-.user-trip-role {
-  width: 100%;
+.trip-header-date {
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5em;
 }

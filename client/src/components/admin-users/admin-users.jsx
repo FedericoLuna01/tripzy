@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { Link } from "react-router";
 import Input from "../../components/ui/input/input";
 import Avatar from "../../components/avatar/avatar";
+import useModal from "../../hooks/useModal";
 import {
   Modal,
   ModalDescription,
@@ -16,7 +17,6 @@ import {
   MenuItem,
 } from "../../components/ui/menu/menu";
 import "./admin-users.css";
-import useModal from "../../hooks/useModal";
 
 const AdminUsers = () => {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -47,21 +47,34 @@ const AdminUsers = () => {
     getUsers();
   }, []);
 
-  const handleDeleteUser = async (id) => {
-    const user = await fetch(`http://localhost:3000/users/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+  const handleDeleteUser = async (selectedUser) => {
+    if (!selectedUser) {
+      return toast.error("No se ha seleccionado ningún usuario");
+    }
 
-    if (!user.ok) {
+    if (selectedUser.role === "superadmin") {
+      return toast.error("No puedes eliminar a un usuario administrador");
+    }
+
+    const response = await fetch(
+      `http://localhost:3000/users/${selectedUser.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
       return toast.error("Error al eliminar el usuario");
     }
 
-    setUsers((prev) => prev.filter((user) => user.id !== id));
-    setFilteredUsers((prev) => prev.filter((user) => user.id !== id));
+    setUsers((prev) => prev.filter((user) => user.id !== selectedUser.id));
+    setFilteredUsers((prev) =>
+      prev.filter((user) => user.id !== selectedUser.id)
+    );
     handleClose();
     toast.success("Usuario eliminado");
   };
@@ -83,7 +96,7 @@ const AdminUsers = () => {
           setSelectedUser(null);
           handleClose();
         }}
-        onSubmit={() => handleDeleteUser(selectedUser.id)}
+        onSubmit={() => handleDeleteUser(selectedUser)}
       >
         <ModalTitle>Eliminar usuario {selectedUser?.name}</ModalTitle>
         <ModalDescription>
@@ -172,15 +185,11 @@ const AdminUsers = () => {
                             </span>
                           </MenuItem>
                           <MenuItem>
-                            <Link
-                              className="menu-item-link"
-                              to={`/admin/trips/${user.id}`}
-                            >
-                              <span className="menu-item-link destructive">
-                                <Lock size={20} />
-                                Bloquear
-                              </span>
-                            </Link>
+                            <span className="menu-item-link destructive">
+                              {/* TODO: Hacer que funcione */}
+                              <Lock size={20} />
+                              Bloquear
+                            </span>
                           </MenuItem>
                         </MenuItems>
                       </Menu>

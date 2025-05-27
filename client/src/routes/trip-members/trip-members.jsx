@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
-import { Plus, Trash } from "phosphor-react";
+import { CookingPot, Plus, Trash } from "phosphor-react";
 import toast from "react-hot-toast";
 import Input from "../../components/ui/input/input";
 import Avatar from "../../components/avatar/avatar";
@@ -60,6 +60,7 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
           tripUsers: [...prevTrip.tripUsers, data],
         }));
         toast.success("Usuario agregado correctamente");
+        setUserEmail("");
       });
     handleCloseNextAddedUser();
   };
@@ -99,6 +100,10 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
   };
 
   const handleDeleteUser = (selectedUser) => {
+    if (selectedUser.role === "owner") {
+      return toast.error("No puedes eliminar al dueño del viaje");
+    }
+
     fetch(`http://localhost:3000/userTrip/${selectedUser.id}`, {
       method: "DELETE",
       headers: {
@@ -142,20 +147,35 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
           return toast.error(data.message);
         }
 
-        // Después de cambiar el rol, vuelve a pedir el viaje actualizado
-        fetch(`http://localhost:3000/trips/${trip.id}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        })
-          .then((res) => res.json())
-          .then((updatedTrip) => {
-            setTrip(updatedTrip);
-            setUsers(updatedTrip.tripUsers);
-            toast.success("Rol actualizado correctamente");
-          });
+        if (data.existingOwner) {
+          setUsers((prev) =>
+            prev.map((user) => {
+              console.log(user);
+              if (user.id === data.existingOwner.id) {
+                return { ...user, role: data.existingOwner.role };
+              }
+              if (user.id === data.userTrip.id) {
+                console.log("hola");
+                return { ...user, role: data.userTrip.role };
+              }
+              return user;
+            })
+          );
+          return;
+        }
+
+        setUsers((prev) =>
+          prev.map((user) =>
+            user.id === userTrip.id ? { ...user, role: data.role } : user
+          )
+        );
+        setTrip((prev) => ({
+          ...prev,
+          tripUsers: prev.tripUsers.map((user) =>
+            user.id === userTrip.id ? { ...user, role: data.role } : user
+          ),
+        }));
+        toast.success("Rol actualizado correctamente");
       });
   };
 
@@ -181,6 +201,7 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
         onSubmit={() => handleAddUser(nextAddedUser)}
         isOpen={isOpenNextAddedUser}
         handleClose={() => {
+          setUserEmail("");
           handleCloseNextAddedUser();
           setNextAddedUser(null);
         }}
@@ -225,7 +246,7 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
         {users.map((user) => (
           <div className="card user-card no-shadow column" key={user.id}>
             <div className="info-user">
-              <Avatar user={user.user} />
+              <Avatar className="info-user-avatar" user={user.user} />
               <div className="name-email-user">
                 <p className="name">{user.user.name}</p>
                 <p className="email">{user.user.email}</p>
@@ -245,7 +266,7 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
                 <select
                   name="userRole"
                   id="userRole"
-                  className="select-role"
+                  className="select"
                   value={user.role}
                   onChange={(event) => handleRoleChange(event, user)}
                 >
@@ -268,11 +289,11 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
               <div className="user-trip-role">
                 <div className="actions-row">
                   {user.role === "owner" ? (
-                    <span className="rol-owner">Dueño</span>
+                    <span className="rol-badge rol-owner">Dueño</span>
                   ) : user.role === "editor" ? (
-                    <span className="rol-editor">Editor</span>
+                    <span className="rol-badge rol-editor">Editor</span>
                   ) : user.role === "viewer" ? (
-                    <span className="rol-viewer">Espectador</span>
+                    <span className="rol-badge rol-viewer">Espectador</span>
                   ) : (
                     <span>{user.role}</span>
                   )}

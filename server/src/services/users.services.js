@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import { Users } from "../models/Users.js";
 import jwt from "jsonwebtoken";
+import { UserRole } from "../enums/enums.js";
 
 export const getAllUsers = async (req, res) => {
   const users = await Users.findAll();
@@ -82,6 +83,12 @@ export const updateUser = async (req, res) => {
     });
   }
 
+  if (req.user.role === UserRole.ADMIN && user.role === UserRole.SUPERADMIN) {
+    return res.status(403).json({
+      message: "No puedes eliminar a un usuario administrador",
+    });
+  }
+
   await user.update({
     name,
     email,
@@ -101,6 +108,12 @@ export const deleteUser = async (req, res) => {
   if (!user) {
     return res.status(404).json({
       message: "User not found for delete",
+    });
+  }
+
+  if (req.user.role === UserRole.ADMIN && user.role === UserRole.SUPERADMIN) {
+    return res.status(403).json({
+      message: "No puedes eliminar a un usuario administrador",
     });
   }
 
