@@ -152,7 +152,7 @@ const TripLayout = () => {
   return (
     <section className="trip-layout">
       {trip.isBlocked && (
-        <div className="trip-blocked-layout">
+        <div className="blocked-layout">
           <Lock className="icon-svg" size={60} />
           <p>Viaje bloqueado</p>
         </div>

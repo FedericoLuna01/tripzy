@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { Users } from "../models/Users.js";
+import { UserStatus } from "../enums/enums.js";
 
 export const verifyToken = async (req, res, next) => {
   const header = req.header("Authorization") || "";
@@ -15,6 +16,10 @@ export const verifyToken = async (req, res, next) => {
 
     if (!user) {
       return res.status(401).json({ message: "No posee autorización" });
+    }
+
+    if (user.status === UserStatus.BLOCKED) {
+      return res.status(403).json({ message: "Usuario bloqueado" });
     }
 
     req.user = user;
