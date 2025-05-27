@@ -15,7 +15,7 @@ const SlideIn = ({ children, side = "left", delay = 0, ...props }) => {
       ref={ref}
       initial={{ x: initialX, opacity: 0 }}
       animate={inView ? { x: 0, opacity: 1 } : {}}
-      transition={{ duration: 0.4, delay }}
+      transition={{ duration: 0.4, delay, ease: "easeInOut", type: "tween" }}
     >
       {children}
     </motion.div>

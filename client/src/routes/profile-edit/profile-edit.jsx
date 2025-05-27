@@ -39,7 +39,7 @@ const ProfileEdit = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const newErrors = {
-      title: name.length < 5,
+      title: name.length < 3,
       imageUrl: errors.imageUrl,
     };
     setErrors(newErrors);
@@ -106,7 +106,7 @@ const ProfileEdit = () => {
             </p>
             {errors.title && (
               <p className="error-message">
-                El nombre debe contener al menos 5 caracteres
+                El nombre debe contener al menos 3 caracteres
               </p>
             )}
           </div>

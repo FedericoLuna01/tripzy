@@ -1,28 +1,20 @@
+import { List, MagnifyingGlass, Mountains, SquaresFour } from "phosphor-react";
 import { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router";
-import "./profile.css";
-import Avatar from "../../components/avatar/avatar";
-import {
-  Calendar,
-  DotsThreeVertical,
-  MagnifyingGlass,
-  Mountains,
-  PencilSimple,
-  Trash,
-} from "phosphor-react";
 import { UserContext } from "../../contexts/user-context/user-context";
-import { formatFullDate } from "../../utils/utils";
+import { Tab, TabList } from "../../components/ui/tabs/tabs";
+import { TabGroup } from "@headlessui/react";
+import Avatar from "../../components/avatar/avatar";
 import Input from "../../components/ui/input/input";
-import {
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
-} from "../../components/ui/menu/menu";
+import TripsGridView from "./trips-grid-view";
+import TripsListView from "./trips-list-view";
+import "./profile.css";
 
 const Profile = () => {
   const [trips, setTrips] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(""); // Estado para el filtro de búsqueda
   const { user } = useContext(UserContext);
+  const [activeTab, setActiveTab] = useState(0);
 
   useEffect(() => {
     const getTrips = () => {
@@ -43,6 +35,10 @@ const Profile = () => {
     };
     getTrips();
   }, [user]);
+
+  const filteredTrips = trips.filter((trip) =>
+    trip.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   if (!user) {
     return (
@@ -75,18 +71,29 @@ const Profile = () => {
           <div className="container-title">
             <h1>Mis viajes</h1>
           </div>
-          <div className="container-filters">
-            <MagnifyingGlass className="search-icon-filter" size={12} />
-            <Input
-              className={"input-filter"}
-              placeholder="Busca lo que quieras..."
-            />
+          <div className="trips-filters">
+            <div className="container-filters">
+              <MagnifyingGlass className="search-icon-filter" size={20} />
+              <Input
+                className={"input-filter"}
+                placeholder="Busca por titulo de viaje..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+            <TabGroup onChange={(index) => setActiveTab(index)}>
+              <TabList className="tab-list-profile no-shadow">
+                <Tab>
+                  <SquaresFour size={20} />
+                </Tab>
+                <Tab>
+                  <List size={20} />
+                </Tab>
+              </TabList>
+            </TabGroup>
           </div>
         </div>
-
-        <div className="separator"></div>
-
-        {trips.length === 0 ? (
+        {filteredTrips.length === 0 ? (
           <div className="container-info">
             <div className="container-no-trips">
               <Mountains className="mountain" size={84} />
@@ -97,56 +104,10 @@ const Profile = () => {
               </NavLink>
             </div>
           </div>
+        ) : activeTab === 0 ? (
+          <TripsGridView trips={filteredTrips} />
         ) : (
-          <div className="trips-container">
-            {trips.map((trip, index) => (
-              <Link
-                key={index}
-                to={`/trip/${trip.id}`}
-                className="box-info shadow"
-              >
-                {/* <Menu>
-                  <MenuButton
-                    // onClick={(e) => {
-                    //   e.stopPropagation();
-                    // }}
-                    className="menu-button-trip-card"
-                  >
-                    <button className="button button-secondary button-square">
-                      <DotsThreeVertical size={20} />
-                    </button>
-                  </MenuButton>
-                  <MenuItems anchor="bottom end" className="menu-items-logged">
-                    <MenuItem>
-                      <Link className="menu-item-link" to={`/profile`}>
-                        <PencilSimple size={20} />
-                        Editar
-                      </Link>
-                    </MenuItem>
-                    <MenuItem>
-                      <span
-                        className="menu-item-link destructive"
-                        // onClick={handleLogout}
-                      >
-                        <Trash size={20} /> Eliminar
-                      </span>
-                    </MenuItem>
-                  </MenuItems>
-                </Menu> */}
-                <img src={trip.imageUrl} alt={`${trip.title} image`} />
-                <div className="box-info-data">
-                  <h3>{trip.title}</h3>
-                  <p className="box-info-description">{trip.description}</p>
-                  <div className="box-info-date-container">
-                    <Calendar className="box-info-icon" size={22} />
-                    <p className="box-info-date">
-                      {formatFullDate(trip.startDate)}
-                    </p>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <TripsListView trips={filteredTrips} />
         )}
       </div>
     </div>

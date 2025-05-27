@@ -91,3 +91,7 @@
   justify-content: flex-start;
   gap: 0.5em;
 }
+
+.tab-list-trip {
+  margin-bottom: 0.5em;
+}
