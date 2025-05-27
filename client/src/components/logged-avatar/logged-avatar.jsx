@@ -21,15 +21,25 @@ const LoggedAvatar = () => {
       </MenuButton>
       <MenuItems anchor="bottom end" className="menu-items-logged">
         <MenuItem>
-          <Link className="menu-item-link" to={`/profile`}>
-            <User size={20} />
-            Perfil
-          </Link>
+          {({ close }) => (
+            <Link className="menu-item-link" to={`/profile`} onClick={close}>
+              <User size={20} />
+              Perfil
+            </Link>
+          )}
         </MenuItem>
         <MenuItem>
-          <span className="menu-item-link destructive" onClick={handleLogout}>
-            <SignOut size={20} /> Cerrar sesión
-          </span>
+          {({ close }) => (
+            <span
+              className="menu-item-link destructive"
+              onClick={() => {
+                handleLogout();
+                close();
+              }}
+            >
+              <SignOut size={20} /> Cerrar sesión
+            </span>
+          )}
         </MenuItem>
       </MenuItems>
     </Menu>
