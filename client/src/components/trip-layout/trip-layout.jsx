@@ -239,7 +239,7 @@ const TripLayout = () => {
           </div>
         </div>
         <TabGroup selectedIndex={selectedTab} onChange={setSelectedTab}>
-          <TabList>
+          <TabList className="tab-list-trip">
             <Tab>Trip</Tab>
             <Tab>Amigos</Tab>
           </TabList>

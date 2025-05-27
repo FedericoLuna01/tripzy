@@ -15,9 +15,12 @@ export function Tab({ children, ...props }) {
     </TabPrimitive>
   );
 }
-export function TabList({ children, ...props }) {
+export function TabList({ children, className, ...props }) {
   return (
-    <TabListPrimitive className="tabs-container card" {...props}>
+    <TabListPrimitive
+      className={`tabs-container card ${className ? className : ""}`}
+      {...props}
+    >
       {children}
     </TabListPrimitive>
   );
