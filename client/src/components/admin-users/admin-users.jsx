@@ -1,4 +1,4 @@
-import { DotsThree, Lock, PencilSimple, Trash } from "phosphor-react";
+import { DotsThree, Lock, LockOpen, PencilSimple, Trash } from "phosphor-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router";
@@ -77,6 +77,48 @@ const AdminUsers = () => {
     );
     handleClose();
     toast.success("Usuario eliminado");
+  };
+
+  const handleBlockUser = (user) => {
+    fetch(`http://localhost:3000/users/${user.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({
+        ...user,
+        status: user.status === "active" ? "blocked" : "active",
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message) {
+          return toast.error(data.message);
+        }
+
+        setUsers((prev) =>
+          prev.map((u) =>
+            u.id === data.id ? { ...u, status: data.status } : u
+          )
+        );
+
+        setFilteredUsers((prev) =>
+          prev.map((u) =>
+            u.id === data.id ? { ...u, status: data.status } : u
+          )
+        );
+
+        toast.success(
+          `Usuario ${data.name} ${
+            data.status === "active" ? "desbloqueado" : "bloqueado"
+          }`
+        );
+      })
+      .catch((error) => {
+        console.error("Error blocking user:", error);
+        toast.error("Error al bloquear el usuario");
+      });
   };
 
   const handleSearch = (e) => {
@@ -175,6 +217,28 @@ const AdminUsers = () => {
                           </MenuItem>
                           <MenuItem>
                             <span
+                              className={`menu-item-link ${
+                                user.status === "active" ? "destructive" : ""
+                              }`}
+                              onClick={() => {
+                                handleBlockUser(user);
+                              }}
+                            >
+                              {user.status === "active" ? (
+                                <>
+                                  <Lock size={20} />
+                                  Bloquear
+                                </>
+                              ) : (
+                                <>
+                                  <LockOpen size={20} />
+                                  Desbloquear
+                                </>
+                              )}
+                            </span>
+                          </MenuItem>
+                          <MenuItem>
+                            <span
                               className="menu-item-link destructive"
                               onClick={() => {
                                 setSelectedUser(user);
@@ -182,13 +246,6 @@ const AdminUsers = () => {
                               }}
                             >
                               <Trash size={20} /> Eliminar
-                            </span>
-                          </MenuItem>
-                          <MenuItem>
-                            <span className="menu-item-link destructive">
-                              {/* TODO: Hacer que funcione */}
-                              <Lock size={20} />
-                              Bloquear
                             </span>
                           </MenuItem>
                         </MenuItems>

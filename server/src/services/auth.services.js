@@ -1,6 +1,7 @@
 import { Users } from "../models/Users.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { UserStatus } from "../enums/enums.js";
 
 export const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
@@ -64,6 +65,12 @@ export const loginUser = async (req, res) => {
   if (!user) {
     return res.status(401).json({
       message: "Usuario o contraseña incorrectos",
+    });
+  }
+
+  if (user.status === UserStatus.BLOCKED) {
+    return res.status(403).json({
+      message: "El usuario está bloqueado",
     });
   }
 
