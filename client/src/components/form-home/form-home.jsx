@@ -115,66 +115,62 @@ const FormHome = () => {
       <form action="" className="card form-container" onSubmit={handleSubmit}>
         <div className="form-first-section">
           <div className="input-group full">
-            <label className="input-group-label" htmlFor="nombre">
+            <label className="input-group-label" htmlFor="name">
               Nombre
             </label>
             <Input
               ref={inputNameRef}
-              placerholder={"ej: John Doe"}
-              id={"nombre"}
+              placeholder={"John Doe"}
+              id={"name"}
               onChange={handleNameChange}
               value={name}
               className={`input-form-section ${
                 errors.name || errors.validName ? "error" : ""
               }`}
             />
-            <p className="input-description">
-              Este nombre lo verá un admininstrador
-            </p>
+            <p className="input-description">Nombre completo</p>
             {errors.validName && (
               <p className="error-message">
-                El nombre debe tener al menos 4 carácteres
+                El nombre debe tener al menos 4 caracteres
               </p>
             )}
           </div>
           <div className="input-group full">
-            <label className="input-group-label" htmlFor="nombre">
+            <label className="input-group-label" htmlFor="email">
               Email
             </label>
             <Input
               ref={inputEmailRef}
-              placerholder={"ej: John Doe"}
-              id={"nombre"}
+              placeholder={"JohnDoe@gmail.com"}
+              id={"email"}
               onChange={handleEmailChange}
               value={email}
               className={`input-form-section ${
                 errors.name || errors.validName ? "error" : ""
               }`}
             />
-            <p className="input-description">
-              Este email lo verá un admininstrador
-            </p>
+            <p className="input-description">Email de contacto</p>
             {errors.validEmail && (
               <p className="error-message">Ingrese un email válido</p>
             )}
           </div>
         </div>
         <div className="input-group">
-          <label className="input-group-label" htmlFor="mensaje">
+          <label className="input-group-label" htmlFor="message">
             Ingrese su mensaje
           </label>
           <textarea
             rows={6}
-            className="textarea"
-            name="mensaje"
-            id="mensaje"
+            className={`textarea ${errors.validMessage && "error"}`}
+            name="message"
+            id="message"
             placeholder="Ej: Esta página se ve increíble!"
             onChange={handleMessageChange}
             value={message}
             ref={textAreaRef}
           ></textarea>
           <p className="input-description">
-            Este mensaje lo verá un admininstrador
+            Mensaje de contacto, contános lo que quieras!
           </p>
           {errors.validMessage && (
             <p className="error-message">

@@ -13,6 +13,15 @@ export const verifyAdminPermissions = async (req, res, next) => {
   try {
     const secretKey = process.env.SECRET_KEY;
     const payload = jwt.verify(token, secretKey);
+
+    const user = await Users.findByPk(payload.id);
+
+    if (!user) {
+      return res.status(401).json({ message: "No posee autorización" });
+    }
+
+    req.user = user;
+
     if (payload.role === UserRole.USER) {
       return res.status(401).json({
         message: "No posee permisos",

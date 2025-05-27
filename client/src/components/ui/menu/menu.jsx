@@ -8,7 +8,7 @@ import "./menu.css";
 
 export const Menu = ({ children, ...props }) => {
   return (
-    <HeadlessMenu as={"div"} {...props}>
+    <HeadlessMenu className="menu" as={"div"} {...props}>
       <>{children}</>
     </HeadlessMenu>
   );

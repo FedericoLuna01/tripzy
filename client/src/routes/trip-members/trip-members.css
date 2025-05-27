@@ -34,18 +34,16 @@
   gap: 1em;
 }
 
-.info-user .avatar {
+.info-user-avatar {
   width: 60px;
   height: 60px;
-  border-radius: 50%;
-  background-color: var(--color-primary);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  font-weight: 600;
-  color: white;
   font-size: 2.2em;
+}
+
+.info-user .name {
+  font-weight: bold;
+  color: var(--color-text);
+  font-size: 1.4em;
 }
 
 .name-email-user {
@@ -53,11 +51,10 @@
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  gap: 0.5em;
 }
 
 .name-email-user .email {
-  color: var(--color-text);
+  color: var(--color-muted);
   font-size: 1em;
 }
 
@@ -84,85 +81,36 @@
 .user-trip-role {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
+  justify-content: center;
   width: 100%;
 }
 
-.info-user .name {
-  font-weight: bold !important;
-  color: var(--color-text) !important;
-  margin: 0;
-  font-size: 0.85em;
-}
-
 .rol-owner {
-  display: inline-block;
-  min-width: 80px;
-  padding: 0.3em 0.9em;
-  border-radius: 12px;
-  font-size: 0.85em;
-  font-weight: 500;
-  text-align: center;
-  margin-bottom: 0.7em;
   background: #89fa89;
   color: #038603;
-  font-size: 0.85em;
-  padding: 4px 10px;
-  border-radius: 12px;
 }
 
 .rol-editor {
-  display: inline-block;
-  min-width: 80px;
-  padding: 0.3em 0.9em;
-  border-radius: 12px;
-  font-size: 0.85em;
-  font-weight: 500;
-  text-align: center;
-  margin-bottom: 0.7em;
   background: #adfff4;
   color: #017256;
-  font-size: 0.85em;
-  padding: 4px 10px;
-  border-radius: 12px;
 }
 
 .rol-viewer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 4px;
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 600;
   background: #fff894;
   color: #bdab10;
-  border-radius: 12px;
 }
 
 .rol-badge {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-width: 80px;
   padding: 0.3em 0.9em;
   border-radius: 12px;
   font-size: 0.85em;
   font-weight: 500;
   text-align: center;
-  margin-bottom: 0.4em;
-}
-
-.select-role {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5em;
-  border-radius: var(--border-radius-small);
-  color: var(--color-text);
-  border: none;
-  padding: 0.85em 1.4em;
-  cursor: pointer;
 }
 
 .members-container {

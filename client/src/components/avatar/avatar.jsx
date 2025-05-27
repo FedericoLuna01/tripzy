@@ -1,6 +1,6 @@
 import "./avatar.css";
 
-const Avatar = ({ user }) => {
+const Avatar = ({ user, className }) => {
   const getInitials = (name) => {
     return name
       .split(" ")
@@ -10,7 +10,7 @@ const Avatar = ({ user }) => {
   };
 
   return (
-    <div className="avatar">
+    <div className={`avatar ${className ? className : ""}`}>
       {user.imageUrl ? (
         <img src={user.imageUrl} alt="" />
       ) : (

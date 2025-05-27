@@ -3,6 +3,7 @@ import { TripDays } from "../models/TripDays.js";
 import { Trips } from "../models/Trips.js";
 import { Users } from "../models/Users.js";
 import { UserTrip } from "../models/UserTrip.js";
+import { checkTripPermissions } from "../utils/checkTripPermissions.js";
 
 export const getAllTrips = async (req, res) => {
   try {
@@ -41,7 +42,7 @@ export const getAllTrips = async (req, res) => {
 export const getTripByUserId = async (req, res) => {
   const { userId } = req.params;
 
-  if (userId !== req.user.id) {
+  if (Number(userId) !== req.user.id) {
     return res.status(403).json({
       message: "No tienes permisos para ver los viajes de otro usuario",
     });
@@ -167,10 +168,10 @@ export const deleteTrip = async (req, res) => {
       id
     );
 
-    if (!hasPermissions) {
+    if (!hasPermissions && !req.user.role.includes("admin")) {
       return res
         .status(403)
-        .json({ message: "No tiene permisos para crear un dia" });
+        .json({ message: "No tiene permisos para eliminar el viaje" });
     }
 
     await UserTrip.destroy({
@@ -179,7 +180,7 @@ export const deleteTrip = async (req, res) => {
 
     await trip.destroy();
 
-    res.json({ message: "Eliminado correctamente" });
+    res.status(200).json({ message: "Eliminado correctamente" });
   } catch (error) {
     console.error("Error al eliminar el viaje:", error);
     res.status(500).json({
@@ -211,10 +212,10 @@ export const updateTrip = async (req, res) => {
       id
     );
 
-    if (!hasPermissions) {
+    if (!hasPermissions && !req.user.role.includes("admin")) {
       return res
         .status(403)
-        .json({ message: "No tiene permisos para crear un dia" });
+        .json({ message: "No tiene permisos para editar un viaje" });
     }
 
     await trip.update({
