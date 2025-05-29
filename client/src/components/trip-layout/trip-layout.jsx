@@ -27,6 +27,7 @@ import useModal from "../../hooks/useModal";
 import Trip from "../../routes/trip/trip";
 import "../../routes/trip/trip.css";
 import "./trip-layout.css";
+import { deleteTrip } from "../../api/trips";
 
 const TripLayout = () => {
   const [trip, setTrip] = useState(null);
@@ -88,26 +89,14 @@ const TripLayout = () => {
   const tripUser = trip?.tripUsers?.find((tu) => tu.user?.id === user.id);
   const myRole = tripUser ? tripUser.role : null;
 
-  const handleDelete = () => {
-    fetch(`http://localhost:3000/trips/${trip.id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          return toast.error("Error al eliminar el viaje");
-        }
-      })
-      .then(() => {
-        navigate("/profile");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        toast.error("Error al eliminar el viaje");
-      });
+  const handleDelete = async () => {
+    const res = await deleteTrip(trip.id);
+
+    if (res.success) {
+      toast.success("Viaje eliminado correctamente");
+      navigate("/profile");
+    }
+
     handleClose();
   };
 

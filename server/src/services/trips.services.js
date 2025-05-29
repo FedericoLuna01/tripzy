@@ -62,6 +62,10 @@ export const getTripByUserId = async (req, res) => {
             },
           ],
         },
+        {
+          model: TripDays,
+          as: "days",
+        },
       ],
     });
 
@@ -180,7 +184,7 @@ export const deleteTrip = async (req, res) => {
 
     await trip.destroy();
 
-    res.status(200).json({ message: "Eliminado correctamente" });
+    res.status(200).json({ success: "Eliminado correctamente" });
   } catch (error) {
     console.error("Error al eliminar el viaje:", error);
     res.status(500).json({
