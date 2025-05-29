@@ -6,15 +6,25 @@ import { Tab, TabList } from "../../components/ui/tabs/tabs";
 import { TabGroup } from "@headlessui/react";
 import Avatar from "../../components/avatar/avatar";
 import Input from "../../components/ui/input/input";
-import TripsGridView from "./trips-grid-view";
-import TripsListView from "./trips-list-view";
+import TripsGridView from "../../components/trips-grid-view/trips-grid-view";
+import TripsListView from "../../components/trips-list-view/trips-list-view";
 import "./profile.css";
+import { deleteTrip } from "../../api/trips";
+import toast from "react-hot-toast";
+import useModal from "../../hooks/useModal";
+import {
+  Modal,
+  ModalDescription,
+  ModalTitle,
+} from "../../components/modal/modal";
 
 const Profile = () => {
   const [trips, setTrips] = useState([]);
   const [searchQuery, setSearchQuery] = useState(""); // Estado para el filtro de búsqueda
-  const { user } = useContext(UserContext);
   const [activeTab, setActiveTab] = useState(0);
+  const [selectedTrip, setSelectedTrip] = useState(null);
+  const { user } = useContext(UserContext);
+  const { isOpen, handleOpen, handleClose } = useModal();
 
   useEffect(() => {
     const getTrips = () => {
@@ -31,6 +41,7 @@ const Profile = () => {
             return;
           }
           setTrips(data);
+          console.log(data);
         });
     };
     getTrips();
@@ -39,6 +50,20 @@ const Profile = () => {
   const filteredTrips = trips.filter((trip) =>
     trip.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const handleDeleteTrip = async (tripId) => {
+    const res = await deleteTrip(tripId);
+    if (res.message) {
+      return toast.error(res.message);
+    }
+    setTrips((prevTrips) => prevTrips.filter((trip) => trip.id !== tripId));
+    toast.success("Viaje eliminado correctamente");
+  };
+
+  const handleOpenModal = (trip) => {
+    setSelectedTrip(trip);
+    handleOpen();
+  };
 
   if (!user) {
     return (
@@ -50,6 +75,24 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
+      <Modal
+        onSubmit={() => {
+          handleDeleteTrip(selectedTrip.id);
+          handleClose();
+          setSelectedTrip(null);
+        }}
+        isOpen={isOpen}
+        handleClose={handleClose}
+      >
+        <ModalTitle>
+          ¿Estás seguro de que quieres eliminar el viaje{" "}
+          <strong>{selectedTrip?.title}</strong>?
+        </ModalTitle>
+        <ModalDescription>
+          Esta acción no se puede deshacer. Si el viaje tiene días o actividades
+          asignados, se eliminarán de forma permanente.
+        </ModalDescription>
+      </Modal>
       <div className="container profile">
         <div className="card profile-header">
           <div className="trip-profile-info">
@@ -105,9 +148,15 @@ const Profile = () => {
             </div>
           </div>
         ) : activeTab === 0 ? (
-          <TripsGridView trips={filteredTrips} />
+          <TripsGridView
+            trips={filteredTrips}
+            handleOpenModal={handleOpenModal}
+          />
         ) : (
-          <TripsListView trips={filteredTrips} />
+          <TripsListView
+            trips={filteredTrips}
+            handleOpenModal={handleOpenModal}
+          />
         )}
       </div>
     </div>

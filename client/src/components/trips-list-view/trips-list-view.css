@@ -12,6 +12,7 @@
   flex-direction: row;
   padding: 1em;
   width: 100%;
+  position: relative;
 }
 
 .trip-list-card:hover {
@@ -40,13 +41,4 @@
 
 .trip-list-info {
   padding: 0 2em;
-}
-
-.menu-button.menu-button-trip-list-card[data-headlessui-state~="open"][data-headlessui-state~="active"] {
-  border-radius: var(--border-radius-small);
-  margin-left: auto;
-}
-
-.menu-trip-list-card {
-  margin-left: auto;
 }
