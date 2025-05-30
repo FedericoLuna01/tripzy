@@ -5,6 +5,7 @@ import { NavLink } from "react-router";
 import LoggedAvatar from "../logged-avatar/logged-avatar";
 import ToggleTheme from "../toggle-theme/toggle-theme";
 import { UserContext } from "../../contexts/user-context/user-context";
+import MobileNavbar from "../mobile-navbar/mobile-navbar";
 
 export const NAV_LINKS = [
   {
@@ -24,6 +25,7 @@ const Header = () => {
     <header className="border-b">
       <div className="container-header container">
         <Logo />
+        <MobileNavbar />
         <div className="header-links">
           {NAV_LINKS.map(({ to, name }) => (
             <NavLink key={name} to={to}>

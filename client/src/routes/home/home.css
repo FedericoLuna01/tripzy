@@ -230,7 +230,7 @@
 }
 
 .divider-content {
-  background-image: url("../../../public/trip.jpeg");
+  background-image: url("./trip.jpeg");
   background-size: cover;
   background-position: center;
   display: flex;
