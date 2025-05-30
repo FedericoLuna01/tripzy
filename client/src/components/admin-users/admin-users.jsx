@@ -26,7 +26,7 @@ const AdminUsers = () => {
   const { handleClose, handleOpen, isOpen } = useModal();
 
   const getUsers = () => {
-    fetch("http://localhost:3000/users", {
+    fetch("import.meta.env.VITE_BASE_SERVER_URL/users", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -48,13 +48,16 @@ const AdminUsers = () => {
   }, []);
 
   const handleDeleteUser = async (id) => {
-    const user = await fetch(`http://localhost:3000/users/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    const user = await fetch(
+      `import.meta.env.VITE_BASE_SERVER_URL/users/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
 
     if (!user.ok) {
       return toast.error("Error al eliminar el usuario");

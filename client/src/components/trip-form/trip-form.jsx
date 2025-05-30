@@ -120,8 +120,8 @@ const TripForm = ({ initialTrip }) => {
 
     const method = initialTrip ? "PUT" : "POST";
     const url = initialTrip
-      ? `http://localhost:3000/trips/${initialTrip.id}`
-      : "http://localhost:3000/trips";
+      ? `import.meta.env.VITE_BASE_SERVER_URL/${initialTrip.id}`
+      : "himport.meta.env.VITE_BASE_SERVER_URL/trips";
 
     fetch(url, {
       method,

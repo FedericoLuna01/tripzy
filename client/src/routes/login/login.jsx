@@ -43,7 +43,7 @@ const Login = () => {
       return;
     }
 
-    await fetch("http://localhost:3000/login", {
+    await fetch("import.meta.env.VITE_BASE_SERVER_URL/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

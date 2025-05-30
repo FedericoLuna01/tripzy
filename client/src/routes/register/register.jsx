@@ -113,7 +113,7 @@ const Register = () => {
     if (hasError) return;
 
     try {
-      fetch("http://localhost:3000/register", {
+      fetch("import.meta.env.VITE_BASE_SERVER_URL/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

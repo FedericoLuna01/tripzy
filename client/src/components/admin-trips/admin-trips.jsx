@@ -25,7 +25,7 @@ const AdminTrips = () => {
   const { handleClose, handleOpen, isOpen } = useModal();
 
   const getTrips = () => {
-    fetch("http://localhost:3000/trips", {
+    fetch("import.meta.env.VITE_BASE_SERVER_URL/trips", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -48,7 +48,7 @@ const AdminTrips = () => {
   }, []);
 
   const handleDeleteTrip = async (id) => {
-    const trip = await fetch(`http://localhost:3000/trips/${id}`, {
+    const trip = await fetch(`import.meta.env.VITE_BASE_SERVER_URL/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -76,7 +76,7 @@ const AdminTrips = () => {
   };
 
   const handleBlockTrip = (trip) => {
-    fetch(`http://localhost:3000/trips/${trip.id}`, {
+    fetch(`import.meta.env.VITE_BASE_SERVER_URL/trips/${trip.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

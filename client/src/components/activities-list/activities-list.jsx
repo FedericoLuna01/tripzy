@@ -20,13 +20,16 @@ const ActivitiesList = ({
   const { handleOpen, handleClose, isOpen } = useModal();
 
   const handleDeleteActivity = (deleteActivity) => {
-    fetch(`http://localhost:3000/activities/${deleteActivity.id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
+    fetch(
+      `import.meta.env.VITE_BASE_SERVER_URL/activities/${deleteActivity.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.message) {

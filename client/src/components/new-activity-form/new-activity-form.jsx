@@ -106,18 +106,21 @@ const NewActivityForm = ({
     }
 
     if (editingActivity) {
-      fetch(`http://localhost:3000/activities/${editingActivity.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({
-          title: activityTitle,
-          description: activityDescription,
-          time,
-        }),
-      })
+      fetch(
+        `import.meta.env.VITE_BASE_SERVER_URL/activities/${editingActivity.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({
+            title: activityTitle,
+            description: activityDescription,
+            time,
+          }),
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.message) {
@@ -141,7 +144,7 @@ const NewActivityForm = ({
       return;
     }
 
-    fetch(`http://localhost:3000/activities`, {
+    fetch(`import.meta.env.VITE_BASE_SERVER_URL/activities`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",

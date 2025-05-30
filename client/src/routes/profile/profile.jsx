@@ -12,7 +12,7 @@ const Profile = () => {
 
   useEffect(() => {
     const getTrips = () => {
-      fetch(`http://localhost:3000/trips/user/${user.id}`, {
+      fetch(`import.meta.env.VITE_BASE_SERVER_URL/trips/user/${user.id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
