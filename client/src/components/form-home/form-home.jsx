@@ -82,7 +82,7 @@ const FormHome = () => {
     if (hasError) return;
 
     try {
-      fetch("http://localhost:3000/messages", {
+      fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/messages`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

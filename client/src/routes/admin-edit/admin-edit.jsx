@@ -26,19 +26,22 @@ const AdminEdit = () => {
 
   const putUser = async (id) => {
     try {
-      const res = await fetch(`http://localhost:3000/users/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          role,
-          status,
-        }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_BASE_SERVER_URL}/users/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            role,
+            status,
+          }),
+        }
+      );
       const data = await res.json();
       if (!res.ok) {
         return toast.error(data.message);
@@ -51,7 +54,7 @@ const AdminEdit = () => {
   };
 
   const getUser = (id) => {
-    fetch(`http://localhost:3000/users/${id}`, {
+    fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/users/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

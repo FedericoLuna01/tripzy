@@ -55,7 +55,7 @@ const ProfileEdit = () => {
 
     const token = localStorage.getItem("token");
 
-    fetch(`http://localhost:3000/profile/${user?.id || ""}`, {
+    fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/profile/${user?.id || ""}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

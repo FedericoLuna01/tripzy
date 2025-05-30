@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 
-const URL = "http://localhost:3000";
+const URL = import.meta.env.VITE_BASE_SERVER_URL;
 const HEADERS = {
   "Content-Type": "application/json",
   Authorization: `Bearer ${localStorage.getItem("token")}`,

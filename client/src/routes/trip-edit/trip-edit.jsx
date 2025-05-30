@@ -10,7 +10,7 @@ const TripEdit = () => {
   const [initialTrip, setInitialTrip] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:3000/trips/${id}`, {
+    fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/trips/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },

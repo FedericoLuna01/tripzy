@@ -59,7 +59,7 @@ const TripLayout = () => {
   }, [trip, navigate, user.id, user.role]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/trips/${params.id}`, {
+    fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/trips/${params.id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -101,13 +101,18 @@ const TripLayout = () => {
   };
 
   const handleAbandonTrip = () => {
-    fetch(`http://localhost:3000/trips/${trip.id}/users/${user.id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
+    fetch(
+      `${import.meta.env.VITE_BASE_SERVER_URL}/trips/${trip.id}/users/${
+        user.id
+      }`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           return toast.error("Error al abandonar el viaje");

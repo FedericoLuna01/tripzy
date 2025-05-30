@@ -10,13 +10,16 @@ const Trip = ({ trip, canEdit, setTrip }) => {
   const [days, setDays] = useState(trip.days);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/activities/day/${activeDay.id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
+    fetch(
+      `${import.meta.env.VITE_BASE_SERVER_URL}/activities/day/${activeDay.id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener las actividades");

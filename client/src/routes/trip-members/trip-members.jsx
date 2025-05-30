@@ -38,7 +38,7 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
   };
 
   const handleAddUser = () => {
-    fetch("http://localhost:3000/userTrip", {
+    fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/userTrip`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -82,7 +82,7 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
       return;
     }
 
-    fetch(`http://localhost:3000/users/email/${userEmail}`, {
+    fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/users/email/${userEmail}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -104,13 +104,16 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
       return toast.error("No puedes eliminar al dueño del viaje");
     }
 
-    fetch(`http://localhost:3000/userTrip/${selectedUser.id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
+    fetch(
+      `${import.meta.env.VITE_BASE_SERVER_URL}/userTrip/${selectedUser.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.message) {
@@ -130,7 +133,7 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
   };
 
   const handleRoleChange = (e, userTrip) => {
-    fetch(`http://localhost:3000/userTrip/${userTrip.id}`, {
+    fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/userTrip/${userTrip.id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",

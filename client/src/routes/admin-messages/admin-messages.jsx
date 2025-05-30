@@ -34,13 +34,16 @@ const AdminMessages = () => {
   };
 
   const handleDeleteMessage = async (id) => {
-    const message = await fetch(`http://localhost:3000/messages/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    const message = await fetch(
+      `${import.meta.env.VITE_BASE_SERVER_URL}/messages/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
 
     if (!message.ok) {
       return toast.error("Error al eliminar el mensaje");
@@ -53,7 +56,7 @@ const AdminMessages = () => {
   };
 
   const getMessages = () => {
-    fetch("http://localhost:3000/messages", {
+    fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/messages`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
