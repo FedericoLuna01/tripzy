@@ -23,9 +23,7 @@ header {
 }
 
 .header-links {
-  display: flex;
-  gap: 20px;
-  align-items: center;
+  display: none;
 }
 
 .botonP {
@@ -36,4 +34,13 @@ header {
   display: flex;
   gap: 20px;
   align-items: center;
+}
+
+/* TODO: Agregar menu despegable */
+@media (min-width: 640px) {
+  .header-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
 }

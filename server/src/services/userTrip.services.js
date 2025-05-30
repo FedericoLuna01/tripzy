@@ -1,4 +1,4 @@
-import { UserRole, UserTripRole } from "../enums/enums.js";
+import { UserRole, UserStatus, UserTripRole } from "../enums/enums.js";
 import { Users } from "../models/Users.js";
 import { UserTrip } from "../models/UserTrip.js";
 import { checkTripPermissions } from "../utils/checkTripPermissions.js";
@@ -27,6 +27,10 @@ export const createUserTrip = async (req, res) => {
 
     if (!user) {
       return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+
+    if (user.status === UserStatus.BLOCKED) {
+      return res.status(403).json({ message: "Usuario bloqueado" });
     }
 
     const existingUserTrip = await UserTrip.findOne({

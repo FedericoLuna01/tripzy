@@ -27,17 +27,20 @@ footer {
 
 .footer-top {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
-  flex-direction: row;
+  align-items: center;
   width: 100%;
+  text-align: center;
+  gap: 2em;
 }
 
 .links-container {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 5em;
+  align-items: center;
+  gap: 1em;
 }
 
 .links p {
@@ -56,4 +59,23 @@ footer {
 
 .links a:hover {
   color: #ff8400;
+}
+
+@media (min-width: 640px) {
+  .links-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+    gap: 4em;
+  }
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row;
+    width: 100%;
+  }
 }

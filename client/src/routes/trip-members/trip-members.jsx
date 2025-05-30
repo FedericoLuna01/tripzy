@@ -247,7 +247,10 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
       <div className="card card-container members-container">
         <h3>Compañeros de viaje</h3>
         {users.map((user) => (
-          <div className="card user-card no-shadow column" key={user.id}>
+          <div
+            className="card user-card no-shadow column trip-member-card"
+            key={user.id}
+          >
             <div className="info-user">
               <Avatar className="info-user-avatar" user={user.user} />
               <div className="name-email-user">
@@ -256,7 +259,7 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
               </div>
             </div>
             {canEdit && userContext.id !== user.userId ? (
-              <form className="actions-row">
+              <form className="actions-row-member">
                 <span className={`rol-badge rol-${user.role}`}>
                   {user.role === "owner"
                     ? "Dueño"
@@ -290,7 +293,7 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
               </form>
             ) : (
               <div className="user-trip-role">
-                <div className="actions-row">
+                <div className="actions-row-member">
                   {user.role === "owner" ? (
                     <span className="rol-badge rol-owner">Dueño</span>
                   ) : user.role === "editor" ? (

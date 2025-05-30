@@ -1,7 +1,13 @@
 import { useInView, motion } from "motion/react";
 import { useRef } from "react";
 
-const SlideIn = ({ children, side = "left", delay = 0, ...props }) => {
+const SlideIn = ({
+  children,
+  side = "left",
+  delay = 0,
+  className = "",
+  ...props
+}) => {
   const ref = useRef(null);
   const inView = useInView(ref, {
     once: true,
@@ -16,6 +22,7 @@ const SlideIn = ({ children, side = "left", delay = 0, ...props }) => {
       initial={{ x: initialX, opacity: 0 }}
       animate={inView ? { x: 0, opacity: 1 } : {}}
       transition={{ duration: 0.4, delay, ease: "easeInOut", type: "tween" }}
+      className={`slide-in ${className}`}
     >
       {children}
     </motion.div>

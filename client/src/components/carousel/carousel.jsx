@@ -67,7 +67,7 @@ const Carousel = () => {
   ];
 
   const carouselOptions = {
-    align: "start",
+    align: "center",
     loop: true,
   };
 

@@ -20,27 +20,13 @@
 
 .inputs-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   row-gap: 0.5em;
   column-gap: 1em;
 }
 
 .new-trip-button {
-  max-width: 15em;
-}
-
-.users-container {
-  display: flex;
-  flex-direction: row;
-  gap: 1em;
-  flex-wrap: wrap;
-}
-
-.info-container {
-  display: flex;
-  flex-direction: row;
-  gap: 0.5em;
-  width: 100%;
+  max-width: 100%;
 }
 
 .days-buttons-container {
@@ -56,14 +42,23 @@
   gap: 0.5em;
 }
 
-.day {
-  font-weight: 500;
-}
-
 .title-input {
   width: 100%;
 }
 
 .email {
   font-size: small;
+}
+
+@media (min-width: 640px) {
+  .inputs-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 0.5em;
+    column-gap: 1em;
+  }
+
+  .new-trip-button {
+    max-width: 15em;
+  }
 }

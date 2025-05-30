@@ -80,8 +80,10 @@
 
 .container-title-and-filters {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: space-between;
+  margin-bottom: 1em;
 }
 
 .container-filters {
@@ -160,4 +162,19 @@
 .tab-list-profile > .tab {
   padding: 0.16em;
   width: 50px;
+}
+
+.tab-list-profile {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .container-title-and-filters {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .tab-list-profile {
+    display: flex;
+  }
 }

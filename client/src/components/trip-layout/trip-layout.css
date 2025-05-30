@@ -72,19 +72,6 @@
   flex-direction: row;
 }
 
-.user-card {
-  width: 100%;
-  margin-left: 0;
-  padding: 1.5em 2em;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-}
-
-.card.user-card.column {
-  width: 100%;
-}
-
 .trip-header-date {
   display: flex;
   align-items: center;

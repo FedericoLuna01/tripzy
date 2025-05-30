@@ -61,7 +61,7 @@ const Home = () => {
           </div>
           <p className="avatar-text">+1069 personas organizaron su viaje</p>
         </SlideIn>
-        <SlideIn side="right">
+        <SlideIn className="image-slide-in" side="right">
           <img className="hero-img" src="/img-hero.png" alt="hero-img" />
         </SlideIn>
       </section>
@@ -113,7 +113,6 @@ const Home = () => {
             </p>
             <BookBookmark size={32} className="icon" color="orange" />
           </SlideIn>
-
           <div className="half-grid">
             <SlideIn delay={0.2} className="card-home gray-card shadow">
               <h1>Explorá y agregá destinos</h1>
@@ -143,17 +142,12 @@ const Home = () => {
             planificar sus aventuras.
           </p>
         </div>
-        <div className="grid-container ">
+        <div className="">
           <Carousel />
         </div>
       </section>
       {/* Divider section */}
       <section className="divider-section container">
-        <img
-          src="./trip.jpeg"
-          alt="Persona mirando el paisaje"
-          className="divider-image"
-        />
         <SlideIn className="divider-content">
           <h2>¿Listo para empezar el viaje de tus sueños?</h2>
           <Link className="link-button" to="/register">
@@ -164,7 +158,7 @@ const Home = () => {
         </SlideIn>
       </section>
       {/* Sección 4 */}
-      <section>
+      <section className="container">
         <SlideIn>
           <h1 className="title-form"> Formulario de contacto</h1>
           <FormHome />

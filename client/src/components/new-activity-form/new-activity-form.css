@@ -1,6 +1,17 @@
 .buttons-container {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  margin-left: auto;
+  margin-left: 0;
   gap: 0.5em;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .buttons-container {
+    justify-content: space-between;
+    flex-direction: row;
+    margin-left: auto;
+    width: fit-content;
+  }
 }
