@@ -34,7 +34,7 @@ const TripDays = ({
       setActiveDay(lastDay);
     }
 
-    fetch(`http://localhost:3000/days/${deleteDay.id}`, {
+    fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/days/${deleteDay.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -62,7 +62,7 @@ const TripDays = ({
     const lastDay = new Date(days[days.length - 1].date);
     const newDay = addDays(new Date(lastDay), 1);
 
-    fetch(`http://localhost:3000/days`, {
+    fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/days`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

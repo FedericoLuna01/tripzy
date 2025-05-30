@@ -26,7 +26,7 @@ const AdminUsers = () => {
   const { handleClose, handleOpen, isOpen } = useModal();
 
   const getUsers = () => {
-    fetch("http://localhost:3000/users", {
+    fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/users`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -57,7 +57,7 @@ const AdminUsers = () => {
     }
 
     const response = await fetch(
-      `http://localhost:3000/users/${selectedUser.id}`,
+      `${import.meta.env.VITE_BASE_SERVER_URL}/users/${selectedUser.id}`,
       {
         method: "DELETE",
         headers: {
@@ -80,7 +80,7 @@ const AdminUsers = () => {
   };
 
   const handleBlockUser = (user) => {
-    fetch(`http://localhost:3000/users/${user.id}`, {
+    fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/users/${user.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
