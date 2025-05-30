@@ -194,7 +194,7 @@ const NewActivityForm = ({
             id={"time"}
             onChange={handleTimeChange}
             value={time}
-            className={`${errors.time ? "error title-input" : "title-input"}`}
+            className={`title-input ${errors.time ? "error" : ""}`}
             ref={inputTimeRef}
           />
           <p className="input-description">Horario de la actividad</p>
@@ -248,7 +248,7 @@ const NewActivityForm = ({
             <ArrowLeft size={20} />
           </button>
         )}
-        <button className="button button-primary">
+        <button className="button button-primary new-activity-button">
           {editingActivity ? "Actualizar actividad" : "Agregar actividad"}
           {editingActivity ? (
             <PencilSimple size={20} />

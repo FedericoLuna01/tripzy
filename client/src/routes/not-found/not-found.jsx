@@ -14,7 +14,7 @@ const NotFound = () => {
             <h1>4</h1>
           </div>
           <div className="notFound-subTitle">
-            <h2>Pagina no encontrada</h2>
+            <h2>Página no encontrada</h2>
             <p>Parece que estas perdido... deberías volver</p>
             <Link to="/">
               <button className="button button-secondary button-not-found">

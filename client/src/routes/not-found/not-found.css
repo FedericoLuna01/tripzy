@@ -1,6 +1,7 @@
 .container-pageNotFound {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 3fr;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -9,7 +10,7 @@
 
 .container-pageNotFound img {
   width: 100%;
-  height: 100vh;
+  height: 30vh;
   object-fit: cover;
 }
 
@@ -19,10 +20,12 @@
   align-items: center;
   flex-direction: column;
   padding: 2rem;
+  text-align: center;
 }
 .container-notFound h2 {
-  font-size: 3em;
+  font-size: 2em;
   color: var(--color-primary);
+  text-align: center;
 }
 
 .notFound-title {
@@ -33,6 +36,7 @@
   gap: 5px;
   color: var(--color-primary);
 }
+
 .notFound-subTitle {
   display: flex;
   flex-direction: column;
@@ -40,12 +44,44 @@
   align-items: center;
   margin-left: 0.5em;
 }
+
 .notFound-title h1 {
-  font-size: 10em;
+  font-size: 6em;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 700;
   color: var(--color-primary);
 }
+
 .button-not-found {
   margin-top: 1em;
+}
+
+.notFound-icon {
+  width: 6em;
+  height: 6em;
+}
+
+@media (min-width: 640px) {
+  .container-pageNotFound {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .container-pageNotFound img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+  }
+
+  .container-notFound h2 {
+    font-size: 3em;
+  }
+
+  .notFound-title h1 {
+    font-size: 10em;
+  }
+
+  .notFound-icon {
+    width: 10em;
+    height: 10em;
+  }
 }

@@ -1,6 +1,6 @@
 .trips-container {
   display: grid;
-  grid-template-columns: repeat(3, 2fr);
+  grid-template-columns: 1fr;
   justify-content: space-between;
   margin-bottom: 45px;
   gap: 1.5em;
@@ -91,4 +91,16 @@ a.box-info {
 
 .box-info-date {
   color: var(--color-primary);
+}
+
+@media (min-width: 640px) {
+  .trips-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .trips-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

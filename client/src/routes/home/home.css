@@ -7,9 +7,10 @@
 
 .hero-container {
   display: grid;
-  grid-template-columns: 3fr 2fr;
+  grid-template-columns: 1fr;
   min-height: 91vh;
   position: relative;
+  margin: 3em auto;
 }
 
 .home-container {
@@ -39,8 +40,7 @@
 }
 
 .hero-container h1 {
-  font-size: 5.6rem;
-  color: var(--color-text);
+  font-size: 3em;
   margin-bottom: 1rem;
   z-index: 2;
 }
@@ -49,21 +49,22 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   gap: 1rem;
   z-index: 2;
 }
+
 .left-body-container p {
   font-size: 1.6rem;
   max-width: 22em;
 }
 
 .hero-img {
-  position: absolute;
-  top: 170px;
-  right: 30px;
-  z-index: 2;
-  width: auto;
+  display: flex;
+  width: 100%;
+  max-width: 500px;
+  position: relative;
 }
 
 .left-body-container > .avatar-text {
@@ -92,17 +93,18 @@
 .grid-container {
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: space-between;
   gap: 1.5rem;
 }
 
 .caretRight {
   color: var(--color-text);
+  transform: rotate(90deg);
 }
 
 .comments {
-  margin-top: 10em;
-  margin-bottom: 10em;
+  margin: 3em auto;
 }
 
 .grid-card {
@@ -113,8 +115,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   flex-direction: column;
   align-items: flex-start;
-  transition: transform 0.3s;
-  width: 25em;
+  width: 100%;
   min-height: 13em;
 }
 
@@ -138,7 +139,8 @@
 
 .trip-cards {
   display: flex;
-  gap: 1.5rem;
+  flex-direction: column;
+  gap: 1rem;
   margin-top: 10em;
   margin-bottom: 10em;
 }
@@ -199,6 +201,7 @@
 
 .half-grid {
   display: flex;
+  flex-direction: column;
   gap: 1rem;
 }
 
@@ -223,9 +226,20 @@
 }
 
 .divider-section {
-  position: relative;
-  width: 100%;
   margin-bottom: 3em;
+}
+
+.divider-content {
+  background-image: url("../../../public/trip.jpeg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  height: 100%;
+  padding: 10em 2em 1em 2em;
+  border-radius: var(--border-radius-medium);
 }
 
 .divider-section.container:hover {
@@ -241,14 +255,6 @@
   border-radius: var(--border-radius-medium);
 }
 
-.divider-content {
-  position: absolute;
-  top: 30%;
-  left: 5%;
-  color: white;
-  max-width: 600px;
-}
-
 .divider-content h2 {
   margin-top: 1.5em;
   font-size: 2.7rem;
@@ -256,6 +262,57 @@
   color: white;
 }
 
-.caretRight {
-  color: var(--color-text);
+@media (min-width: 640px) {
+  .hero-container h1 {
+    font-size: 5.4em;
+  }
+
+  .hero-container {
+    grid-template-columns: 3fr 2fr;
+    margin: 0 auto;
+  }
+
+  .left-body-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .hero-img {
+    position: absolute;
+    top: 170px;
+    right: 30px;
+    z-index: 2;
+    max-width: 700px;
+  }
+
+  .grid-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .grid-card {
+    width: 25em;
+    min-height: 13em;
+  }
+
+  .trip-cards {
+    flex-direction: row;
+  }
+
+  .half-grid {
+    flex-direction: row;
+  }
+
+  .caretRight {
+    transform: none;
+  }
+
+  .comments {
+    margin: 10em auto;
+  }
 }

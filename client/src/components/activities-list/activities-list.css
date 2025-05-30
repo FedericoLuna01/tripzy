@@ -43,7 +43,7 @@
 
 .new-activity-card > .top {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
   width: 100%;
@@ -51,15 +51,13 @@
 }
 
 .new-activity-card > .top :nth-child(1) {
-  min-width: 11em;
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
 
 .new-activity-card > .top :nth-child(2) {
   width: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 .empty-activities {
@@ -73,4 +71,36 @@
 
 .empty-activities > p {
   font-weight: 600;
+  text-align: center;
+}
+
+.new-activity-button {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .new-activity-card > .top {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    gap: 1em;
+  }
+
+  .new-activity-card > .top :nth-child(1) {
+    min-width: 11em;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .new-activity-card > .top :nth-child(2) {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .new-activity-button {
+    width: auto;
+  }
 }

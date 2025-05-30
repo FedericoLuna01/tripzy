@@ -7,7 +7,7 @@
 
 .trip-info {
   display: flex;
-  flex-direction: row;
+  flex-direction: column-reverse;
   justify-content: space-between;
   align-items: flex-start;
   gap: 1em;
@@ -17,7 +17,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.5em;
-  width: 80%;
 }
 
 .actions-container {
@@ -37,4 +36,28 @@
   background-color: var(--color-secondary);
   color: var(--color-text);
   cursor: pointer;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .trip-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1em;
+  }
+
+  .info-container {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+    width: 100%;
+  }
 }
