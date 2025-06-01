@@ -165,6 +165,7 @@ const NewActivityForm = ({
         if (data.message) {
           return toast.error(data.message);
         }
+        console.log(data);
         setActivities((prevActivities) => [
           ...prevActivities,
           {

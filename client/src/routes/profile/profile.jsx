@@ -17,17 +17,20 @@ import {
   ModalDescription,
   ModalTitle,
 } from "../../components/modal/modal";
+import Spinner from "../../components/ui/spinner/spinner";
 
 const Profile = () => {
   const [trips, setTrips] = useState([]);
-  const [searchQuery, setSearchQuery] = useState(""); // Estado para el filtro de búsqueda
+  const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState(0);
   const [selectedTrip, setSelectedTrip] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useContext(UserContext);
   const { isOpen, handleOpen, handleClose } = useModal();
 
   useEffect(() => {
     const getTrips = () => {
+      setIsLoading(true);
       fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/trips/user/${user.id}`, {
         method: "GET",
         headers: {
@@ -42,6 +45,13 @@ const Profile = () => {
           }
           setTrips(data);
           console.log(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching trips:", error);
+          toast.error("Error al cargar los viajes");
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     };
     getTrips();
@@ -136,7 +146,12 @@ const Profile = () => {
             </TabGroup>
           </div>
         </div>
-        {filteredTrips.length === 0 ? (
+        {isLoading ? (
+          <div className="loading-container">
+            <p>Cargando viajes...</p>
+            <Spinner />
+          </div>
+        ) : filteredTrips.length === 0 ? (
           <div className="container-info">
             <div className="container-no-trips">
               <Mountains className="mountain" size={84} />

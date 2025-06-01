@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import Input from "../../components/ui/input/input";
 import { useNavigate } from "react-router";
 import { UserContext } from "../../contexts/user-context/user-context";
+import Spinner from "../ui/spinner/spinner";
 
 const TripForm = ({ initialTrip }) => {
   const [title, setTitle] = useState("");
@@ -19,6 +20,8 @@ const TripForm = ({ initialTrip }) => {
     description: false,
     imageUrl: false,
   });
+  const [isLoading, setIsLoading] = useState(false);
+
   const inputTitleRef = useRef(null);
   const inputTripStartRef = useRef(null);
   const inputDescriptionRef = useRef(null);
@@ -121,8 +124,9 @@ const TripForm = ({ initialTrip }) => {
     const method = initialTrip ? "PUT" : "POST";
     const url = initialTrip
       ? `${import.meta.env.VITE_BASE_SERVER_URL}/trips/${initialTrip.id}`
-      : `${import.meta.env.VITE_BASE_SERVER_URL}`;
+      : `${import.meta.env.VITE_BASE_SERVER_URL}/trips`;
 
+    setIsLoading(true);
     fetch(url, {
       method,
       headers: {
@@ -153,6 +157,9 @@ const TripForm = ({ initialTrip }) => {
       .catch((error) => {
         console.error("Error:", error);
         toast.error("Error al crear el viaje");
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -175,6 +182,7 @@ const TripForm = ({ initialTrip }) => {
               value={title}
               id={"title"}
               className={`${errors.title ? "error" : ""}`}
+              disabled={isLoading}
             />
             <p className="input-description">Titulo de tu viaje</p>
             {errors.title && (
@@ -191,6 +199,7 @@ const TripForm = ({ initialTrip }) => {
               value={description}
               id={"description"}
               className={`${errors.description ? "error" : ""}`}
+              disabled={isLoading}
             />
             <p className="input-description">
               Una pequeña descripción de tu viaje
@@ -210,6 +219,7 @@ const TripForm = ({ initialTrip }) => {
               type="date"
               id={"date"}
               className={`${errors.tripStart ? "error" : ""}`}
+              disabled={isLoading}
             />
             <p className="input-description">La fecha de inicio de tu viaje</p>
             {errors.tripStart && (
@@ -224,6 +234,7 @@ const TripForm = ({ initialTrip }) => {
               value={imageUrl}
               id={"imageUrl"}
               className={`${errors.imageUrl ? "error" : ""}`}
+              disabled={isLoading}
             />
             <p className="input-description">Imagen de portada de tu viaje</p>
             {errors.imageUrl && (
@@ -241,6 +252,7 @@ const TripForm = ({ initialTrip }) => {
                 id="blocked"
                 type="checkbox"
                 style={{ width: "fit-content" }}
+                disabled={isLoading}
               />
               <p className="input-description">
                 El viaje no podrá ser editado por el usuario
@@ -248,7 +260,11 @@ const TripForm = ({ initialTrip }) => {
             </div>
           )}
         </div>
-        <button className="button button-primary new-trip-button">
+        <button
+          className="button button-primary new-trip-button"
+          disabled={isLoading}
+        >
+          {isLoading && <Spinner />}
           {initialTrip ? "Confirmar" : "Crear"}
           <AirplaneTakeoff size={20} />
         </button>

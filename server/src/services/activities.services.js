@@ -37,7 +37,7 @@ export const createActivity = async (req, res) => {
       });
     }
 
-    const activity = Activities.create({
+    const activity = await Activities.create({
       title,
       description,
       time,

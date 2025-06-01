@@ -12,12 +12,13 @@
 }
 
 .input-container {
-  max-width: 30%;
+  max-width: 20em;
   margin-bottom: 1em;
 }
 
 .table-wrapper {
-  overflow-x: auto;
+  overflow-x: scroll;
+  width: 90vw;
   border-radius: var(--border-radius-small);
   border: 1px solid var(--color-border);
   border-bottom: none;
@@ -135,4 +136,11 @@
 
 .menu-item-link.destructive {
   color: var(--color-destructive);
+}
+
+@media (min-width: 640px) {
+  .table-wrapper {
+    overflow-x: hidden;
+    width: 100%;
+  }
 }

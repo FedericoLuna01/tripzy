@@ -6,6 +6,7 @@ import Logo from "../../components/ui/logo/logo";
 import Input from "../../components/ui/input/input";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/user-context/user-context";
+import Spinner from "../../components/ui/spinner/spinner";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -20,6 +21,8 @@ const Register = () => {
     validPassword: false,
     samePassword: false,
   });
+  const [isLoading, setIsLoading] = useState(false);
+
   const inputNameRef = useRef(null);
   const inputEmailRef = useRef(null);
   const inputPasswordRef = useRef(null);
@@ -115,6 +118,7 @@ const Register = () => {
 
     if (hasError) return;
 
+    setIsLoading(true);
     fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/register`, {
       method: "POST",
       headers: {
@@ -139,6 +143,9 @@ const Register = () => {
       .catch((error) => {
         toast.error("Algo salio mal");
         console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -160,6 +167,7 @@ const Register = () => {
               onChange={handleNameChange}
               value={name}
               className={`${errors.name || errors.validName ? "error" : ""}`}
+              disabled={isLoading}
             />
             <p className="input-description">
               Este nombre es publico en la pagina
@@ -179,6 +187,7 @@ const Register = () => {
               value={email}
               id={"email"}
               className={`${errors.validEmail ? "error" : ""}`}
+              disabled={isLoading}
             />
             <p className="input-description">
               Ingrese un email que no este en uso
@@ -197,6 +206,7 @@ const Register = () => {
               onChange={handlePasswordChange}
               value={password}
               className={`${errors.validPassword ? "error" : ""}`}
+              disabled={isLoading}
             />
             <div className="input-group">
               <p className="input-description">
@@ -221,6 +231,7 @@ const Register = () => {
               className={`${
                 errors.validPassword || errors.samePassword ? "error" : ""
               }`}
+              disabled={isLoading}
             />
             <p className="input-description">
               Ingrese nuevamente su contraseña
@@ -233,7 +244,12 @@ const Register = () => {
             )}
           </div>
 
-          <button type="submit" className="button button-primary">
+          <button
+            type="submit"
+            className="button button-primary"
+            disabled={isLoading}
+          >
+            {isLoading && <Spinner />}
             Registrarte
           </button>
           <p className="p-description">
