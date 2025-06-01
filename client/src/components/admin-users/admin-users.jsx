@@ -2,6 +2,7 @@ import { DotsThree, Lock, LockOpen, PencilSimple, Trash } from "phosphor-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router";
+import Skeleton from "../../components/ui/skeleton/skeleton";
 import Input from "../../components/ui/input/input";
 import Avatar from "../../components/avatar/avatar";
 import useModal from "../../hooks/useModal";
@@ -23,9 +24,11 @@ const AdminUsers = () => {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [search, setSearch] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const { handleClose, handleOpen, isOpen } = useModal();
 
   const getUsers = () => {
+    setIsLoading(true);
     fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/users`, {
       headers: {
         "Content-Type": "application/json",
@@ -40,7 +43,8 @@ const AdminUsers = () => {
       .catch((error) => {
         console.error("Error fetching users:", error);
         toast.error("Error al cargar los usuarios");
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {
@@ -172,7 +176,27 @@ const AdminUsers = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredUsers.length === 0 ? (
+              {isLoading ? (
+                Array.from({ length: 5 }).map((_, index) => (
+                  <tr key={index}>
+                    <td>
+                      <Skeleton width="150px" height="20px" />
+                    </td>
+                    <td>
+                      <Skeleton width="200px" height="20px" />
+                    </td>
+                    <td>
+                      <Skeleton width="100px" height="20px" />
+                    </td>
+                    <td>
+                      <Skeleton width="100px" height="20px" />
+                    </td>
+                    <td>
+                      <Skeleton width="50px" height="20px" />
+                    </td>
+                  </tr>
+                ))
+              ) : filteredUsers.length === 0 ? (
                 <tr>
                   <td colSpan="5" className="no-users">
                     No hay usuarios que mostrar

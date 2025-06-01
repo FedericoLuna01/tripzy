@@ -20,6 +20,10 @@ input[type="time"] {
   padding: 0.502rem;
 }
 
+input:disabled {
+  opacity: 0.5;
+}
+
 .error {
   border: 1px solid var(--color-destructive);
 }

@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import "./profile-edit.css";
 import Input from "../../components/ui/input/input";
 import { UserContext } from "../../contexts/user-context/user-context";
+import Spinner from "../../components/ui/spinner/spinner";
 
 const ProfileEdit = () => {
   const { user, handleUserLogin } = useContext(UserContext);
@@ -14,6 +15,7 @@ const ProfileEdit = () => {
     title: false,
     imageUrl: false,
   });
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const inputNameRef = useRef(null);
@@ -53,6 +55,7 @@ const ProfileEdit = () => {
       return;
     }
 
+    setIsLoading(true);
     const token = localStorage.getItem("token");
 
     fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/profile/${user?.id || ""}`, {
@@ -78,7 +81,8 @@ const ProfileEdit = () => {
         toast.success("Perfil actualizado correctamente");
         navigate("/profile");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -95,10 +99,11 @@ const ProfileEdit = () => {
             <Input
               ref={inputNameRef}
               onChange={handleNameChange}
-              value={name || ""} // Ensure controlled input
+              value={name || ""}
               id={"name"}
               className={`${errors.title ? "error" : ""}`}
               placeholder="John Doe"
+              disabled={isLoading}
             />
             <p className="input-description">
               Este es el nombre que se mostrará en tu perfil y en los
@@ -115,10 +120,11 @@ const ProfileEdit = () => {
             <Input
               ref={inputImageUrlRef}
               onChange={handleImageUrlChange}
-              value={imageUrl || ""} // Ensure controlled input
+              value={imageUrl || ""}
               id={"imageUrl"}
               className={`${errors.imageUrl ? "error" : ""}`}
               placeholder="https://i.pravatar.cc/150?img=3"
+              disabled={isLoading}
             />
             <p className="input-description">
               Url de la imagen que se usara como tu foto de perfil.
@@ -138,12 +144,16 @@ const ProfileEdit = () => {
           </div>
           <div className="edit-profile-buttons-container">
             <Link className="link-button " to={"/profile"}>
-              <button className="button button-secondary">
+              <button className="button button-secondary" disabled={isLoading}>
                 <ArrowLeft size={20} />
                 Cancelar
               </button>
             </Link>
-            <button className="button button-primary profile-edit-button">
+            <button
+              className="button button-primary profile-edit-button"
+              disabled={isLoading}
+            >
+              {isLoading && <Spinner />}
               Guardar cambios <PencilSimple size={20} />
             </button>
           </div>

@@ -13,6 +13,12 @@
   margin: 3em auto;
 }
 
+.image-slide-in {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .home-container {
   background-color: var(--color-background);
 }
@@ -230,6 +236,7 @@
 }
 
 .divider-content {
+  /* TODO: Cambiar path */
   background-image: url("./trip.jpeg");
   background-size: cover;
   background-position: center;
@@ -263,30 +270,6 @@
 }
 
 @media (min-width: 640px) {
-  .hero-container h1 {
-    font-size: 5.4em;
-  }
-
-  .hero-container {
-    grid-template-columns: 3fr 2fr;
-    margin: 0 auto;
-  }
-
-  .left-body-container {
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    text-align: left;
-  }
-
-  .hero-img {
-    position: absolute;
-    top: 170px;
-    right: 30px;
-    z-index: 2;
-    max-width: 700px;
-  }
-
   .grid-container {
     display: flex;
     align-items: center;
@@ -314,5 +297,35 @@
 
   .comments {
     margin: 10em auto;
+  }
+}
+
+@media (min-width: 1366px) {
+  .hero-container h1 {
+    font-size: 5.4em;
+  }
+
+  .hero-container {
+    grid-template-columns: 3fr 2fr;
+    margin: 0 auto;
+  }
+
+  .left-body-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .image-slide-in {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-img {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
   }
 }

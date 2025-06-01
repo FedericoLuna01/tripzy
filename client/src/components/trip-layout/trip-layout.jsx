@@ -33,6 +33,7 @@ const TripLayout = () => {
   const [trip, setTrip] = useState(null);
   const [canEdit, setCanEdit] = useState(false);
   const [selectedTab, setSelectedTab] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
   const { user } = useContext(UserContext);
   const params = useParams();
   const navigate = useNavigate();
@@ -59,6 +60,7 @@ const TripLayout = () => {
   }, [trip, navigate, user.id, user.role]);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/trips/${params.id}`, {
       method: "GET",
       headers: {
@@ -83,6 +85,9 @@ const TripLayout = () => {
       })
       .catch((error) => {
         console.error("Error:", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, [params.id, user?.id]);
 
@@ -128,6 +133,17 @@ const TripLayout = () => {
         toast.error("Error al abandonar el viaje");
       });
   };
+
+  if (!trip && isLoading) {
+    return (
+      <div className="trip-layout">
+        <div className="container center-container">
+          <AirplaneLanding size={84} className="plane-center-img" />
+          <h1 className="mid-text">Cargando viaje...</h1>
+        </div>
+      </div>
+    );
+  }
 
   if (!trip) {
     return (

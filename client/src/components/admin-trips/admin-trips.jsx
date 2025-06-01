@@ -15,6 +15,7 @@ import { formatFullDate } from "../../utils/utils";
 import useModal from "../../hooks/useModal";
 import Avatar from "../avatar/avatar";
 import Input from "../ui/input/input";
+import Skeleton from "../ui/skeleton/skeleton";
 import "./admin-trips.css";
 
 const AdminTrips = () => {
@@ -22,9 +23,11 @@ const AdminTrips = () => {
   const [trips, setTrips] = useState([]);
   const [filteredTrips, setFilteredTrips] = useState([]);
   const [search, setSearch] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const { handleClose, handleOpen, isOpen } = useModal();
 
   const getTrips = () => {
+    setIsLoading(true);
     fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/trips`, {
       headers: {
         "Content-Type": "application/json",
@@ -39,7 +42,8 @@ const AdminTrips = () => {
       .catch((error) => {
         console.error("Error fetching trips:", error);
         toast.error("Error al cargar los viajes");
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {
@@ -171,7 +175,33 @@ const AdminTrips = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredTrips.length === 0 ? (
+              {isLoading ? (
+                Array.from({ length: 5 }).map((_, index) => (
+                  <tr key={index}>
+                    <td>
+                      <Skeleton width="150px" height="20px" />
+                    </td>
+                    <td>
+                      <Skeleton width="200px" height="20px" />
+                    </td>
+                    <td>
+                      <Skeleton width="250px" height="20px" />
+                    </td>
+                    <td>
+                      <Skeleton width="150px" height="20px" />
+                    </td>
+                    <td>
+                      <Skeleton width="150px" height="20px" />
+                    </td>
+                    <td>
+                      <Skeleton width="100px" height="20px" />
+                    </td>
+                    <td>
+                      <Skeleton width="50px" height="20px" />
+                    </td>
+                  </tr>
+                ))
+              ) : filteredTrips.length === 0 ? (
                 <tr>
                   <td colSpan="7" className="no-trips">
                     No hay viajes que mostrar

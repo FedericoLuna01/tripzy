@@ -16,12 +16,14 @@ import {
   ModalDescription,
   ModalTitle,
 } from "../../components/modal/modal";
+import Skeleton from "../../components/ui/skeleton/skeleton";
 
 const AdminMessages = () => {
   const [messages, setMessages] = useState([]);
   const [filteredMessages, setFilteredMessages] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedMessage, setSelectedMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const { handleOpen, handleClose, isOpen } = useModal();
 
   const handleSearch = (e) => {
@@ -56,6 +58,7 @@ const AdminMessages = () => {
   };
 
   const getMessages = () => {
+    setIsLoading(true);
     fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/messages`, {
       method: "GET",
       headers: {
@@ -71,7 +74,8 @@ const AdminMessages = () => {
       .catch((error) => {
         console.error("Error fetching messages:", error);
         toast.error("Error al cargar los mensajes");
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {
@@ -117,10 +121,30 @@ const AdminMessages = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredMessages.length === 0 ? (
+            {isLoading ? (
+              Array.from({ length: 5 }).map((_, index) => (
+                <tr key={index}>
+                  <td>
+                    <Skeleton width="150px" height="20px" />
+                  </td>
+                  <td>
+                    <Skeleton width="200px" height="20px" />
+                  </td>
+                  <td>
+                    <Skeleton width="250px" height="20px" />
+                  </td>
+                  <td>
+                    <Skeleton width="150px" height="20px" />
+                  </td>
+                  <td>
+                    <Skeleton width="50px" height="20px" />
+                  </td>
+                </tr>
+              ))
+            ) : filteredMessages.length === 0 ? (
               <tr>
                 <td colSpan="6" className="no-trips">
-                  No hay viajes que mostrar
+                  No hay mensajes que mostrar
                 </td>
               </tr>
             ) : (

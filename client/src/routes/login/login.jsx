@@ -5,13 +5,17 @@ import Input from "../../components/ui/input/input";
 import { Link, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import { UserContext } from "../../contexts/user-context/user-context";
+import Spinner from "../../components/ui/spinner/spinner";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: false, password: false });
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { handleUserLogin } = useContext(UserContext);
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -21,11 +25,11 @@ const Login = () => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     setErrors({ email: false, password: false });
     let hasError = false;
-    if (!email) {
+    if (!email || !emailRegex.test(email)) {
       setErrors((prev) => ({
         ...prev,
         email: true,
@@ -43,7 +47,8 @@ const Login = () => {
       return;
     }
 
-    await fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/login`, {
+    setIsLoading(true);
+    fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -66,6 +71,9 @@ const Login = () => {
       .catch((error) => {
         console.log(error);
         toast.error("Error al iniciar sesión");
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -86,12 +94,15 @@ const Login = () => {
               id={"email"}
               onChange={handleEmailChange}
               className={`${errors.email ? "error" : ""}`}
+              disabled={isLoading}
             />
             <p className="input-description">
               Ingrese un email que este en uso
             </p>
             {errors.email && (
-              <p className="error-message">Por favor, ingrese un email</p>
+              <p className="error-message">
+                Por favor, ingrese un email válido
+              </p>
             )}
           </div>
           <div className="input-group">
@@ -103,6 +114,7 @@ const Login = () => {
               id={"password"}
               onChange={handlePasswordChange}
               className={`${errors.password ? "error" : ""}`}
+              disabled={isLoading}
             />
             <div className="input-group-password">
               <p className="input-description">
@@ -117,7 +129,12 @@ const Login = () => {
             )}
           </div>
 
-          <button type="submit" className="button button-primary">
+          <button
+            type="submit"
+            className="button button-primary"
+            disabled={isLoading}
+          >
+            {isLoading && <Spinner />}
             Iniciar sesión
           </button>
           <p className="p-description">

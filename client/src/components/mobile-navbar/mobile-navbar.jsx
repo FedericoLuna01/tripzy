@@ -85,18 +85,24 @@ const MobileNavbar = () => {
                     {user ? (
                       <>
                         <li>
-                          <NavLink className="navbar-menu-link" to="/new-trip">
+                          <NavLink
+                            className="navbar-menu-link"
+                            to="/new-trip"
+                            onClick={() => setIsOpen(false)}
+                          >
                             Nuevo viaje
                           </NavLink>
                         </li>
                         {user && user.role !== "user" && (
-                          <NavLink
-                            to="/admin"
-                            className="navbar-menu-link"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            Admin
-                          </NavLink>
+                          <li>
+                            <NavLink
+                              to="/admin"
+                              className="navbar-menu-link"
+                              onClick={() => setIsOpen(false)}
+                            >
+                              Admin
+                            </NavLink>
+                          </li>
                         )}
                         <li>
                           <NavLink
