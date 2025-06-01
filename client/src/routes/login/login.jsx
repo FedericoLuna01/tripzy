@@ -82,7 +82,7 @@ const Login = () => {
       <div className="container-form">
         <Logo />
         <h1 className="login-title">Bienvenido de Nuevo</h1>
-        <p>Planea tus viajes de manera fácil y rápida</p>
+        <p>Planeá tus viajes de manera fácil y rápida</p>
         <form onSubmit={handleSubmit} action="">
           <div className="input-group">
             <label className="input-group-label" htmlFor="email">
@@ -121,7 +121,7 @@ const Login = () => {
                 Debe contener al menos 8 caracteres
               </p>
               <a className="a-a" href="">
-                Olvide mi contraseña
+                Olvidé mi contraseña
               </a>
             </div>
             {errors.password && (
