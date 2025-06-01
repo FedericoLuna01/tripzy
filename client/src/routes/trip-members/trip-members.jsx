@@ -153,12 +153,10 @@ const TripMembers = ({ trip, canEdit, setTrip }) => {
         if (data.existingOwner) {
           setUsers((prev) =>
             prev.map((user) => {
-              console.log(user);
               if (user.id === data.existingOwner.id) {
                 return { ...user, role: data.existingOwner.role };
               }
               if (user.id === data.userTrip.id) {
-                console.log("hola");
                 return { ...user, role: data.userTrip.role };
               }
               return user;

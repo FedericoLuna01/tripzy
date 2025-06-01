@@ -236,8 +236,7 @@
 }
 
 .divider-content {
-  /* TODO: Cambiar path */
-  background-image: url("./trip.jpeg");
+  background-image: url("../../../public/trip.jpeg");
   background-size: cover;
   background-position: center;
   display: flex;
