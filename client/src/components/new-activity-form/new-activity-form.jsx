@@ -128,7 +128,6 @@ const NewActivityForm = ({
           if (data.message) {
             return toast.error(data.message);
           }
-          console.log(data);
           setActivities((prevActivities) =>
             prevActivities.map((activity) =>
               activity.id === editingActivity.id
@@ -165,7 +164,6 @@ const NewActivityForm = ({
         if (data.message) {
           return toast.error(data.message);
         }
-        console.log(data);
         setActivities((prevActivities) => [
           ...prevActivities,
           {

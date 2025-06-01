@@ -44,7 +44,6 @@ const Profile = () => {
             return;
           }
           setTrips(data);
-          console.log(data);
         })
         .catch((error) => {
           console.error("Error fetching trips:", error);

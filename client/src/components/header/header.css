@@ -36,7 +36,6 @@ header {
   align-items: center;
 }
 
-/* TODO: Agregar menu despegable */
 @media (min-width: 640px) {
   .header-links {
     display: flex;
