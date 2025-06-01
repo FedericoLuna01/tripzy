@@ -153,8 +153,8 @@ const Register = () => {
     <div className="container-register">
       <div className="container-form">
         <Logo />
-        <h1 className="register-title">Crea tu cuenta</h1>
-        <p>Planea tus viajes de manera fácil y rápida</p>
+        <h1 className="register-title">Creá tu cuenta</h1>
+        <p>Planeá tus viajes de manera fácil y rápida</p>
         <form action="" onSubmit={handleSubmit}>
           <div className="input-group ">
             <label className="input-group-label" htmlFor="name">
@@ -170,7 +170,7 @@ const Register = () => {
               disabled={isLoading}
             />
             <p className="input-description">
-              Este nombre es publico en la pagina
+              Este nombre es público en la púgina
             </p>
             {errors.validName && (
               <p className="error-message">
