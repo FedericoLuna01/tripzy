@@ -1,12 +1,11 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
-import "./register.css";
-import Logo from "../../components/ui/logo/logo";
+import styles from "./register.module.css";
 import Input from "../../components/ui/input/input";
-import { useContext } from "react";
 import { UserContext } from "../../contexts/user-context/user-context";
 import Spinner from "../../components/ui/spinner/spinner";
+import AuthLayout from "../../components/auth-layout/auth-layout";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -150,118 +149,114 @@ const Register = () => {
   };
 
   return (
-    <div className="container-register">
-      <div className="container-form">
-        <Logo />
-        <h1 className="register-title">Creá tu cuenta</h1>
-        <p>Planeá tus viajes de manera fácil y rápida</p>
-        <form action="" onSubmit={handleSubmit}>
-          <div className="input-group ">
-            <label className="input-group-label" htmlFor="name">
-              Nombre
-            </label>
-            <Input
-              ref={inputNameRef}
-              placeholder={"ej: John Doe"}
-              id={"name"}
-              onChange={handleNameChange}
-              value={name}
-              className={`${errors.name || errors.validName ? "error" : ""}`}
-              disabled={isLoading}
-            />
-            <p className="input-description">
-              Este nombre es público en la púgina
-            </p>
-            {errors.validName && (
-              <p className="error-message">
-                El nombre debe tener al menos 4 caracteres
-              </p>
-            )}
-          </div>
-          <div className="input-group">
-            <label htmlFor="email">Email</label>
-            <Input
-              ref={inputEmailRef}
-              placeholder={"ej: alvaroreynoso@gmail.com"}
-              onChange={handleEmailChange}
-              value={email}
-              id={"email"}
-              className={`${errors.validEmail ? "error" : ""}`}
-              disabled={isLoading}
-            />
-            <p className="input-description">
-              Ingrese un email que no este en uso
-            </p>
-            {errors.validEmail && (
-              <p className="error-message">Ingrese un email valido</p>
-            )}
-          </div>
-          <div className="input-group">
-            <label htmlFor="password">Contraseña</label>
-            <Input
-              ref={inputPasswordRef}
-              placeholder={"*************"}
-              type={"password"}
-              id={"password"}
-              onChange={handlePasswordChange}
-              value={password}
-              className={`${errors.validPassword ? "error" : ""}`}
-              disabled={isLoading}
-            />
-            <div className="input-group">
-              <p className="input-description">
-                Debe contener al menos 8 caracteres
-              </p>
-              {errors.validPassword && (
-                <p className="error-message">
-                  La contraseña debe tener al menos 8 caracteres
-                </p>
-              )}
-            </div>
-          </div>
-          <div className="input-group">
-            <label htmlFor="repeatPassword">Repetir contraseña</label>
-            <Input
-              ref={inputPasswordRepeatRef}
-              placeholder={"*************"}
-              type={"password"}
-              onChange={handlePasswordRepeatChange}
-              value={passwordRepeat}
-              id={"repeatPassword"}
-              className={`${
-                errors.validPassword || errors.samePassword ? "error" : ""
-              }`}
-              disabled={isLoading}
-            />
-            <p className="input-description">
-              Ingrese nuevamente su contraseña
-            </p>
-            {errors.passwordRepeat && (
-              <p className="error-message">Repita su contraseña</p>
-            )}
-            {errors.samePassword && (
-              <p className="error-message">Las contraseñas deben coincidir</p>
-            )}
-          </div>
-
-          <button
-            type="submit"
-            className="button button-primary"
+    <AuthLayout
+      title="Creá tu cuenta"
+      subtitle="Planeá tus viajes de manera fácil y rápida"
+      imageSrc="/img-register.png"
+    >
+      <form action="" onSubmit={handleSubmit}>
+        <div className="input-group">
+          <label className="input-group-label" htmlFor="name">
+            Nombre
+          </label>
+          <Input
+            ref={inputNameRef}
+            placeholder={"ej: John Doe"}
+            id={"name"}
+            onChange={handleNameChange}
+            value={name}
+            className={`${errors.name || errors.validName ? "error" : ""}`}
             disabled={isLoading}
-          >
-            {isLoading && <Spinner />}
-            Registrarte
-          </button>
-          <p className="p-description">
-            ¿Ya tenés una cuenta?{" "}
-            <Link className="a-a" to="/login">
-              Iniciar sesión
-            </Link>
+          />
+          <p className="input-description">
+            Este nombre es público en la página
           </p>
-        </form>
-      </div>
-      <img className="img-register" src="./img-register.png" alt="" />
-    </div>
+          {errors.validName && (
+            <p className="error-message">
+              El nombre debe tener al menos 4 caracteres
+            </p>
+          )}
+        </div>
+        <div className={"input-group"}>
+          <label htmlFor="email">Email</label>
+          <Input
+            ref={inputEmailRef}
+            placeholder={"ej: alvaroreynoso@gmail.com"}
+            onChange={handleEmailChange}
+            value={email}
+            id={"email"}
+            className={`${errors.validEmail ? "error" : ""}`}
+            disabled={isLoading}
+          />
+          <p className="input-description">
+            Ingrese un email que no este en uso
+          </p>
+          {errors.validEmail && (
+            <p className="error-message">Ingrese un email valido</p>
+          )}
+        </div>
+        <div className="input-group">
+          <label htmlFor="password">Contraseña</label>
+          <Input
+            ref={inputPasswordRef}
+            placeholder={"*************"}
+            type={"password"}
+            id={"password"}
+            onChange={handlePasswordChange}
+            value={password}
+            className={`${errors.validPassword ? "error" : ""}`}
+            disabled={isLoading}
+          />
+          <div className="input-group">
+            <p className="input-description">
+              Debe contener al menos 8 caracteres
+            </p>
+            {errors.validPassword && (
+              <p className="error-message">
+                La contraseña debe tener al menos 8 caracteres
+              </p>
+            )}
+          </div>
+        </div>
+        <div className="input-group">
+          <label htmlFor="repeatPassword">Repetir contraseña</label>
+          <Input
+            ref={inputPasswordRepeatRef}
+            placeholder={"*************"}
+            type={"password"}
+            onChange={handlePasswordRepeatChange}
+            value={passwordRepeat}
+            id={"repeatPassword"}
+            className={`${
+              errors.validPassword || errors.samePassword ? "error" : ""
+            }`}
+            disabled={isLoading}
+          />
+          <p className="input-description">Ingrese nuevamente su contraseña</p>
+          {errors.passwordRepeat && (
+            <p className="error-message">Repita su contraseña</p>
+          )}
+          {errors.samePassword && (
+            <p className="error-message">Las contraseñas deben coincidir</p>
+          )}
+        </div>
+
+        <button
+          type="submit"
+          className="button button-primary"
+          disabled={isLoading}
+        >
+          {isLoading && <Spinner />}
+          Registrarte
+        </button>
+        <p className={styles["p-description"]}>
+          ¿Ya tenés una cuenta?{" "}
+          <Link className={styles["a-a"]} to="/login">
+            Iniciar sesión
+          </Link>
+        </p>
+      </form>
+    </AuthLayout>
   );
 };
 

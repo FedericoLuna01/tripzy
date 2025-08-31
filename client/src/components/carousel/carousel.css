@@ -82,6 +82,26 @@
   transform: scale(1.1);
 }
 
+.carousel-card {
+  background-color: var(--color-card);
+  border-radius: var(--border-radius-medium);
+  padding: 1.5rem;
+  width: 25em;
+  min-height: 15em;
+}
+
+.profession {
+  font-size: 0.8rem;
+}
+
+.grid-title {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  margin-top: 1.2rem;
+  color: var(--color-text);
+}
+
 @media (min-width: 640px) {
   .embla {
     max-width: 80rem;

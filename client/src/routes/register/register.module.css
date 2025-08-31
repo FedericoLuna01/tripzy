@@ -1,0 +1,15 @@
+.p-description {
+  margin: 0 auto;
+  color: var(--color-text);
+}
+
+.a-a {
+  color: var(--color-primary);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
