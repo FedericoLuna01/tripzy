@@ -1,8 +1,8 @@
+import "dotenv/config";
 import { Sequelize } from "sequelize";
 
-export const sequelize = new Sequelize({
-  dialect: "sqlite",
-  storage: "./tripzy.db",
-});
+const { DATABASE_URL } = process.env;
 
-sequelize.query("PRAGMA foreign_keys = ON;");
+export const sequelize = new Sequelize(DATABASE_URL, {
+  dialect: "postgres",
+});

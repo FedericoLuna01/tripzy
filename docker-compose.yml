@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16
+    container_name: tripzy-postgres
+    environment:
+      POSTGRES_USER: tripzy
+      POSTGRES_PASSWORD: tripzy
+      POSTGRES_DB: tripzy
+    ports:
+      - '5432:5432'
+    volumes:
+      - tripzy_data:/var/lib/postgresql/data
+
+volumes:
+  tripzy_data:

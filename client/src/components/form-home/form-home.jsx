@@ -1,7 +1,8 @@
 import React, { createRef, useState } from "react";
 import Input from "../ui/input/input";
-import "./form-home.css";
+import styles from "./form-home.module.css";
 import toast from "react-hot-toast";
+
 const FormHome = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -111,9 +112,13 @@ const FormHome = () => {
   };
 
   return (
-    <div className="home-form-container">
-      <form action="" className="card form-container" onSubmit={handleSubmit}>
-        <div className="form-first-section">
+    <div className={styles["home-form-container"]}>
+      <form
+        action=""
+        className={`card ${styles["form-container"]}`}
+        onSubmit={handleSubmit}
+      >
+        <div className={styles["form-first-section"]}>
           <div className="input-group full">
             <label className="input-group-label" htmlFor="name">
               Nombre

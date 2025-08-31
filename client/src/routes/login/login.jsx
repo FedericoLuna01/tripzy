@@ -1,11 +1,11 @@
-import "./login.css";
+import styles from "./login.module.css";
 import React, { useContext, useState } from "react";
-import Logo from "../../components/ui/logo/logo";
 import Input from "../../components/ui/input/input";
 import { Link, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import { UserContext } from "../../contexts/user-context/user-context";
 import Spinner from "../../components/ui/spinner/spinner";
+import AuthLayout from "../../components/auth-layout/auth-layout";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -78,75 +78,69 @@ const Login = () => {
   };
 
   return (
-    <div className="container-login">
-      <div className="container-form">
-        <Logo />
-        <h1 className="login-title">Bienvenido de Nuevo</h1>
-        <p>Planeá tus viajes de manera fácil y rápida</p>
-        <form onSubmit={handleSubmit} action="">
-          <div className="input-group">
-            <label className="input-group-label" htmlFor="email">
-              Email
-            </label>
-            <Input
-              value={email}
-              placeholder={"ej: alvaroreynoso@gmail.com"}
-              id={"email"}
-              onChange={handleEmailChange}
-              className={`${errors.email ? "error" : ""}`}
-              disabled={isLoading}
-            />
-            <p className="input-description">
-              Ingrese un email que este en uso
-            </p>
-            {errors.email && (
-              <p className="error-message">
-                Por favor, ingrese un email válido
-              </p>
-            )}
-          </div>
-          <div className="input-group">
-            <label htmlFor="password">Contraseña</label>
-            <Input
-              value={password}
-              placeholder={"*************"}
-              type="password"
-              id={"password"}
-              onChange={handlePasswordChange}
-              className={`${errors.password ? "error" : ""}`}
-              disabled={isLoading}
-            />
-            <div className="input-group-password">
-              <p className="input-description">
-                Debe contener al menos 8 caracteres
-              </p>
-              <a className="a-a" href="">
-                Olvidé mi contraseña
-              </a>
-            </div>
-            {errors.password && (
-              <p className="error-message">Por favor, ingrese una contraseña</p>
-            )}
-          </div>
-
-          <button
-            type="submit"
-            className="button button-primary"
+    <AuthLayout
+      title="Bienvenido de Nuevo"
+      subtitle="Planeá tus viajes de manera fácil y rápida"
+      imageSrc="/img-login.png"
+    >
+      <form onSubmit={handleSubmit} action="">
+        <div className="input-group">
+          <label className="input-group-label" htmlFor="email">
+            Email
+          </label>
+          <Input
+            value={email}
+            placeholder={"ej: alvaroreynoso@gmail.com"}
+            id={"email"}
+            onChange={handleEmailChange}
+            className={`${errors.email ? "error" : ""}`}
             disabled={isLoading}
-          >
-            {isLoading && <Spinner />}
-            Iniciar sesión
-          </button>
-          <p className="p-description">
-            No tenés una cuenta?{" "}
-            <Link className="a-a" to="/register">
-              Registrarse
-            </Link>
-          </p>
-        </form>
-      </div>
-      <img className="img-login" src="/img-login.png" alt="" />
-    </div>
+          />
+          <p className="input-description">Ingrese un email que este en uso</p>
+          {errors.email && (
+            <p className="error-message">Por favor, ingrese un email válido</p>
+          )}
+        </div>
+        <div className="input-group">
+          <label htmlFor="password">Contraseña</label>
+          <Input
+            value={password}
+            placeholder={"*************"}
+            type="password"
+            id={"password"}
+            onChange={handlePasswordChange}
+            className={`${errors.password ? "error" : ""}`}
+            disabled={isLoading}
+          />
+          <div className={styles["input-group-password"]}>
+            <p className="input-description">
+              Debe contener al menos 8 caracteres
+            </p>
+            <a className={styles["a-a"]} href="">
+              Olvidé mi contraseña
+            </a>
+          </div>
+          {errors.password && (
+            <p className="error-message">Por favor, ingrese una contraseña</p>
+          )}
+        </div>
+
+        <button
+          type="submit"
+          className="button button-primary"
+          disabled={isLoading}
+        >
+          {isLoading && <Spinner />}
+          Iniciar sesión
+        </button>
+        <p className={styles["p-description"]}>
+          No tenés una cuenta?{" "}
+          <Link className={styles["a-a"]} to="/register">
+            Registrarse
+          </Link>
+        </p>
+      </form>
+    </AuthLayout>
   );
 };
 

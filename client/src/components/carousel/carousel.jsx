@@ -87,7 +87,7 @@ const Carousel = () => {
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           {SLIDES.map((slide, index) => (
-            <div className="grid-card2 embla__slide shadow" key={index}>
+            <div className="carousel-card embla__slide shadow" key={index}>
               <ChatTeardropDots size={32} color="orange" />
               <p>{slide.description}</p>
               <p className="grid-title">{slide.name}</p>

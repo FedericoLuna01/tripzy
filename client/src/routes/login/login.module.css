@@ -1,0 +1,32 @@
+.input-group-password {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+
+.p-description {
+  margin: 0 auto;
+  color: var(--color-text);
+}
+
+.a-a {
+  color: var(--color-primary);
+}
+
+@media (min-width: 640px) {
+  .input-group-password {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+  }
+}
