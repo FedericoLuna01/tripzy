@@ -4,6 +4,7 @@ import { Users } from "./Users.js";
 import { TripDays } from "./TripDays.js";
 import { Activities } from "./Activities.js";
 import { Messages } from "./Messages.js";
+import { Reaction } from "./Reaction.js";
 
 // Relación User -> UserTrip
 Users.hasMany(UserTrip, {
@@ -54,6 +55,30 @@ TripDays.hasMany(Activities, {
 Activities.belongsTo(TripDays, {
   foreignKey: "tripDaysId",
   as: "tripDays",
+  onDelete: "CASCADE",
+});
+
+Activities.hasMany(Reaction, {
+  foreignKey: "activityId",
+  as: "reactions",
+  onDelete: "CASCADE",
+});
+
+Reaction.belongsTo(Activities, {
+  foreignKey: "activityId",
+  as: "activity",
+  onDelete: "CASCADE",
+});
+
+Users.hasMany(Reaction, {
+  foreignKey: "userId",
+  as: "userReactions",
+  onDelete: "CASCADE",
+});
+
+Reaction.belongsTo(Users, {
+  foreignKey: "userId",
+  as: "user",
   onDelete: "CASCADE",
 });
 

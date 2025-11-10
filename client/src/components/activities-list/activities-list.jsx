@@ -8,16 +8,22 @@ import useModal from "../../hooks/useModal";
 import { Modal, ModalDescription, ModalTitle } from "../modal/modal";
 import "./activities-list.css";
 
+const EMOJIS = ["👍", "❤️", "😂", "😮", "🔥", "👏"];
+
 const ActivitiesList = ({
   activeDay,
   days,
-  activities = [],
+  activities,
   setActivities,
   canEdit,
 }) => {
+  const safeActivities = Array.isArray(activities) ? activities : [];
+
   const [editingActivity, setEditingActivity] = useState(null);
   const [deleteSelectActivity, setDeleteSelectActivity] = useState(null);
   const { handleOpen, handleClose, isOpen } = useModal();
+  const [reactions, setReactions] = useState({});
+  const [emojiPickerActivity, setEmojiPickerActivity] = useState(null);
 
   const handleDeleteActivity = (deleteActivity) => {
     fetch(
@@ -32,19 +38,37 @@ const ActivitiesList = ({
     )
       .then((res) => res.json())
       .then((data) => {
-        if (data.message) {
-          return toast.error(data.message);
-        }
-        setActivities((prevActivities) =>
-          prevActivities.filter((activity) => activity.id !== deleteActivity.id)
+        if (data.message) return toast.error(data.message);
+
+        setActivities((prev) =>
+          prev.filter((activity) => activity.id !== deleteActivity.id)
         );
         toast.success("Actividad eliminada correctamente");
       })
-      .catch((error) => {
-        console.log(error);
-        toast.error("Error al eliminar la actividad");
-      });
+      .catch(() => toast.error("Error al eliminar la actividad"));
+
     handleClose();
+  };
+
+  const handleAddReaction = (activityId, emoji) => {
+    setReactions((prev) => {
+      const current = prev[activityId] || {};
+      const count = current[emoji] || 0;
+
+      return {
+        ...prev,
+        [activityId]: { ...current, [emoji]: count + 1 },
+      };
+    });
+
+    fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/reactions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({ activityId, emoji }),
+    }).catch(() => {});
   };
 
   return (
@@ -64,32 +88,82 @@ const ActivitiesList = ({
           puede deshacer.
         </ModalDescription>
       </Modal>
+
       <h2>Actividades</h2>
+
       {activeDay && (
         <p className="day">
-          Dia {days.findIndex((day) => isEqual(day.date, activeDay.date)) + 1}
-          {": "}
+          Día {days.findIndex((day) => isEqual(day.date, activeDay.date)) + 1}:{" "}
           {formatDay(activeDay.date)}
         </p>
       )}
+
       <div className="activity-container">
-        {(activities || []).length === 0 ? (
+        {safeActivities.length === 0 ? (
           <div className="empty-activities">
             <Backpack className="icon-svg" size={48} />
             <p>No hay actividades para este día</p>
           </div>
         ) : (
-          activities
+          safeActivities
             .sort((a, b) => a.time.localeCompare(b.time))
-            .map((activity, index) => (
-              <div key={index} className="activity-card card no-shadow">
+            .map((activity) => (
+              <div key={activity.id} className="activity-card card no-shadow">
                 <span>{activity.time}</span>
-                <div>
-                  <h3>{activity.title}</h3>
+
+                <div className="activity-main">
+                  <div className="title-row">
+                    <h3>{activity.title}</h3>
+
+                    <button
+                      className="emoji-circle-btn"
+                      onClick={() =>
+                        setEmojiPickerActivity(
+                          emojiPickerActivity === activity.id
+                            ? null
+                            : activity.id
+                        )
+                      }
+                    >
+                      😄
+                    </button>
+
+                    {emojiPickerActivity === activity.id && (
+                      <div className="emoji-picker-popup">
+                        {EMOJIS.map((emoji) => (
+                          <button
+                            key={emoji}
+                            onClick={() =>
+                              handleAddReaction(activity.id, emoji)
+                            }
+                            className="emoji-select-btn"
+                          >
+                            {emoji}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
                   <p className="activity-card-description">
                     {activity.description}
                   </p>
+
+                  <div className="reactions-display">
+                    {Object.entries(reactions[activity.id] || {}).map(
+                      ([emoji, count]) => (
+                        <button
+                          key={emoji}
+                          className="reaction-count"
+                          onClick={() => handleAddReaction(activity.id, emoji)}
+                        >
+                          {emoji} {count}
+                        </button>
+                      )
+                    )}
+                  </div>
                 </div>
+
                 {canEdit && (
                   <div className="activity-card-buttons">
                     <button
