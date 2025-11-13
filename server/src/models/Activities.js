@@ -20,6 +20,15 @@ export const Activities = sequelize.define(
       type: DataTypes.TIME,
       allowNull: false,
     },
+    address: {
+      type: DataTypes.STRING,
+    },
+    latitude: {
+      type: DataTypes.DECIMAL(10, 8),
+    },
+    longitude: {
+      type: DataTypes.DECIMAL(11, 8),
+    },
     tripDaysId: {
       type: DataTypes.INTEGER,
       allowNull: false,

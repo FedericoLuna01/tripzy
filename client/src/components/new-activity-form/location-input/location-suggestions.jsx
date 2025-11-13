@@ -1,3 +1,4 @@
+
 import {
   Combobox,
   ComboboxInput,
@@ -10,33 +11,35 @@ export default function LocationSuggestions({
   suggestions,
   value,
   onChange,
-  setValue,
+  onSuggestionClick,
 }) {
   return (
     <div className={styles.suggestionsContainer}>
-      <Combobox
-        value={value}
-        as="div"
-        onChange={(value) => setValue(value.description)}
-      >
+      <Combobox as="div" onChange={onSuggestionClick}>
         <ComboboxInput
           className={"input"}
           placeholder="Escribe una ubicación..."
           value={value}
           onChange={onChange}
+          autoComplete="off"
         />
-        <ComboboxOptions className={styles.options} transition>
-          {suggestions.map((option) => (
-            <ComboboxOption key={option.description} value={option}>
-              {({ selected }) => (
-                <div className={selected ? styles.optionActive : styles.option}>
-                  {option.description}
-                </div>
-              )}
-            </ComboboxOption>
-          ))}
-        </ComboboxOptions>
+        {suggestions.length > 0 && (
+          <ComboboxOptions className={styles.options} transition>
+            {suggestions.map((option) => (
+              <ComboboxOption key={option.place_id} value={option}>
+                {({ selected }) => (
+                  <div
+                    className={selected ? styles.optionActive : styles.option}
+                  >
+                    {option.description}
+                  </div>
+                )}
+              </ComboboxOption>
+            ))}
+          </ComboboxOptions>
+        )}
       </Combobox>
     </div>
   );
 }
+

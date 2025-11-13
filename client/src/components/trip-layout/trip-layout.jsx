@@ -254,8 +254,8 @@ const TripLayout = () => {
           <TabList className="tab-list-trip">
             <Tab>Trip</Tab>
             <Tab>Amigos</Tab>
-            <Tab>Chat</Tab>
             <Tab>Mapa</Tab>
+            <Tab>Chat</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -263,6 +263,12 @@ const TripLayout = () => {
             </TabPanel>
             <TabPanel>
               <TripMembers setTrip={setTrip} trip={trip} canEdit={canEdit} />
+            </TabPanel>
+            <TabPanel>
+              <TripMap trip={trip} />
+            </TabPanel>
+            <TabPanel>
+              <TripChat trip={trip} />
             </TabPanel>
           </TabPanels>
         </TabGroup>

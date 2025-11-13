@@ -9,7 +9,8 @@ export const getActivities = async (req, res) => {
 };
 
 export const createActivity = async (req, res) => {
-  const { title, description, time, tripDaysId } = req.body;
+  const { title, description, time, tripDaysId, address, latitude, longitude } =
+    req.body;
 
   if (!title || !description || !time || !tripDaysId) {
     return res.status(400).json({
@@ -42,6 +43,9 @@ export const createActivity = async (req, res) => {
       description,
       time,
       tripDaysId,
+      address,
+      latitude,
+      longitude,
     });
 
     return res.status(201).json(activity);
@@ -55,7 +59,7 @@ export const createActivity = async (req, res) => {
 
 export const updateActivity = async (req, res) => {
   const { id } = req.params;
-  const { title, description, time } = req.body;
+  const { title, description, time, address, latitude, longitude } = req.body;
 
   if (!title || !description || !time) {
     return res.status(400).json({
@@ -95,6 +99,9 @@ export const updateActivity = async (req, res) => {
       title,
       description,
       time,
+      address,
+      latitude,
+      longitude,
     });
 
     res.status(200).json(activityExist);

@@ -37,11 +37,21 @@ const NewActivityForm = ({
       setTime(editingActivity.time);
       setActivityTitle(editingActivity.title);
       setActivityDescription(editingActivity.description);
+      setActivityLocation({
+        address: editingActivity.address || "",
+        lat: editingActivity.latitude || null,
+        lng: editingActivity.longitude || null,
+      });
       return;
     }
     setTime("");
     setActivityTitle("");
     setActivityDescription("");
+    setActivityLocation({
+      address: "",
+      lat: null,
+      lng: null,
+    });
   }, [editingActivity]);
 
   const handleTimeChange = (event) => {
@@ -130,6 +140,9 @@ const NewActivityForm = ({
             title: activityTitle,
             description: activityDescription,
             time,
+            address: activityLocation.address,
+            latitude: activityLocation.lat,
+            longitude: activityLocation.lng,
           }),
         }
       )
@@ -146,6 +159,9 @@ const NewActivityForm = ({
                     title: activityTitle,
                     description: activityDescription,
                     id: data.id,
+                    address: activityLocation.address,
+                    latitude: activityLocation.lat,
+                    longitude: activityLocation.lng,
                   }
                 : activity
             )
@@ -163,42 +179,52 @@ const NewActivityForm = ({
       location: activityLocation,
     });
 
-    // fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/activities`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-type": "application/json",
-    //     Authorization: `Bearer ${localStorage.getItem("token")}`,
-    //   },
-    //   body: JSON.stringify({
-    //     title: activityTitle,
-    //     description: activityDescription,
-    //     time,
-    //     tripDaysId: activeDay.id,
-    //   }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     if (data.message) {
-    //       return toast.error(data.message);
-    //     }
-    //     setActivities((prevActivities) => [
-    //       ...prevActivities,
-    //       {
-    //         id: data.id,
-    //         time,
-    //         title: activityTitle,
-    //         description: activityDescription,
-    //         location: activityLocation,
-    //       },
-    //     ]);
-    //     toast.success("Actividad agregada con éxito");
-    //     setEditingActivity(null);
-    //   })
-    //   .catch((error) => console.log(error));
+    fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/activities`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({
+        title: activityTitle,
+        description: activityDescription,
+        time,
+        tripDaysId: activeDay.id,
+        address: activityLocation.address,
+        latitude: activityLocation.lat,
+        longitude: activityLocation.lng,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message) {
+          return toast.error(data.message);
+        }
+        setActivities((prevActivities) => [
+          ...prevActivities,
+          {
+            id: data.id,
+            time,
+            title: activityTitle,
+            description: activityDescription,
+            address: activityLocation.address,
+            latitude: activityLocation.lat,
+            longitude: activityLocation.lng,
+          },
+        ]);
+        toast.success("Actividad agregada con éxito");
+        setEditingActivity(null);
+      })
+      .catch((error) => console.log(error));
 
     setTime("");
     setActivityTitle("");
     setActivityDescription("");
+    setActivityLocation({
+      address: "",
+      lat: null,
+      lng: null,
+    });
   };
 
   return (
