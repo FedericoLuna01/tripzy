@@ -11,6 +11,7 @@
 .activity-card-description {
   color: var(--color-muted);
 }
+
 .activity-container {
   display: flex;
   flex-direction: column;
@@ -23,6 +24,7 @@
   flex-direction: row;
   align-items: start;
   gap: 1em;
+  position: relative;
 }
 
 .activity-card > span {
@@ -31,6 +33,21 @@
   font-weight: 700;
 }
 
+.empty-activities {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  padding: 2em;
+}
+
+.empty-activities > p {
+  font-weight: 600;
+  text-align: center;
+}
+
+/* --- Nueva actividad --- */
 .new-activity-card {
   display: flex;
   flex-direction: column;
@@ -60,22 +77,110 @@
   width: 100%;
 }
 
-.empty-activities {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1em;
-  padding: 2em;
-}
-
-.empty-activities > p {
-  font-weight: 600;
-  text-align: center;
-}
-
 .new-activity-button {
   width: 100%;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.title-row h3 {
+  margin: 0;
+}
+
+.emoji-picker-wrapper {
+  position: relative;
+}
+
+.emoji-circle-btn {
+  background: var(--color-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.emoji-circle-btn:hover {
+  transform: scale(1.1);
+}
+
+.emoji-picker-popup {
+  position: absolute;
+  top: 38px;
+  left: 0;
+  padding: 8px;
+  background: var(--color-card);
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+
+.emoji-select-btn {
+  font-size: 20px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.reactions-display {
+  margin-top: 6px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.reaction-count {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 14px;
+  position: relative;
+  color: var(--color-text);
+}
+
+.reaction-count:hover {
+  background: var(--color-secondary);
+}
+
+.reaction-count:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-card);
+  color: var(--color-text);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  margin-bottom: 5px;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.reaction-count:hover::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #1a1a1a;
+  z-index: 100;
+  pointer-events: none;
 }
 
 @media (min-width: 640px) {

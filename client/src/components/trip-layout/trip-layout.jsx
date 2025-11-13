@@ -25,6 +25,7 @@ import { formatDay } from "../../utils/utils";
 import "../../routes/new-trip/new-trip.css";
 import useModal from "../../hooks/useModal";
 import Trip from "../../routes/trip/trip";
+import TripChat from "../trip-chat/trip-chat";
 import "../../routes/trip/trip.css";
 import "./trip-layout.css";
 import { deleteTrip } from "../../api/trips";
@@ -253,6 +254,7 @@ const TripLayout = () => {
           <TabList className="tab-list-trip">
             <Tab>Trip</Tab>
             <Tab>Amigos</Tab>
+            <Tab>Chat</Tab>
             <Tab>Mapa</Tab>
           </TabList>
           <TabPanels>
@@ -261,9 +263,6 @@ const TripLayout = () => {
             </TabPanel>
             <TabPanel>
               <TripMembers setTrip={setTrip} trip={trip} canEdit={canEdit} />
-            </TabPanel>
-            <TabPanel>
-              <TripMap trip={trip} />
             </TabPanel>
           </TabPanels>
         </TabGroup>

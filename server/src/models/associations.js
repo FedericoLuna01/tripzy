@@ -4,6 +4,8 @@ import { Users } from "./Users.js";
 import { TripDays } from "./TripDays.js";
 import { Activities } from "./Activities.js";
 import { Messages } from "./Messages.js";
+import { TripChatMessages } from "./TripChatMessages.js";
+import { Reaction } from "./Reaction.js";
 
 // Relación User -> UserTrip
 Users.hasMany(UserTrip, {
@@ -57,5 +59,55 @@ Activities.belongsTo(TripDays, {
   onDelete: "CASCADE",
 });
 
+Activities.hasMany(Reaction, {
+  foreignKey: "activityId",
+  as: "reactions",
+  onDelete: "CASCADE",
+});
+
+Reaction.belongsTo(Activities, {
+  foreignKey: "activityId",
+  as: "activity",
+  onDelete: "CASCADE",
+});
+
+Users.hasMany(Reaction, {
+  foreignKey: "userId",
+  as: "userReactions",
+  onDelete: "CASCADE",
+});
+
+Reaction.belongsTo(Users, {
+  foreignKey: "userId",
+  as: "user",
+  onDelete: "CASCADE",
+});
+
 Messages.belongsTo(Users, { foreignKey: "senderId", as: "sender" });
 Users.hasMany(Messages, { foreignKey: "senderId", as: "messages" });
+
+// Relación TripChatMessages -> Users
+TripChatMessages.belongsTo(Users, {
+  foreignKey: "userId",
+  as: "user",
+  onDelete: "CASCADE",
+});
+
+Users.hasMany(TripChatMessages, {
+  foreignKey: "userId",
+  as: "tripChatMessages",
+  onDelete: "CASCADE",
+});
+
+// Relación TripChatMessages -> Trips
+TripChatMessages.belongsTo(Trips, {
+  foreignKey: "tripId",
+  as: "trip",
+  onDelete: "CASCADE",
+});
+
+Trips.hasMany(TripChatMessages, {
+  foreignKey: "tripId",
+  as: "chatMessages",
+  onDelete: "CASCADE",
+});

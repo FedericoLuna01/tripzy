@@ -1,11 +1,12 @@
 import { formatDate, isBefore, parseISO } from "date-fns";
-import { useState, useRef, useEffect, useContext } from "react";
+import { useState, useRef, useEffect, useContext, useCallback } from "react";
 import { AirplaneTakeoff } from "phosphor-react";
 import { toast } from "react-hot-toast";
 import Input from "../../components/ui/input/input";
 import { useNavigate } from "react-router";
 import { UserContext } from "../../contexts/user-context/user-context";
 import Spinner from "../ui/spinner/spinner";
+import CloudinaryUpload from "../ui/cloudinary-upload/cloudinary-upload";
 
 const TripForm = ({ initialTrip }) => {
   const [title, setTitle] = useState("");
@@ -25,7 +26,6 @@ const TripForm = ({ initialTrip }) => {
   const inputTitleRef = useRef(null);
   const inputTripStartRef = useRef(null);
   const inputDescriptionRef = useRef(null);
-  const inputImageUrlRef = useRef(null);
   const { user } = useContext(UserContext);
 
   useEffect(() => {
@@ -66,13 +66,13 @@ const TripForm = ({ initialTrip }) => {
     }));
   };
 
-  const handleImageUrl = (event) => {
-    setImageUrl(event.target.value);
+  const handleImageUpload = useCallback((url) => {
+    setImageUrl(url);
     setErrors((prevErrors) => ({
       ...prevErrors,
       imageUrl: false,
     }));
-  };
+  }, []);
 
   const handleIsBlocked = (event) => {
     setIsBlocked(event.target.checked);
@@ -115,7 +115,7 @@ const TripForm = ({ initialTrip }) => {
         ...prevErrors,
         imageUrl: true,
       }));
-      if (!hasError) inputImageUrlRef.current.focus();
+      if (!hasError) inputDescriptionRef.current.focus();
       hasError = true;
     }
 
@@ -227,19 +227,16 @@ const TripForm = ({ initialTrip }) => {
             )}
           </div>
           <div className="input-group">
-            <label htmlFor="imageUrl">Url de la imagen</label>
-            <Input
-              ref={inputImageUrlRef}
-              onChange={handleImageUrl}
-              value={imageUrl}
-              id={"imageUrl"}
-              className={`${errors.imageUrl ? "error" : ""}`}
+            <label>Imagen de portada</label>
+            <CloudinaryUpload
+              onUpload={handleImageUpload}
+              currentImageUrl={imageUrl}
               disabled={isLoading}
             />
             <p className="input-description">Imagen de portada de tu viaje</p>
             {errors.imageUrl && (
               <p className="error-message">
-                La url de la imagen no puede estar vacía
+                Debes subir una imagen para tu viaje
               </p>
             )}
           </div>

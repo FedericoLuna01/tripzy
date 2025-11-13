@@ -1,0 +1,28 @@
+.cloudinary-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cloudinary-upload-button:hover:not(:disabled) {
+  background-color: var(--primary-color-hover);
+}
+
+.cloudinary-upload-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cloudinary-preview {
+  max-width: 400px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid var(--border-color);
+}
+
+.cloudinary-preview img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
