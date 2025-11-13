@@ -8,6 +8,7 @@ import tripsRoutes from "./routes/trips.routes.js";
 import daysRoutes from "./routes/days.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import messageRoutes from "./routes/messages.routes.js";
+import tripChatMessagesRoutes from "./routes/tripChatMessages.routes.js";
 import reactionRoutes from "./routes/reactions.routes.js";
 import "./models/Users.js";
 import "./models/UserTrip.js";
@@ -15,6 +16,7 @@ import "./models/Trips.js";
 import "./models/TripDays.js";
 import "./models/Activities.js";
 import "./models/Messages.js";
+import "./models/TripChatMessages.js";
 import "./models/Reaction.js";
 import "./models/associations.js";
 
@@ -37,6 +39,7 @@ try {
   app.use(authRoutes);
   app.use(userTripRoutes);
   app.use(messageRoutes);
+  app.use(tripChatMessagesRoutes);
   app.use(messageRoutes);
   app.use(reactionRoutes);
 
