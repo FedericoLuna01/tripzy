@@ -3,6 +3,7 @@ import { Users } from "../models/Users.js";
 import { Trips } from "../models/Trips.js";
 import { UserTrip } from "../models/UserTrip.js";
 import { checkTripPermissions } from "../utils/checkTripPermissions.js";
+import { emitNewMessage, emitDeletedMessage } from "../socket/socket.js";
 
 export const getTripChatMessages = async (req, res) => {
   try {
@@ -104,6 +105,18 @@ export const sendTripChatMessage = async (req, res) => {
       ],
     });
 
+    console.log("💬 Nuevo mensaje creado:", messageWithUser.id);
+
+    // Emitir el mensaje a todos los usuarios conectados al trip EXCEPTO al emisor
+    const io = req.app.get("io");
+    if (io) {
+      console.log("🔌 Socket.IO disponible, emitiendo mensaje...");
+      // Pasar userId para excluir al emisor (él ya tiene el mensaje vía HTTP response)
+      emitNewMessage(io, tripId, messageWithUser, userId);
+    } else {
+      console.error("❌ Socket.IO no disponible en el app");
+    }
+
     res.status(201).json(messageWithUser);
   } catch (error) {
     console.error("Error sending chat message:", error);
@@ -152,6 +165,13 @@ export const deleteTripChatMessage = async (req, res) => {
     }
 
     await message.destroy();
+
+    // Emitir el evento de mensaje eliminado
+    const io = req.app.get("io");
+    if (io) {
+      emitDeletedMessage(io, tripId, messageId);
+    }
+
     res.json({ message: "Mensaje eliminado correctamente" });
   } catch (error) {
     console.error("Error deleting chat message:", error);

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { ChatCircle, PaperPlaneTilt, Smiley, User } from "phosphor-react";
 import { UserContext } from "../../contexts/user-context/user-context";
+import { useSocket } from "../../hooks/useSocket";
 import Avatar from "../avatar/avatar";
 import { formatFullDate } from "../../utils/utils";
 import toast from "react-hot-toast";
@@ -11,9 +12,14 @@ const TripChat = ({ trip }) => {
   const [newMessage, setNewMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingChat, setIsLoadingChat] = useState(true);
+  const [typingUser, setTypingUser] = useState(null);
   const { user } = useContext(UserContext);
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
+  const typingTimeoutRef = useRef(null);
+
+  const token = localStorage.getItem("token");
+  const socket = useSocket(import.meta.env.VITE_BASE_SERVER_URL, token);
 
   // Scroll to bottom when new messages arrive
   const scrollToBottom = () => {
@@ -32,6 +38,23 @@ const TripChat = ({ trip }) => {
     const textarea = textareaRef.current;
     textarea.style.height = "auto";
     textarea.style.height = `${Math.min(textarea.scrollHeight, 120)}px`;
+
+    // Emitir evento de escritura
+    if (socket && e.target.value.trim()) {
+      socket.emit("typing", { tripId: trip.id, userName: user.name });
+
+      // Limpiar timeout anterior
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+      }
+
+      // Detener escritura después de 2 segundos de inactividad
+      typingTimeoutRef.current = setTimeout(() => {
+        socket.emit("stop-typing", { tripId: trip.id });
+      }, 2000);
+    } else if (socket) {
+      socket.emit("stop-typing", { tripId: trip.id });
+    }
   };
 
   const handleKeyPress = (e) => {
@@ -45,12 +68,35 @@ const TripChat = ({ trip }) => {
     if (!newMessage.trim() || isLoading) return;
 
     const messageToSend = newMessage.trim();
+    const tempId = `temp-${Date.now()}-${Math.random()}`;
+
+    // Crear mensaje temporal para mostrar inmediatamente (Optimistic UI)
+    const tempMessage = {
+      id: tempId,
+      message: messageToSend,
+      timestamp: new Date().toISOString(),
+      user: {
+        id: user.id,
+        name: user.name,
+        imageUrl: user.imageUrl,
+      },
+      userId: user.id,
+      tripId: trip.id,
+    };
+
+    // Mostrar mensaje inmediatamente
+    setMessages((prev) => [...prev, tempMessage]);
     setNewMessage("");
     setIsLoading(true);
 
     // Reset textarea height
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
+    }
+
+    // Detener indicador de escritura
+    if (socket) {
+      socket.emit("stop-typing", { tripId: trip.id });
     }
 
     try {
@@ -70,15 +116,24 @@ const TripChat = ({ trip }) => {
 
       if (response.ok) {
         const newMessageData = await response.json();
-        setMessages((prev) => [...prev, newMessageData]);
+
+        // Reemplazar mensaje temporal con el real
+        setMessages((prev) =>
+          prev.map((msg) => (msg.id === tempId ? newMessageData : msg))
+        );
+
+        console.log("✅ Mensaje enviado:", newMessageData);
       } else {
+        // Remover mensaje temporal si falla
+        setMessages((prev) => prev.filter((msg) => msg.id !== tempId));
         toast.error("Error al enviar el mensaje");
         setNewMessage(messageToSend);
       }
     } catch (error) {
-      console.error("Error sending message:", error);
+      console.error("❌ Error sending message:", error);
+      // Remover mensaje temporal si falla
+      setMessages((prev) => prev.filter((msg) => msg.id !== tempId));
       toast.error("Error al enviar el mensaje");
-      // Restore message if failed
       setNewMessage(messageToSend);
     } finally {
       setIsLoading(false);
@@ -116,6 +171,74 @@ const TripChat = ({ trip }) => {
 
     fetchMessages();
   }, [trip.id]);
+
+  // Socket.IO: Unirse a la sala del viaje y escuchar eventos
+  useEffect(() => {
+    if (!socket) {
+      console.log("⏳ Esperando conexión de Socket.IO...");
+      return;
+    }
+
+    console.log("🔌 Socket conectado, uniéndose al viaje:", trip.id);
+
+    // Unirse a la sala del viaje
+    socket.emit("join-trip", trip.id);
+
+    // Escuchar nuevos mensajes
+    const handleNewMessage = (message) => {
+      console.log("📩 Nuevo mensaje recibido:", message);
+      setMessages((prev) => {
+        // Si el mensaje ya existe (puede ser temporal o ya recibido), actualizarlo o ignorarlo
+        const existingIndex = prev.findIndex((m) => m.id === message.id);
+        if (existingIndex !== -1) {
+          const newMessages = [...prev];
+          newMessages[existingIndex] = message;
+          return newMessages;
+        }
+
+        // Si no existe, agregarlo (evitando duplicados por ID temporal)
+        if (prev.some((m) => m.id === message.id)) {
+          return prev;
+        }
+        return [...prev, message];
+      });
+    };
+
+    // Escuchar mensajes eliminados
+    const handleMessageDeleted = ({ messageId }) => {
+      console.log("🗑️ Mensaje eliminado:", messageId);
+      setMessages((prev) => prev.filter((m) => m.id !== messageId));
+    };
+
+    // Escuchar cuando alguien está escribiendo
+    const handleUserTyping = ({ userName }) => {
+      if (userName !== user.name) {
+        console.log("✍️ Usuario escribiendo:", userName);
+        setTypingUser(userName);
+      }
+    };
+
+    // Escuchar cuando alguien deja de escribir
+    const handleUserStopTyping = () => {
+      console.log("✍️ Usuario dejó de escribir");
+      setTypingUser(null);
+    };
+
+    socket.on("new-message", handleNewMessage);
+    socket.on("message-deleted", handleMessageDeleted);
+    socket.on("user-typing", handleUserTyping);
+    socket.on("user-stop-typing", handleUserStopTyping);
+
+    // Cleanup
+    return () => {
+      console.log("🔌 Limpiando eventos de Socket.IO");
+      socket.emit("leave-trip", trip.id);
+      socket.off("new-message", handleNewMessage);
+      socket.off("message-deleted", handleMessageDeleted);
+      socket.off("user-typing", handleUserTyping);
+      socket.off("user-stop-typing", handleUserStopTyping);
+    };
+  }, [socket, trip.id, user.name]);
 
   const isMyMessage = (message) => message.user.id === user.id;
 
@@ -223,6 +346,18 @@ const TripChat = ({ trip }) => {
             })}
             <div ref={messagesEndRef} />
           </>
+        )}
+
+        {/* Indicador de escritura */}
+        {typingUser && (
+          <div className={styles["typing-indicator"]}>
+            <span>{typingUser} está escribiendo</span>
+            <span className={styles["typing-dots"]}>
+              <span>.</span>
+              <span>.</span>
+              <span>.</span>
+            </span>
+          </div>
         )}
       </div>
 
