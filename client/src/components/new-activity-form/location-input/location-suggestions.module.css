@@ -1,0 +1,28 @@
+.suggestionsContainer {
+  position: relative;
+  width: 100%;
+}
+
+.options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  z-index: 999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  max-height: 10em;
+  overflow-y: auto;
+}
+
+.option {
+  padding: 0.5em;
+  cursor: pointer;
+}
+
+.optionActive {
+  background: #e0e7ff;
+  color: #3730a3;
+}

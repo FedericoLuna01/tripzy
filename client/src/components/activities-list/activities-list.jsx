@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import toast from "react-hot-toast";
 import { isEqual } from "date-fns";
 import NewActivityForm from "../../components/new-activity-form/new-activity-form";
-import { Backpack, PencilSimple, Trash } from "phosphor-react";
+import { Backpack, MapPin, PencilSimple, Trash } from "phosphor-react";
 import { formatDay } from "../../utils/utils";
 import useModal from "../../hooks/useModal";
 import { Modal, ModalDescription, ModalTitle } from "../modal/modal";
@@ -219,6 +219,12 @@ const ActivitiesList = ({
                   <p className="activity-card-description">
                     {activity.description}
                   </p>
+
+                  {activity.address && (
+                    <div className="activity-card-location">
+                      <MapPin size={16} /> {activity.address}
+                    </div>
+                  )}
 
                   <div className="reactions-display">
                     {Object.entries(reactions[activity.id] || {}).map(

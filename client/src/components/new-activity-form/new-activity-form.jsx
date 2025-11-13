@@ -1,8 +1,9 @@
 import { ArrowLeft, PencilSimple, PlusCircle } from "phosphor-react";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import Input from "../ui/input/input";
-import "./new-activity-form.css";
+import styles from "./new-activity-form.module.css";
+import LocationInput from "./location-input/location-input";
 
 const NewActivityForm = ({
   setActivities,
@@ -16,11 +17,18 @@ const NewActivityForm = ({
   const [time, setTime] = useState("");
   const [activityTitle, setActivityTitle] = useState("");
   const [activityDescription, setActivityDescription] = useState("");
+  const [activityLocation, setActivityLocation] = useState({
+    address: "",
+    lat: null,
+    lng: null,
+  });
   const [errors, setErrors] = useState({
     time: false,
     activityTitle: false,
     activityTitleLength: false,
     activityDescriptionLength: false,
+    activityLocation: false,
+    activityLocationLength: false,
   });
 
   useEffect(() => {
@@ -29,11 +37,21 @@ const NewActivityForm = ({
       setTime(editingActivity.time);
       setActivityTitle(editingActivity.title);
       setActivityDescription(editingActivity.description);
+      setActivityLocation({
+        address: editingActivity.address || "",
+        lat: editingActivity.latitude || null,
+        lng: editingActivity.longitude || null,
+      });
       return;
     }
     setTime("");
     setActivityTitle("");
     setActivityDescription("");
+    setActivityLocation({
+      address: "",
+      lat: null,
+      lng: null,
+    });
   }, [editingActivity]);
 
   const handleTimeChange = (event) => {
@@ -68,6 +86,8 @@ const NewActivityForm = ({
       activityTitle: false,
       activityTitleLength: false,
       activityDescriptionLength: false,
+      activityLocation: false,
+      activityLocationLength: false,
     });
 
     let hasError = false;
@@ -120,6 +140,9 @@ const NewActivityForm = ({
             title: activityTitle,
             description: activityDescription,
             time,
+            address: activityLocation.address,
+            latitude: activityLocation.lat,
+            longitude: activityLocation.lng,
           }),
         }
       )
@@ -136,6 +159,9 @@ const NewActivityForm = ({
                     title: activityTitle,
                     description: activityDescription,
                     id: data.id,
+                    address: activityLocation.address,
+                    latitude: activityLocation.lat,
+                    longitude: activityLocation.lng,
                   }
                 : activity
             )
@@ -145,6 +171,13 @@ const NewActivityForm = ({
       setEditingActivity(null);
       return;
     }
+
+    console.log({
+      title: activityTitle,
+      description: activityDescription,
+      time,
+      location: activityLocation,
+    });
 
     fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/activities`, {
       method: "POST",
@@ -157,6 +190,9 @@ const NewActivityForm = ({
         description: activityDescription,
         time,
         tripDaysId: activeDay.id,
+        address: activityLocation.address,
+        latitude: activityLocation.lat,
+        longitude: activityLocation.lng,
       }),
     })
       .then((res) => res.json())
@@ -171,6 +207,9 @@ const NewActivityForm = ({
             time,
             title: activityTitle,
             description: activityDescription,
+            address: activityLocation.address,
+            latitude: activityLocation.lat,
+            longitude: activityLocation.lng,
           },
         ]);
         toast.success("Actividad agregada con éxito");
@@ -181,6 +220,11 @@ const NewActivityForm = ({
     setTime("");
     setActivityTitle("");
     setActivityDescription("");
+    setActivityLocation({
+      address: "",
+      lat: null,
+      lng: null,
+    });
   };
 
   return (
@@ -237,7 +281,13 @@ const NewActivityForm = ({
           </p>
         )}
       </div>
-      <div className="buttons-container">
+      <LocationInput
+        activityLocation={activityLocation}
+        setActivityLocation={setActivityLocation}
+        setErrors={setErrors}
+        errors={errors}
+      />
+      <div className={styles["buttons-container"]}>
         {editingActivity && (
           <button
             className="button button-outline"

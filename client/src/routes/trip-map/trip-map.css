@@ -1,0 +1,67 @@
+.trip-map-container {
+  display: flex;
+  gap: 1.5em;
+  width: 100%;
+  padding: 1em;
+}
+
+.map-days-container {
+  min-width: 250px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  height: fit-content;
+}
+
+.map-days-buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.map-days-buttons-container > button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 0.8em;
+  height: 3em;
+  background: transparent;
+  border: none;
+  text-align: left;
+  border-radius: var(--border-radius-small);
+  cursor: pointer;
+  color: var(--color-text);
+  transition: background-color 0.2s ease;
+}
+
+.map-days-buttons-container > button:hover {
+  background-color: var(--color-background-hover);
+}
+
+.map-days-buttons-container > button.active {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+}
+
+.map-wrapper {
+  flex: 1;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .trip-map-container {
+    flex-direction: column;
+  }
+
+  .map-days-container {
+    max-width: 100%;
+  }
+
+  .map-wrapper {
+    min-height: 400px;
+  }
+}

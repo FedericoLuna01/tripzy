@@ -29,6 +29,7 @@ import TripChat from "../trip-chat/trip-chat";
 import "../../routes/trip/trip.css";
 import "./trip-layout.css";
 import { deleteTrip } from "../../api/trips";
+import TripMap from "../../routes/trip-map/trip-map";
 
 const TripLayout = () => {
   const [trip, setTrip] = useState(null);
@@ -253,6 +254,7 @@ const TripLayout = () => {
           <TabList className="tab-list-trip">
             <Tab>Trip</Tab>
             <Tab>Amigos</Tab>
+            <Tab>Mapa</Tab>
             <Tab>Chat</Tab>
           </TabList>
           <TabPanels>
@@ -261,6 +263,9 @@ const TripLayout = () => {
             </TabPanel>
             <TabPanel>
               <TripMembers setTrip={setTrip} trip={trip} canEdit={canEdit} />
+            </TabPanel>
+            <TabPanel>
+              <TripMap trip={trip} />
             </TabPanel>
             <TabPanel>
               <TripChat trip={trip} />

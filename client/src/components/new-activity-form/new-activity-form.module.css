@@ -7,6 +7,12 @@
   width: 100%;
 }
 
+.map-container {
+  width: 100%;
+  border-radius: var(--border-radius-medium);
+  overflow: hidden;
+}
+
 @media (min-width: 640px) {
   .buttons-container {
     justify-content: space-between;
