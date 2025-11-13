@@ -3,12 +3,14 @@ import {
   TabList as TabListPrimitive,
   TabPanel as TabPanelPrimitive,
 } from "@headlessui/react";
-import "./tabs.css";
+import styles from "./tabs.module.css";
 
 export function Tab({ children, ...props }) {
   return (
     <TabPrimitive
-      className={({ selected }) => `tab ${selected ? "tab-selected" : ""}`}
+      className={({ selected }) =>
+        `${styles.tab} ${selected ? styles["tab-selected"] : ""}`
+      }
       {...props}
     >
       {children}
@@ -18,7 +20,7 @@ export function Tab({ children, ...props }) {
 export function TabList({ children, className, ...props }) {
   return (
     <TabListPrimitive
-      className={`tabs-container card ${className ? className : ""}`}
+      className={`${styles["tabs-container"]} card ${className ? className : ""}`}
       {...props}
     >
       {children}
@@ -28,7 +30,7 @@ export function TabList({ children, className, ...props }) {
 
 export function TabPanel({ children, ...props }) {
   return (
-    <TabPanelPrimitive className="tab-panel" {...props}>
+    <TabPanelPrimitive className={styles["tab-panel"]} {...props}>
       {children}
     </TabPanelPrimitive>
   );

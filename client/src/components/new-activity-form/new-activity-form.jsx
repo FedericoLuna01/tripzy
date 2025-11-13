@@ -1,8 +1,9 @@
 import { ArrowLeft, PencilSimple, PlusCircle } from "phosphor-react";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import Input from "../ui/input/input";
-import "./new-activity-form.css";
+import styles from "./new-activity-form.module.css";
+import LocationInput from "./location-input/location-input";
 
 const NewActivityForm = ({
   setActivities,
@@ -16,11 +17,18 @@ const NewActivityForm = ({
   const [time, setTime] = useState("");
   const [activityTitle, setActivityTitle] = useState("");
   const [activityDescription, setActivityDescription] = useState("");
+  const [activityLocation, setActivityLocation] = useState({
+    address: "",
+    lat: null,
+    lng: null,
+  });
   const [errors, setErrors] = useState({
     time: false,
     activityTitle: false,
     activityTitleLength: false,
     activityDescriptionLength: false,
+    activityLocation: false,
+    activityLocationLength: false,
   });
 
   useEffect(() => {
@@ -68,6 +76,8 @@ const NewActivityForm = ({
       activityTitle: false,
       activityTitleLength: false,
       activityDescriptionLength: false,
+      activityLocation: false,
+      activityLocationLength: false,
     });
 
     let hasError = false;
@@ -146,37 +156,45 @@ const NewActivityForm = ({
       return;
     }
 
-    fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/activities`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      body: JSON.stringify({
-        title: activityTitle,
-        description: activityDescription,
-        time,
-        tripDaysId: activeDay.id,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message) {
-          return toast.error(data.message);
-        }
-        setActivities((prevActivities) => [
-          ...prevActivities,
-          {
-            id: data.id,
-            time,
-            title: activityTitle,
-            description: activityDescription,
-          },
-        ]);
-        toast.success("Actividad agregada con éxito");
-        setEditingActivity(null);
-      })
-      .catch((error) => console.log(error));
+    console.log({
+      title: activityTitle,
+      description: activityDescription,
+      time,
+      location: activityLocation,
+    });
+
+    // fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/activities`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-type": "application/json",
+    //     Authorization: `Bearer ${localStorage.getItem("token")}`,
+    //   },
+    //   body: JSON.stringify({
+    //     title: activityTitle,
+    //     description: activityDescription,
+    //     time,
+    //     tripDaysId: activeDay.id,
+    //   }),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     if (data.message) {
+    //       return toast.error(data.message);
+    //     }
+    //     setActivities((prevActivities) => [
+    //       ...prevActivities,
+    //       {
+    //         id: data.id,
+    //         time,
+    //         title: activityTitle,
+    //         description: activityDescription,
+    //         location: activityLocation,
+    //       },
+    //     ]);
+    //     toast.success("Actividad agregada con éxito");
+    //     setEditingActivity(null);
+    //   })
+    //   .catch((error) => console.log(error));
 
     setTime("");
     setActivityTitle("");
@@ -237,7 +255,13 @@ const NewActivityForm = ({
           </p>
         )}
       </div>
-      <div className="buttons-container">
+      <LocationInput
+        activityLocation={activityLocation}
+        setActivityLocation={setActivityLocation}
+        setErrors={setErrors}
+        errors={errors}
+      />
+      <div className={styles["buttons-container"]}>
         {editingActivity && (
           <button
             className="button button-outline"
