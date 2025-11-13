@@ -47,58 +47,6 @@
   text-align: center;
 }
 
-/* --- Reacciones --- */
-.reactions-container {
-  display: flex;
-  align-items: center;
-  gap: 0.3em;
-  flex-wrap: wrap;
-  margin-top: 0.3em;
-  position: relative;
-}
-
-.reaction-count {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--color-border);
-  border-radius: 12px;
-  padding: 0.2em 0.5em;
-  cursor: pointer;
-  transition: 0.2s;
-  font-size: 1.1em;
-  color: white; /* ✅ ahora se ve blanco */
-}
-
-.reaction-count:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* --- Picker de emojis --- */
-.emoji-picker {
-  display: flex;
-  gap: 0.4em;
-  position: absolute;
-  top: 100%; /* ✅ ahora se muestra abajo */
-  left: 0;
-  margin-top: 0.4em; /* ✅ separación para que no tape */
-  background: var(--color-surface);
-  padding: 0.4em 0.6em;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-  z-index: 10;
-}
-
-.emoji-btn {
-  background: none;
-  border: none;
-  font-size: 1.2em;
-  cursor: pointer;
-  transition: transform 0.15s ease;
-}
-
-.emoji-btn:hover {
-  transform: scale(1.3);
-}
-
 /* --- Nueva actividad --- */
 .new-activity-card {
   display: flex;
@@ -137,12 +85,19 @@
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.title-row h3 {
+  margin: 0;
+}
+
+.emoji-picker-wrapper {
   position: relative;
 }
 
 .emoji-circle-btn {
-  background: #2a2a2a;
-  border: none;
+  background: var(--color-secondary);
+  border: 1px solid var(--color-border);
   border-radius: 50%;
   width: 32px;
   height: 32px;
@@ -160,12 +115,12 @@
   top: 38px;
   left: 0;
   padding: 8px;
-  background: #181818;
+  background: var(--color-card);
   border-radius: 10px;
+  border: 1px solid var(--color-border);
   display: flex;
   gap: 6px;
   z-index: 10;
-  box-shadow: 0 0 8px #00000080;
 }
 
 .emoji-select-btn {
@@ -183,17 +138,49 @@
 }
 
 .reaction-count {
-  background: #333;
-  border: none;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 4px 8px;
   cursor: pointer;
   transition: 0.2s;
   font-size: 14px;
+  position: relative;
+  color: var(--color-text);
 }
 
 .reaction-count:hover {
-  background: #444;
+  background: var(--color-secondary);
+}
+
+.reaction-count:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-card);
+  color: var(--color-text);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  margin-bottom: 5px;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.reaction-count:hover::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #1a1a1a;
+  z-index: 100;
+  pointer-events: none;
 }
 
 @media (min-width: 640px) {
