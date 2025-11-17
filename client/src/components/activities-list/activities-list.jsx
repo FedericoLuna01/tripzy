@@ -7,6 +7,7 @@ import { formatDay } from "../../utils/utils";
 import useModal from "../../hooks/useModal";
 import { Modal, ModalDescription, ModalTitle } from "../modal/modal";
 import "./activities-list.css";
+import Spinner from "../ui/spinner/spinner";
 
 const EMOJIS = ["👍", "❤️", "😂", "😮", "🔥", "👏"];
 
@@ -27,6 +28,7 @@ const ActivitiesList = ({
   const [deleteSelectActivity, setDeleteSelectActivity] = useState(null);
   const [reactions, setReactions] = useState({});
   const [emojiPickerActivity, setEmojiPickerActivity] = useState(null);
+  const [loadingReactions, setLoadingReactions] = useState({});
 
   // Cargar reacciones para cada actividad
   useEffect(() => {
@@ -97,7 +99,16 @@ const ActivitiesList = ({
   };
 
   const handleAddReaction = async (activityId, emoji) => {
+    // Marcar la reacción como cargando
+    setLoadingReactions((prev) => ({
+      ...prev,
+      [`${activityId}-${emoji}`]: true,
+    }));
+
     try {
+      // Delay falso para testing (1.5 segundos)
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
       await fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/reactions/toggle`, {
         method: "POST",
         headers: {
@@ -137,6 +148,13 @@ const ActivitiesList = ({
       }
     } catch (error) {
       console.error("Error al agregar reacción:", error);
+      toast.error("Error al agregar la reacción");
+    } finally {
+      // Quitar el estado de carga
+      setLoadingReactions((prev) => ({
+        ...prev,
+        [`${activityId}-${emoji}`]: false,
+      }));
     }
   };
 
@@ -207,8 +225,13 @@ const ActivitiesList = ({
                                 handleAddReaction(activity.id, emoji)
                               }
                               className="emoji-select-btn"
+                              disabled={
+                                loadingReactions[`${activity.id}-${emoji}`]
+                              }
                             >
-                              {emoji}
+                              {loadingReactions[`${activity.id}-${emoji}`]
+                                ? "⏳"
+                                : emoji}
                             </button>
                           ))}
                         </div>
@@ -233,11 +256,20 @@ const ActivitiesList = ({
                           key={emoji}
                           className="reaction-count"
                           onClick={() => handleAddReaction(activity.id, emoji)}
+                          disabled={loadingReactions[`${activity.id}-${emoji}`]}
                           title={reactionData.users
                             ?.map((user) => user.name)
                             .join(", ")}
                         >
-                          {emoji} {reactionData.count}
+                          {loadingReactions[`${activity.id}-${emoji}`] ? (
+                            <>
+                              <Spinner /> {reactionData.count}
+                            </>
+                          ) : (
+                            <>
+                              {emoji} {reactionData.count}
+                            </>
+                          )}
                         </button>
                       )
                     )}

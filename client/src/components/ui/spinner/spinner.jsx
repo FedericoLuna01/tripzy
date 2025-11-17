@@ -1,8 +1,8 @@
-import { CircleNotch } from "phosphor-react";
+import { SpinnerGap } from "phosphor-react";
 import "./spinner.css";
 
 const Spinner = () => {
-  return <CircleNotch className="spinner" />;
+  return <SpinnerGap className="spinner" />;
 };
 
 export default Spinner;
