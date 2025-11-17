@@ -106,9 +106,6 @@ const ActivitiesList = ({
     }));
 
     try {
-      // Delay falso para testing (1.5 segundos)
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
       await fetch(`${import.meta.env.VITE_BASE_SERVER_URL}/reactions/toggle`, {
         method: "POST",
         headers: {
