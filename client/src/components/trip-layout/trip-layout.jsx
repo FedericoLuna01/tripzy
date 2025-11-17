@@ -48,7 +48,7 @@ const TripLayout = () => {
 
   useEffect(() => {
     if (trip && trip.tripUsers) {
-      if (user.role === "admin") {
+      if (user.role === "admin" || user.role === "superadmin") {
         return;
       }
       const isUserInTrip = trip.tripUsers.some(
